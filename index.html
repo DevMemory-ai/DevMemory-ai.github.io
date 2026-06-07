@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevMemory AI — Documentation</title>
+  <meta name="description" content="DevMemory AI is an agentic memory layer for AI-assisted development. It tracks what changed, why it changed, and the developer intent behind every commit.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header>
+      <div class="logo-container">
+        <div class="logo-icon"></div>
+        <div class="logo-text">DEVMEMORY_AI</div>
+      </div>
+      <nav>
+        <button class="nav-btn active" data-tab="home">[ HOME ]</button>
+        <button class="nav-btn" data-tab="docs">[ DOCS ]</button>
+        <a href="https://github.com/DevMemory-ai/DevMemory/tree/main/DevMemory" target="_blank" style="text-decoration: none;">
+          <button class="nav-btn">[ GITHUB ]</button>
+        </a>
+      </nav>
+    </header>
+
+    <!-- Tab 1: Home / Landing Page -->
+    <div id="tab-home" class="tab-content active">
+      <div class="home-layout">
+        <!-- Hero Information -->
+        <div class="hero-info">
+          <div class="badge">SYSTEM STATUS: OPERATIONAL</div>
+          <h1 class="hero-title">The Agentic <span>Memory Layer</span> For AI Coding</h1>
+          <p class="hero-subtitle">
+            Git tracks what changed. DevMemory tracks why. An autonomous background engine documenting prompts, architecture diffs, and security risks.
+          </p>
+          <div class="hero-actions">
+            <button class="btn-primary" id="hero-get-started">/docs/start</button>
+            <a href="https://github.com/DevMemory-ai/DevMemory/tree/main/DevMemory" target="_blank">
+              <button class="btn-secondary">git clone</button>
+            </a>
+          </div>
+        </div>
+
+        <!-- Terminal Simulator -->
+        <div class="terminal-simulator">
+          <div class="terminal-header">
+            <div class="terminal-title">TERMINAL // DEVMEMORY_WATCHER</div>
+            <div class="terminal-dots">
+              <div class="dot"></div>
+              <div class="dot"></div>
+              <div class="dot green"></div>
+            </div>
+          </div>
+          <div class="terminal-body" id="term-body">
+            <div class="term-line"><span class="term-prompt">dev@potato-pc:~/spaghetti-code$ </span><span class="typing" id="term-input"></span></div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Quick Feature Summary -->
+      <div class="features-section">
+        <h2 class="features-title">[ SYSTEM_CAPABILITIES ]</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="feature-icon">◉</div>
+            <h3 class="feature-h">Watcher Daemon</h3>
+            <p class="feature-desc">Runs continuously in the background. Detects file edits and git commits to record builds automatically.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">◈</div>
+            <h3 class="feature-h">Multi-Provider AI</h3>
+            <p class="feature-desc">Query Gemini, Claude, OpenAI, or local Ollama models completely offline and credit-free.</p>
+          </div>
+          <div class="feature-card">
+            <div class="feature-icon">▣</div>
+            <h3 class="feature-h">Security & Tests</h3>
+            <p class="feature-desc">Autonomous Validation and Security sub-agents audit every commit for leaks, risks, and test scenarios.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Documentation Portal -->
+    <div id="tab-docs" class="tab-content">
+      <div class="docs-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="docs-sidebar" id="docs-sidebar">
+          <div class="sidebar-category">GETTING STARTED</div>
+          <button class="sidebar-link active" data-target="section-intro">01. Introduction</button>
+          <button class="sidebar-link" data-target="section-prereqs">02. Prerequisites</button>
+          <button class="sidebar-link" data-target="section-install">03. Installation</button>
+
+          <div class="sidebar-category">CORE COMMANDS</div>
+          <button class="sidebar-link" data-target="section-init">04. devmemory init</button>
+          <button class="sidebar-link" data-target="section-config">05. devmemory config</button>
+          <button class="sidebar-link" data-target="section-record">06. devmemory record</button>
+          <button class="sidebar-link" data-target="section-watch">07. devmemory watch</button>
+          <button class="sidebar-link" data-target="section-show">08. devmemory show</button>
+          <button class="sidebar-link" data-target="section-context">09. devmemory context</button>
+
+          <div class="sidebar-category">INTERNALS</div>
+          <button class="sidebar-link" data-target="section-agents">10. Multi-Agent Pipeline</button>
+          <button class="sidebar-link" data-target="section-files">11. File Structure</button>
+          <button class="sidebar-link" data-target="section-env">12. Environment Variables</button>
+          <button class="sidebar-link" data-target="section-providers">13. Supported Providers</button>
+        </aside>
+
+        <!-- Docs Reader Panel -->
+        <main class="docs-reader" id="docs-reader-panel">
+
+          <!-- ============================================ -->
+          <!-- 01. INTRODUCTION -->
+          <!-- ============================================ -->
+          <section id="section-intro" class="doc-section">
+            <h1 class="doc-h1">01. Introduction</h1>
+            <p class="doc-p">
+              Modern AI coding tools like Cursor, Claude Code, and Aider write features at blazing speed. However, they lack long-term memory. After a few days, developers forget <strong>why</strong> architectural decisions were made, <strong>how</strong> a feature runs, and <strong>what original prompts</strong> generated it.
+            </p>
+            <p class="doc-p">
+              <strong>DevMemory AI</strong> is an agentic developer tool that automatically captures and documents every AI-generated build. For each completed feature or commit, DevMemory AI creates structured memory files containing:
+            </p>
+            <ul class="doc-list">
+              <li>The <strong>original developer prompt</strong> (the intent behind the change).</li>
+              <li>A <strong>summary</strong> of exactly what was modified, added, or removed.</li>
+              <li>A <strong>Mermaid.js architecture diagram</strong> showing data flow and component interactions.</li>
+              <li>A <strong>security audit</strong> checking for hardcoded keys, logic flaws, and data sanitization risks.</li>
+              <li>A <strong>validation plan</strong> with test cases, verification steps, and mock inputs.</li>
+              <li>A <strong>regeneration prompt</strong> you can copy-paste into any AI to recreate the feature from scratch.</li>
+            </ul>
+            <div class="doc-alert">
+              <div class="alert-title">THE MEMORY MANIFESTO</div>
+              <p class="doc-p">Git tracks code. DevMemory tracks intent. Git stores <em>what</em> changed. DevMemory stores <em>why</em> it changed, <em>how</em> it works, and <em>how to reproduce it</em>.</p>
+            </div>
+            <p class="doc-p">
+              The goal is to make every AI-generated feature <strong>understandable</strong>, <strong>reproducible</strong>, <strong>searchable</strong>, and <strong>reusable</strong> — even months after it was written.
+            </p>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- 02. PREREQUISITES -->
+          <!-- ============================================ -->
+          <section id="section-prereqs" class="doc-section">
+            <h1 class="doc-h1">02. Prerequisites</h1>
+            <p class="doc-p">
+              Before installing DevMemory AI, you need two tools installed on your machine and available in your system <code>PATH</code>. Without these, the CLI will not function.
+            </p>
+
+            <div class="prereq-grid">
+              <div class="prereq-card">
+                <div class="prereq-icon">🐍</div>
+                <h3 class="prereq-title">Python 3</h3>
+                <p class="prereq-desc">Version <strong>3.8 or higher</strong> is required. DevMemory's core engine is written in Python and uses libraries like <code>requests</code>, <code>GitPython</code>, <code>pydantic</code>, <code>click</code>, and <code>watchdog</code>.</p>
+                <a href="https://www.python.org/downloads/" target="_blank" class="prereq-link">↗ Download Python 3</a>
+              </div>
+              <div class="prereq-card">
+                <div class="prereq-icon">📦</div>
+                <h3 class="prereq-title">Git</h3>
+                <p class="prereq-desc">Git must be installed and initialized in your project. DevMemory reads git diffs, commit history, and staging areas to analyze your code changes.</p>
+                <a href="https://git-scm.com/downloads" target="_blank" class="prereq-link">↗ Download Git</a>
+              </div>
+            </div>
+
+            <h2 class="doc-h2">Verifying Your Installation</h2>
+            <p class="doc-p">Open a terminal and run these commands to confirm both tools are accessible:</p>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">python3 --version
+# Expected output: Python 3.8.x or higher
+
+git --version
+# Expected output: git version 2.x.x</pre>
+            </div>
+            <p class="doc-p">
+              If <code>python3</code> is not found, try <code>python --version</code> instead. On Windows, the command is often just <code>python</code>. DevMemory's Node wrapper automatically detects both.
+            </p>
+            <div class="doc-alert warning">
+              <div class="alert-title">⚠ IMPORTANT</div>
+              <p class="doc-p">
+                You do <strong>not</strong> need to install Python dependencies manually. When DevMemory runs for the first time, the Node wrapper automatically installs <code>requests</code>, <code>GitPython</code>, <code>pydantic</code>, <code>click</code>, and <code>watchdog</code> via <code>pip</code> silently in the background.
+              </p>
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- 03. INSTALLATION -->
+          <!-- ============================================ -->
+          <section id="section-install" class="doc-section">
+            <h1 class="doc-h1">03. Installation</h1>
+            <p class="doc-p">
+              DevMemory AI is distributed as a global npm package. It contains a lightweight Node.js binary wrapper that manages the underlying Python engine. Installing it globally registers the <code>devmemory</code> command system-wide.
+            </p>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">npm install -g devmemory-ai</pre>
+            </div>
+
+            <h2 class="doc-h2">What Happens During Installation</h2>
+            <ol class="doc-list numbered">
+              <li>npm downloads the <code>devmemory-ai</code> package and registers the global <code>devmemory</code> binary.</li>
+              <li>The binary points to <code>bin/index.js</code>, a Node.js wrapper script.</li>
+              <li>On first run, <code>bin/index.js</code> checks if <code>python3</code> (or <code>python</code> on Windows) exists on your system.</li>
+              <li>It then silently installs the required Python packages (<code>pip install requests GitPython pydantic click watchdog</code>) if they are missing.</li>
+              <li>Finally, it spawns the Python CLI module (<code>python3 -m devmemory.cli</code>) and forwards all your command-line arguments to it.</li>
+            </ol>
+
+            <h2 class="doc-h2">Verify Installation</h2>
+            <p class="doc-p">After installing, confirm the CLI is working by running:</p>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">devmemory --help</pre>
+            </div>
+            <p class="doc-p">You should see the help menu listing all available subcommands: <code>init</code>, <code>config</code>, <code>record</code>, <code>watch</code>, <code>show</code>, and <code>context</code>.</p>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- 04. devmemory init -->
+          <!-- ============================================ -->
+          <section id="section-init" class="doc-section">
+            <h1 class="doc-h1">04. devmemory init</h1>
+            <p class="doc-p">
+              Initializes DevMemory AI in your project repository. This is the <strong>first command</strong> you must run before using any other DevMemory features. It sets up the configuration, creates the memory vault directory, and prepares your project for autonomous documentation.
+            </p>
+
+            <h2 class="doc-h2">Syntax</h2>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">devmemory init</pre>
+            </div>
+            <p class="doc-p">No flags or arguments. Must be run from the <strong>root directory</strong> of your git repository.</p>
+
+            <h2 class="doc-h2">What Happens When You Run It</h2>
+            <ol class="doc-list numbered">
+              <li><strong>Interactive Configuration Wizard launches</strong> — You are prompted to select your AI provider, enter your API key, choose a model, and set a cooldown timer (see section 05 for details).</li>
+              <li><strong>Creates the <code>.devmemory/</code> directory</strong> — This folder is your local memory vault. All build logs, brain files, changelogs, and context files live here.</li>
+              <li><strong>Saves <code>.devmemory/config.json</code></strong> — Your provider, model, API key, cooldown time, and exclude patterns are written to this file.</li>
+              <li><strong>Generates <code>.devmemory/project-brain.md</code></strong> — A blank template for the project brain (the living description of your codebase that gets updated on every build).</li>
+              <li><strong>Generates <code>.devmemory/changelog.md</code></strong> — A blank changelog template that tracks all recorded changes over time.</li>
+              <li><strong>Generates <code>.devmemory/FULL_PROJECT_CONTEXT.md</code></strong> — An aggregated context file combining the brain, changelog, and build timeline.</li>
+              <li><strong>Updates <code>.gitignore</code></strong> — Automatically appends <code>.devmemory/config.json</code> to your <code>.gitignore</code> to prevent accidentally committing API keys to version control. If no <code>.gitignore</code> exists, it creates one.</li>
+            </ol>
+
+            <h2 class="doc-h2">Example Session</h2>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL — EXAMPLE OUTPUT</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">$ cd ~/my-project
+$ devmemory init
+Initializing DevMemory AI...
+=== DevMemory AI Configuration Setup ===
+
+Available API Providers:
+  1. Google Gemini
+  2. OpenAI
+  3. Anthropic Claude
+  4. OpenRouter
+  5. DeepSeek
+  6. Groq
+  7. Together AI
+  8. Ollama (Local - Credit Free)
+  9. Mock Provider (For Testing)
+  10. Custom OpenAI-Compatible Endpoint
+Choose a provider index [1]: 1
+Enter API Key for Google Gemini: ********
+Enter LLM Model Name [gemini-2.5-flash]:
+Watcher idle cooldown (seconds before recording) [15]:
+Save configuration locally? [Y/n]: Y
+Added '.devmemory/config.json' to your .gitignore file.
+
+Configuration completed successfully!
+Created initial .devmemory/project-brain.md
+Created initial .devmemory/changelog.md
+
+DevMemory AI has been successfully initialized in this repository!
+Run 'devmemory watch' to start monitoring changes continuously.</pre>
+            </div>
+
+            <div class="doc-alert">
+              <div class="alert-title">💡 TIP</div>
+              <p class="doc-p">After running <code>init</code>, you should immediately start the watcher daemon with <code>devmemory watch</code> in a separate terminal tab. This enables zero-friction automatic memory recording.</p>
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- 05. devmemory config -->
+          <!-- ============================================ -->
+          <section id="section-config" class="doc-section">
+            <h1 class="doc-h1">05. devmemory config</h1>
+            <p class="doc-p">
+              Re-runs the interactive configuration wizard. Use this command when you need to change your AI provider, swap API keys, switch models, or adjust the watcher cooldown time — without re-initializing the entire project.
+            </p>
+
+            <h2 class="doc-h2">Syntax</h2>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">devmemory config</pre>
+            </div>
+            <p class="doc-p">No flags or arguments. Must be run from the root directory of your project (where <code>.devmemory/</code> exists).</p>
+
+            <h2 class="doc-h2">What Happens When You Run It</h2>
+            <ul class="doc-list">
+              <li>Launches the same interactive wizard as <code>devmemory init</code>.</li>
+              <li>Overwrites the existing <code>.devmemory/config.json</code> with your new settings.</li>
+              <li>Does <strong>not</strong> delete or modify any existing build logs, brain, or changelog files.</li>
+            </ul>
+
+            <h2 class="doc-h2">When to Use</h2>
+            <ul class="doc-list">
+              <li>Switching providers (e.g., moving from OpenAI to a local Ollama instance).</li>
+              <li>Rotating or updating your API key.</li>
+              <li>Changing models (e.g., upgrading from <code>gpt-4o-mini</code> to <code>gpt-4o</code>).</li>
+              <li>Adjusting the cooldown seconds for the file watcher (e.g., from 15s to 30s for slower environments).</li>
+            </ul>
+
+            <h2 class="doc-h2">Configuration Fields</h2>
+            <p class="doc-p">The wizard collects the following values and writes them to <code>.devmemory/config.json</code>:</p>
+            <div class="config-table-wrapper">
+              <table class="doc-table">
+                <thead>
+                  <tr>
+                    <th>Field</th>
+                    <th>Type</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>provider</code></td>
+                    <td>string</td>
+                    <td>The provider key (e.g., <code>gemini</code>, <code>openai</code>, <code>ollama</code>).</td>
+                  </tr>
+                  <tr>
+                    <td><code>model</code></td>
+                    <td>string</td>
+                    <td>The LLM model name to use for all agent queries.</td>
+                  </tr>
+                  <tr>
+                    <td><code>api_key</code></td>
+                    <td>string | null</td>
+                    <td>Your API key. Null for providers that don't require one (e.g., Ollama).</td>
+                  </tr>
+                  <tr>
+                    <td><code>base_url</code></td>
+                    <td>string</td>
+                    <td>The API endpoint URL. Auto-filled per provider but can be customized.</td>
+                  </tr>
+                  <tr>
+                    <td><code>cooldown_seconds</code></td>
+                    <td>integer</td>
+                    <td>How many seconds the watcher waits after the last file edit before prompting you. Default: <code>15</code>.</td>
+                  </tr>
+                  <tr>
+                    <td><code>exclude_patterns</code></td>
+                    <td>list</td>
+                    <td>Glob patterns for files/dirs the watcher ignores. Default: <code>.git</code>, <code>node_modules</code>, <code>__pycache__</code>, <code>.venv</code>, etc.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- 06. devmemory record -->
+          <!-- ============================================ -->
+          <section id="section-record" class="doc-section">
+            <h1 class="doc-h1">06. devmemory record</h1>
+            <p class="doc-p">
+              Manually triggers a one-time build memory capture from your current uncommitted changes. This is the <strong>on-demand</strong> alternative to the continuous <code>watch</code> daemon. Use it when you want precise control over when a memory snapshot is taken.
+            </p>
+
+            <h2 class="doc-h2">Syntax</h2>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block"># Basic usage (will prompt for description interactively)
+devmemory record
+
+# With an inline prompt flag
+devmemory record --prompt "Add JWT user login validation"
+
+# Short flag version
+devmemory record -p "Fix database connection pooling"</pre>
+            </div>
+
+            <h2 class="doc-h2">Flags</h2>
+            <div class="config-table-wrapper">
+              <table class="doc-table">
+                <thead>
+                  <tr>
+                    <th>Flag</th>
+                    <th>Short</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>--prompt</code></td>
+                    <td><code>-p</code></td>
+                    <td>No</td>
+                    <td>The developer intent or description of what you built. If omitted, the CLI will prompt you interactively.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 class="doc-h2">What Happens When You Run It</h2>
+            <ol class="doc-list numbered">
+              <li><strong>Loads configuration</strong> from <code>.devmemory/config.json</code>. Exits with an error if not initialized.</li>
+              <li><strong>Validates git repository</strong>. Confirms the current directory is inside a valid git repo.</li>
+              <li><strong>Computes a unified git diff</strong> combining all staged changes, unstaged modifications, and newly created untracked files.</li>
+              <li><strong>Checks for changes</strong>. If there are no uncommitted changes, exits cleanly with a message.</li>
+              <li><strong>Collects the developer prompt</strong>. Either from the <code>--prompt</code> flag or by prompting you interactively in the terminal.</li>
+              <li><strong>Runs the Multi-Agent AI Pipeline</strong> (see section 10):
+                <ul class="doc-list nested">
+                  <li><strong>Summary Agent</strong> → generates title, slug, summary, bullet points, and file list.</li>
+                  <li><strong>Architecture Agent</strong> → generates a Mermaid.js diagram and architectural explanation.</li>
+                  <li><strong>Regeneration Agent</strong> → compiles a copy-pasteable prompt to recreate the feature.</li>
+                  <li><strong>Validation Agent</strong> → produces test cases, verification steps, and mock inputs.</li>
+                  <li><strong>Security Agent</strong> → audits for hardcoded keys, vulnerabilities, and security concerns.</li>
+                </ul>
+              </li>
+              <li><strong>Saves build memory file</strong> as <code>.devmemory/build-XXX-slug.md</code> where <code>XXX</code> is the auto-incremented build index (e.g., <code>001</code>, <code>002</code>) and <code>slug</code> is an AI-generated short description.</li>
+              <li><strong>Updates <code>project-brain.md</code></strong> — the Brain Agent merges the new build details into the living codebase description.</li>
+              <li><strong>Updates <code>changelog.md</code></strong> — the Changelog Agent appends the new entry.</li>
+              <li><strong>Regenerates <code>FULL_PROJECT_CONTEXT.md</code></strong> — re-aggregates brain + changelog + timeline into one file.</li>
+              <li><strong>Updates <code>timeline.json</code></strong> — appends the build metadata (ID, title, timestamp, files changed) to the timeline index.</li>
+            </ol>
+
+            <h2 class="doc-h2">Example</h2>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL — EXAMPLE OUTPUT</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">$ devmemory record -p "Add JWT user login validation"
+Analyzing git diff and generating memory...
+Saved build logs: build-003-jwt-login-validation.md
+Updated .devmemory/project-brain.md
+Updated .devmemory/changelog.md
+Regenerated .devmemory/FULL_PROJECT_CONTEXT.md
+
+Build successfully recorded!</pre>
+            </div>
+
+            <div class="doc-alert warning">
+              <div class="alert-title">⚠ NOTE</div>
+              <p class="doc-p">
+                <code>devmemory record</code> captures <strong>uncommitted</strong> changes only. If you have already committed your code, use <code>devmemory watch</code> instead — it automatically detects and records git commits.
+              </p>
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- 07. devmemory watch -->
+          <!-- ============================================ -->
+          <section id="section-watch" class="doc-section">
+            <h1 class="doc-h1">07. devmemory watch</h1>
+            <p class="doc-p">
+              Starts the continuous background watcher daemon. This is the <strong>core runtime mode</strong> of DevMemory AI. Once running, it silently monitors your project directory for file changes and git commits, automatically triggering memory captures with zero manual intervention.
+            </p>
+
+            <div class="doc-alert warning">
+              <div class="alert-title">🔴 COMPULSORY — RUN THIS IN A BACKGROUND TERMINAL</div>
+              <p class="doc-p">
+                <strong>It is compulsory to run this command in a dedicated background terminal tab.</strong> The watcher is a long-running blocking process — it does not exit until you press <code>Ctrl+C</code>. Open a separate terminal window or tab, navigate to your project root, and run <code>devmemory watch</code>. Then continue coding in your main terminal. The watcher eliminates the overhead of manually calling <code>devmemory record</code> after every change.
+              </p>
+            </div>
+
+            <h2 class="doc-h2">Syntax</h2>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">devmemory watch</pre>
+            </div>
+            <p class="doc-p">No flags or arguments. Must be run from the root directory of your initialized project.</p>
+
+            <h2 class="doc-h2">How It Works</h2>
+            <p class="doc-p">
+              The watcher spawns a filesystem observer using the cross-platform <code>watchdog</code> Python library. It recursively monitors all files in your project directory, ignoring paths that match your exclude patterns (e.g., <code>.git</code>, <code>node_modules</code>, <code>__pycache__</code>, <code>.venv</code>). It listens to two types of triggers:
+            </p>
+
+            <h3 class="doc-h3">Trigger 1: Git Commit (Fully Automatic)</h3>
+            <p class="doc-p">
+              Every second, the watcher polls for new git commits by comparing the latest commit hash against the last processed one. When you commit code — whether from the terminal, VS Code, or Cursor — the watcher:
+            </p>
+            <ol class="doc-list numbered">
+              <li>Detects the new commit and extracts the <strong>commit message</strong> as the developer intent/prompt.</li>
+              <li>Parses the <strong>commit diff</strong> to understand what changed.</li>
+              <li>Runs the full Multi-Agent AI Pipeline (Summary → Architecture → Regeneration → Validation → Security).</li>
+              <li>Saves the build memory, updates brain, changelog, and context — all <strong>automatically with no user interaction</strong>.</li>
+            </ol>
+
+            <h3 class="doc-h3">Trigger 2: File Stabilization (Interactive)</h3>
+            <p class="doc-p">
+              When you edit files without committing, the watcher tracks the modifications. Once the files have been quiet (no new saves) for the configured <strong>cooldown period</strong> (default: 15 seconds), it:
+            </p>
+            <ol class="doc-list numbered">
+              <li>Alerts you in the terminal: <em>"Detected stabilized changes in: auth.py, database.py"</em></li>
+              <li>Prompts you to enter a description: <em>"Enter prompt description to record these changes (or press Enter to capture automatically):"</em></li>
+              <li>If you type a description and press Enter, it uses that as the prompt. If you just press Enter with no text, it uses "Continuous file edits" as the default prompt.</li>
+              <li>Runs the full AI pipeline and saves the build memory.</li>
+            </ol>
+
+            <h2 class="doc-h2">Example Session</h2>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL — BACKGROUND TAB</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">$ devmemory watch
+
+[DevMemory] Started watching /Users/dev/my-project
+[DevMemory] Listening for file edits (cooldown: 15s) and new Git commits...
+[DevMemory] Press Ctrl+C to stop.
+
+[DevMemory] Detected new Git commit: Add user authentication endpoint
+[DevMemory] Recording build memory automatically...
+[DevMemory] Build memory saved: build-004-user-authentication.md
+[DevMemory] Memory successfully updated!
+
+[DevMemory] Detected stabilized changes in: api/routes.py, models/user.py
+[DevMemory] Enter prompt description to record these changes
+  (or press Enter to capture automatically): Add rate limiting middleware
+[DevMemory] Generating build memory...
+[DevMemory] Build memory saved: build-005-rate-limiting-middleware.md
+[DevMemory] Memory successfully updated!</pre>
+            </div>
+
+            <h2 class="doc-h2">Stopping the Watcher</h2>
+            <p class="doc-p">Press <code>Ctrl+C</code> in the terminal where the watcher is running. It will gracefully shut down the filesystem observer and exit cleanly.</p>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">^C
+[DevMemory] Stopping watcher...
+[DevMemory] Watcher stopped.</pre>
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- 08. devmemory show -->
+          <!-- ============================================ -->
+          <section id="section-show" class="doc-section">
+            <h1 class="doc-h1">08. devmemory show</h1>
+            <p class="doc-p">
+              Renders and prints a markdown memory file beautifully in the terminal using ANSI color formatting. Reading raw markdown files in a shell is painful — the <code>show</code> command parses markdown syntax and outputs a color-styled, wrapped, human-readable rendering directly in your console.
+            </p>
+
+            <h2 class="doc-h2">Syntax</h2>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">devmemory show &lt;target&gt;</pre>
+            </div>
+
+            <h2 class="doc-h2">Arguments</h2>
+            <div class="config-table-wrapper">
+              <table class="doc-table">
+                <thead>
+                  <tr>
+                    <th>Argument</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>&lt;target&gt;</code></td>
+                    <td>Yes</td>
+                    <td>The build index, alias, filename, or file path to render. See target types below.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 class="doc-h2">Target Types</h2>
+            <p class="doc-p">The <code>&lt;target&gt;</code> argument accepts five different input types. DevMemory resolves them in this priority order:</p>
+
+            <!-- Show target: build index -->
+            <h3 class="doc-h3">1. Build Index (Number)</h3>
+            <p class="doc-p">Pass a number to render a specific build log. DevMemory zero-pads the number to 3 digits and looks for a matching <code>build-XXX-*.md</code> file in <code>.devmemory/</code>.</p>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block"># All three of these are equivalent — they render build-005-*.md
+devmemory show 5
+devmemory show 05
+devmemory show 005</pre>
+            </div>
+            <p class="doc-p">
+              <strong>How it resolves:</strong> The CLI takes your number (e.g., <code>5</code>), formats it as <code>005</code>, and runs a glob search for <code>.devmemory/build-005-*.md</code>. If found, it renders that file. If no file matches, it exits with: <code>Error: Build index 005 not found in .devmemory/</code>.
+            </p>
+
+            <!-- Show target: brain -->
+            <h3 class="doc-h3">2. "brain" — Project Brain</h3>
+            <p class="doc-p">Renders the <code>.devmemory/project-brain.md</code> file — the living, evolving description of your entire codebase including tech stack, features, architecture overview, key files, and known issues.</p>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">devmemory show brain</pre>
+            </div>
+
+            <!-- Show target: changelog -->
+            <h3 class="doc-h3">3. "changelog" or "log" — Release Changelog</h3>
+            <p class="doc-p">Renders the <code>.devmemory/changelog.md</code> file — a chronological log of all recorded changes, organized by build.</p>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block"># Both of these are equivalent
+devmemory show changelog
+devmemory show log</pre>
+            </div>
+
+            <!-- Show target: context -->
+            <h3 class="doc-h3">4. "context" — Full Project Context</h3>
+            <p class="doc-p">Renders the <code>.devmemory/FULL_PROJECT_CONTEXT.md</code> file — a single aggregated document combining the project brain, changelog, and complete build timeline table. This is the file you copy-paste into external AI prompts.</p>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">devmemory show context</pre>
+            </div>
+
+            <!-- Show target: filename -->
+            <h3 class="doc-h3">5. Filename or File Path</h3>
+            <p class="doc-p">You can also pass a filename within <code>.devmemory/</code> or any absolute/relative file path to render any arbitrary markdown file.</p>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block"># Render a specific file inside .devmemory/
+devmemory show build-003-jwt-login-validation.md
+
+# Render any markdown file by path
+devmemory show ./README.md
+devmemory show /absolute/path/to/notes.md</pre>
+            </div>
+
+            <h2 class="doc-h2">Renderer Features</h2>
+            <ul class="doc-list">
+              <li><strong>ANSI color formatting</strong> — headers, bold text, code blocks, and lists are styled with terminal colors.</li>
+              <li><strong>Dynamic text wrapping</strong> — text wraps naturally to fit your terminal width without truncation.</li>
+              <li><strong>Code block borders</strong> — code and Mermaid blocks are rendered with a vertical left border (<code>│</code>) for visual separation.</li>
+              <li><strong>No external dependencies</strong> — the renderer is a pure Python implementation with no third-party terminal libraries.</li>
+            </ul>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- 09. devmemory context -->
+          <!-- ============================================ -->
+          <section id="section-context" class="doc-section">
+            <h1 class="doc-h1">09. devmemory context</h1>
+            <p class="doc-p">
+              Manually regenerates the <code>.devmemory/FULL_PROJECT_CONTEXT.md</code> file. This is a utility command for when you need to rebuild the aggregated context without recording a new build.
+            </p>
+
+            <h2 class="doc-h2">Syntax</h2>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">devmemory context</pre>
+            </div>
+            <p class="doc-p">No flags or arguments.</p>
+
+            <h2 class="doc-h2">What It Does</h2>
+            <p class="doc-p">
+              Aggregates three data sources into a single markdown file:
+            </p>
+            <ol class="doc-list numbered">
+              <li><strong>Project Brain</strong> (<code>project-brain.md</code>) — the living codebase description.</li>
+              <li><strong>Build Timeline</strong> (<code>timeline.json</code>) — a structured table of all builds with their IDs, titles, timestamps, and modified files.</li>
+              <li><strong>Metadata</strong> — a note explaining the file is auto-generated.</li>
+            </ol>
+            <p class="doc-p">
+              The resulting <code>FULL_PROJECT_CONTEXT.md</code> is designed to be <strong>copy-pasted into external AI chat prompts</strong> (Cursor, Claude, Gemini, ChatGPT) to instantly reload repository context and give the AI full awareness of your project's history and structure.
+            </p>
+
+            <h2 class="doc-h2">When to Use</h2>
+            <ul class="doc-list">
+              <li>If you manually edited <code>project-brain.md</code> or <code>changelog.md</code> and want the context file to reflect those changes.</li>
+              <li>If the context file was accidentally deleted or corrupted.</li>
+              <li>Before sharing the context file with a team member or pasting it into an AI prompt.</li>
+            </ul>
+
+            <h2 class="doc-h2">Example</h2>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">$ devmemory context
+Successfully regenerated .devmemory/FULL_PROJECT_CONTEXT.md</pre>
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- 10. MULTI-AGENT PIPELINE -->
+          <!-- ============================================ -->
+          <section id="section-agents" class="doc-section">
+            <h1 class="doc-h1">10. Multi-Agent Pipeline</h1>
+            <p class="doc-p">
+              Every time DevMemory records a build (via <code>record</code> or <code>watch</code>), it orchestrates a team of <strong>6 specialized AI sub-agents</strong>. Each agent receives the git diff and relevant context, performs a focused analysis, and returns structured output. The results are combined into the final build memory file.
+            </p>
+
+            <p class="doc-p">Here is the execution order and what each agent does:</p>
+
+            <h2 class="doc-h2">1. Summary Agent</h2>
+            <p class="doc-p"><strong>Input:</strong> Git diff + original developer prompt.</p>
+            <p class="doc-p"><strong>Output:</strong> JSON containing a URL slug, title, summary paragraph, bullet-point changes, and list of files changed.</p>
+            <p class="doc-p"><strong>Purpose:</strong> Provides the high-level "what happened" overview. The slug is used to name the build file (e.g., <code>build-003-jwt-login-validation.md</code>).</p>
+
+            <h2 class="doc-h2">2. Architecture Agent</h2>
+            <p class="doc-p"><strong>Input:</strong> Git diff + file/folder context.</p>
+            <p class="doc-p"><strong>Output:</strong> JSON containing a Mermaid.js flowchart or sequence diagram, an architectural explanation, and a list of risks/tradeoffs.</p>
+            <p class="doc-p"><strong>Purpose:</strong> Creates a visual representation of how components interact after the change. Helps future developers understand data flow at a glance.</p>
+
+            <h2 class="doc-h2">3. Regeneration Agent</h2>
+            <p class="doc-p"><strong>Input:</strong> Original prompt + summary data + architecture data.</p>
+            <p class="doc-p"><strong>Output:</strong> A plain-text prompt (not JSON) that a developer can copy-paste into any AI coding tool to recreate the exact same feature from scratch.</p>
+            <p class="doc-p"><strong>Purpose:</strong> Makes every feature reproducible. If you ever need to rebuild a feature in a different codebase, the regeneration prompt has everything the AI needs.</p>
+
+            <h2 class="doc-h2">4. Validation Agent</h2>
+            <p class="doc-p"><strong>Input:</strong> Git diff + summary data.</p>
+            <p class="doc-p"><strong>Output:</strong> JSON containing test cases, manual verification steps, and mock inputs/payloads.</p>
+            <p class="doc-p"><strong>Purpose:</strong> Produces a testing checklist. Developers can use the test cases for unit tests and the mock inputs (e.g., curl commands) for integration testing.</p>
+
+            <h2 class="doc-h2">5. Security Agent</h2>
+            <p class="doc-p"><strong>Input:</strong> Git diff + file summary.</p>
+            <p class="doc-p"><strong>Output:</strong> JSON containing security concerns, identified vulnerabilities, and actionable recommendations.</p>
+            <p class="doc-p"><strong>Purpose:</strong> Audits every code change for hardcoded API keys, SQL injection risks, missing input sanitization, insecure defaults, and other security issues.</p>
+
+            <h2 class="doc-h2">6. Brain Agent</h2>
+            <p class="doc-p"><strong>Input:</strong> Current <code>project-brain.md</code> content + new build markdown.</p>
+            <p class="doc-p"><strong>Output:</strong> The updated <code>project-brain.md</code> content (full markdown, not JSON).</p>
+            <p class="doc-p"><strong>Purpose:</strong> Merges new features, files, and architectural changes into the living project brain. Keeps the tech stack, features list, and key files index up to date.</p>
+
+            <h2 class="doc-h2">7. Changelog Agent</h2>
+            <p class="doc-p"><strong>Input:</strong> Current <code>changelog.md</code> + new build markdown.</p>
+            <p class="doc-p"><strong>Output:</strong> The updated <code>changelog.md</code> content (full markdown).</p>
+            <p class="doc-p"><strong>Purpose:</strong> Appends or merges the new build details into the chronological changelog.</p>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- 11. FILE STRUCTURE -->
+          <!-- ============================================ -->
+          <section id="section-files" class="doc-section">
+            <h1 class="doc-h1">11. File Structure</h1>
+            <p class="doc-p">
+              After initialization and a few recorded builds, your <code>.devmemory/</code> directory will look like this:
+            </p>
+            <div class="code-container">
+              <div class="code-header">
+                <span>DIRECTORY TREE</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">your-project/
+├── .devmemory/
+│   ├── config.json                  # Your API config (gitignored)
+│   ├── project-brain.md             # Living codebase description
+│   ├── changelog.md                 # Chronological change log
+│   ├── timeline.json                # Build metadata index
+│   ├── FULL_PROJECT_CONTEXT.md      # Aggregated context for AI prompts
+│   ├── build-001-initial-setup.md   # Build #1 memory
+│   ├── build-002-add-auth.md        # Build #2 memory
+│   ├── build-003-fix-database.md    # Build #3 memory
+│   └── ...
+├── .gitignore                       # Contains .devmemory/config.json
+└── (your project files)</pre>
+            </div>
+
+            <h2 class="doc-h2">File Descriptions</h2>
+            <div class="config-table-wrapper">
+              <table class="doc-table">
+                <thead>
+                  <tr>
+                    <th>File</th>
+                    <th>Git Tracked?</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>config.json</code></td>
+                    <td>❌ No (gitignored)</td>
+                    <td>Stores your provider, API key, model, cooldown, and exclude patterns. Never committed.</td>
+                  </tr>
+                  <tr>
+                    <td><code>project-brain.md</code></td>
+                    <td>✅ Yes</td>
+                    <td>Living description of your codebase. Updated by the Brain Agent on every build.</td>
+                  </tr>
+                  <tr>
+                    <td><code>changelog.md</code></td>
+                    <td>✅ Yes</td>
+                    <td>Chronological log of all changes. Updated by the Changelog Agent on every build.</td>
+                  </tr>
+                  <tr>
+                    <td><code>timeline.json</code></td>
+                    <td>✅ Yes</td>
+                    <td>Structured JSON array of build metadata (ID, title, timestamp, files changed).</td>
+                  </tr>
+                  <tr>
+                    <td><code>FULL_PROJECT_CONTEXT.md</code></td>
+                    <td>✅ Yes</td>
+                    <td>Aggregated brain + timeline. Copy-paste this into AI prompts to reload context.</td>
+                  </tr>
+                  <tr>
+                    <td><code>build-XXX-slug.md</code></td>
+                    <td>✅ Yes</td>
+                    <td>Individual build memory files containing prompt, summary, diagram, security audit, tests, and regeneration prompt.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 class="doc-h2">Build Memory File Contents</h2>
+            <p class="doc-p">Each <code>build-XXX-slug.md</code> file contains these sections:</p>
+            <ul class="doc-list">
+              <li><strong>Original Prompt</strong> — the developer intent that triggered this build.</li>
+              <li><strong>Summary</strong> — high-level paragraph of what changed.</li>
+              <li><strong>Files Changed</strong> — list of modified/added files.</li>
+              <li><strong>Architecture</strong> — Mermaid.js diagram + data flow explanation.</li>
+              <li><strong>Risks & Tradeoffs</strong> — potential architectural concerns.</li>
+              <li><strong>Security & Vulnerability Check</strong> — concerns, vulnerabilities, and recommendations.</li>
+              <li><strong>Test & Validation Plan</strong> — test cases, verification steps, and mock inputs.</li>
+              <li><strong>Regeneration Prompt</strong> — a complete prompt to recreate this feature from scratch.</li>
+            </ul>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- 12. ENVIRONMENT VARIABLES -->
+          <!-- ============================================ -->
+          <section id="section-env" class="doc-section">
+            <h1 class="doc-h1">12. Environment Variables</h1>
+            <p class="doc-p">
+              DevMemory supports environment variable overrides for API keys. If a matching environment variable is set, it takes priority over the key stored in <code>config.json</code>. This is useful for CI/CD environments or when you don't want to store keys on disk.
+            </p>
+
+            <h2 class="doc-h2">Supported Variables</h2>
+            <div class="config-table-wrapper">
+              <table class="doc-table">
+                <thead>
+                  <tr>
+                    <th>Provider</th>
+                    <th>Environment Variable</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr><td>Google Gemini</td><td><code>GEMINI_API_KEY</code></td></tr>
+                  <tr><td>OpenAI</td><td><code>OPENAI_API_KEY</code></td></tr>
+                  <tr><td>Anthropic Claude</td><td><code>ANTHROPIC_API_KEY</code></td></tr>
+                  <tr><td>OpenRouter</td><td><code>OPENROUTER_API_KEY</code></td></tr>
+                  <tr><td>DeepSeek</td><td><code>DEEPSEEK_API_KEY</code></td></tr>
+                  <tr><td>Groq</td><td><code>GROQ_API_KEY</code></td></tr>
+                  <tr><td>Together AI</td><td><code>TOGETHER_API_KEY</code></td></tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 class="doc-h2">How It Works</h2>
+            <p class="doc-p">
+              When DevMemory loads its configuration, it checks if the environment variable for the active provider is set. If found, it uses that value instead of the <code>api_key</code> field in <code>config.json</code>. The config wizard also detects existing environment variables and asks if you want to use them during setup.
+            </p>
+
+            <h2 class="doc-h2">Example</h2>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block"># Set the key in your shell profile (e.g. ~/.zshrc)
+export GEMINI_API_KEY="your-api-key-here"
+
+# Now DevMemory will use this key automatically
+# even if config.json has a different or empty key
+devmemory record -p "Add user dashboard"</pre>
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- 13. SUPPORTED PROVIDERS -->
+          <!-- ============================================ -->
+          <section id="section-providers" class="doc-section">
+            <h1 class="doc-h1">13. Supported Providers</h1>
+            <p class="doc-p">
+              DevMemory AI is provider-agnostic. You can use it with cloud APIs or run it <strong>completely free and offline</strong> using a local model. Here is the full list of supported providers, their default models, and endpoints:
+            </p>
+
+            <div class="config-table-wrapper">
+              <table class="doc-table">
+                <thead>
+                  <tr>
+                    <th>Provider</th>
+                    <th>Default Model</th>
+                    <th>API Endpoint</th>
+                    <th>Requires Key?</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Google Gemini</strong></td>
+                    <td><code>gemini-2.5-flash</code></td>
+                    <td><code>generativelanguage.googleapis.com/v1beta</code></td>
+                    <td>Yes</td>
+                  </tr>
+                  <tr>
+                    <td><strong>OpenAI</strong></td>
+                    <td><code>gpt-4o-mini</code></td>
+                    <td><code>api.openai.com/v1</code></td>
+                    <td>Yes</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Anthropic Claude</strong></td>
+                    <td><code>claude-3-5-haiku-latest</code></td>
+                    <td><code>api.anthropic.com/v1</code></td>
+                    <td>Yes</td>
+                  </tr>
+                  <tr>
+                    <td><strong>OpenRouter</strong></td>
+                    <td><code>google/gemini-2.5-flash</code></td>
+                    <td><code>openrouter.ai/api/v1</code></td>
+                    <td>Yes</td>
+                  </tr>
+                  <tr>
+                    <td><strong>DeepSeek</strong></td>
+                    <td><code>deepseek-chat</code></td>
+                    <td><code>api.deepseek.com</code></td>
+                    <td>Yes</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Groq</strong></td>
+                    <td><code>llama-3.3-70b-versatile</code></td>
+                    <td><code>api.groq.com/openai/v1</code></td>
+                    <td>Yes</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Together AI</strong></td>
+                    <td><code>Meta-Llama-3.1-70B-Instruct-Turbo</code></td>
+                    <td><code>api.together.xyz/v1</code></td>
+                    <td>Yes</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Ollama (Local)</strong></td>
+                    <td><code>qwen2.5-coder:7b</code></td>
+                    <td><code>localhost:11434</code></td>
+                    <td>No — 100% free</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Custom Endpoint</strong></td>
+                    <td><code>custom-model</code></td>
+                    <td><code>localhost:8000/v1</code></td>
+                    <td>No</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="doc-alert">
+              <div class="alert-title">💡 RUNNING 100% FREE WITH OLLAMA</div>
+              <p class="doc-p">
+                Install <a href="https://ollama.ai" target="_blank" style="color: var(--accent-primary); text-decoration: underline;">Ollama</a>, pull a model (e.g., <code>ollama pull qwen2.5-coder:7b</code>), select "Ollama" during <code>devmemory init</code>, and you have a fully functional AI memory layer running entirely on your local machine with zero API costs.
+              </p>
+            </div>
+
+            <div class="doc-alert warning">
+              <div class="alert-title">🔒 GIT PRIVACY</div>
+              <p class="doc-p">
+                Your API key is saved in <code>.devmemory/config.json</code> which is automatically added to <code>.gitignore</code> during initialization. If you prefer not to store keys on disk at all, use environment variables (see section 12) and leave the key blank during setup.
+              </p>
+            </div>
+          </section>
+
+        </main>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
