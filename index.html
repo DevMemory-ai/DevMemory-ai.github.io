@@ -19,8 +19,11 @@
       <nav>
         <button class="nav-btn active" data-tab="home">[ HOME ]</button>
         <button class="nav-btn" data-tab="docs">[ DOCS ]</button>
-        <a href="https://github.com/DevMemory-ai/DevMemory/tree/main/DevMemory" target="_blank" style="text-decoration: none;">
-          <button class="nav-btn">[ GITHUB ]</button>
+        <a href="https://github.com/DevMemory-ai/DevMemory" target="_blank" style="text-decoration: none;">
+          <button class="nav-btn">[ SOURCE ]</button>
+        </a>
+        <a href="https://umeshadabala.github.io/" target="_blank" style="text-decoration: none;">
+          <button class="nav-btn">[ ABOUT ]</button>
         </a>
       </nav>
     </header>
@@ -37,7 +40,7 @@
           </p>
           <div class="hero-actions">
             <button class="btn-primary" id="hero-get-started">/docs/start</button>
-            <a href="https://github.com/DevMemory-ai/DevMemory/tree/main/DevMemory" target="_blank">
+            <a href="https://github.com/DevMemory-ai/DevMemory" target="_blank">
               <button class="btn-secondary">git clone</button>
             </a>
           </div>
@@ -100,12 +103,13 @@
           <button class="sidebar-link" data-target="section-watch">07. devmemory watch</button>
           <button class="sidebar-link" data-target="section-show">08. devmemory show</button>
           <button class="sidebar-link" data-target="section-context">09. devmemory context</button>
+          <button class="sidebar-link" data-target="section-setup-ollama">10. devmemory setup-ollama</button>
 
           <div class="sidebar-category">INTERNALS</div>
-          <button class="sidebar-link" data-target="section-agents">10. Multi-Agent Pipeline</button>
-          <button class="sidebar-link" data-target="section-files">11. File Structure</button>
-          <button class="sidebar-link" data-target="section-env">12. Environment Variables</button>
-          <button class="sidebar-link" data-target="section-providers">13. Supported Providers</button>
+          <button class="sidebar-link" data-target="section-agents">11. Multi-Agent Pipeline</button>
+          <button class="sidebar-link" data-target="section-files">12. File Structure</button>
+          <button class="sidebar-link" data-target="section-env">13. Environment Variables</button>
+          <button class="sidebar-link" data-target="section-providers">14. Supported Providers</button>
         </aside>
 
         <!-- Docs Reader Panel -->
@@ -221,7 +225,7 @@ git --version
               </div>
               <pre class="code-block">devmemory --help</pre>
             </div>
-            <p class="doc-p">You should see the help menu listing all available subcommands: <code>init</code>, <code>config</code>, <code>record</code>, <code>watch</code>, <code>show</code>, and <code>context</code>.</p>
+            <p class="doc-p">You should see the help menu listing all available subcommands: <code>init</code>, <code>config</code>, <code>record</code>, <code>watch</code>, <code>show</code>, <code>context</code>, and <code>setup-ollama</code>.</p>
           </section>
 
           <!-- ============================================ -->
@@ -252,6 +256,8 @@ git --version
               <li><strong>Generates <code>.devmemory/changelog.md</code></strong> — A blank changelog template that tracks all recorded changes over time.</li>
               <li><strong>Generates <code>.devmemory/FULL_PROJECT_CONTEXT.md</code></strong> — An aggregated context file combining the brain, changelog, and build timeline.</li>
               <li><strong>Updates <code>.gitignore</code></strong> — Automatically appends <code>.devmemory/config.json</code> to your <code>.gitignore</code> to prevent accidentally committing API keys to version control. If no <code>.gitignore</code> exists, it creates one.</li>
+              <li><strong>Registers a persistent background daemon</strong> — Immediately registers the watcher as a system daemon that survives terminal closures and reboots. Uses <code>launchd</code> on macOS, <code>systemd</code> on Linux, and a Startup <code>.bat</code> on Windows. Output is logged in real-time to <code>.devmemory/watcher.log</code>.</li>
+              <li><strong>Auto-Setup for Ollama</strong> — If you selected Ollama as your provider, DevMemory will automatically detect your OS, download the portable Ollama binary to <code>~/.devmemory/bin/</code>, start it on port 11434, and pull the <code>qwen2.5-coder:0.5b</code> model — all without any extra manual steps.</li>
             </ol>
 
             <h2 class="doc-h2">Example Session</h2>
@@ -287,13 +293,16 @@ Configuration completed successfully!
 Created initial .devmemory/project-brain.md
 Created initial .devmemory/changelog.md
 
+[DevMemory] Background daemon registered successfully via launchd! (Label: com.devmemory.watcher.b36611f299d9)
+[DevMemory] Watcher is running in the background and will persist across restarts/bootups.
+
 DevMemory AI has been successfully initialized in this repository!
 Run 'devmemory watch' to start monitoring changes continuously.</pre>
             </div>
 
             <div class="doc-alert">
-              <div class="alert-title">💡 TIP</div>
-              <p class="doc-p">After running <code>init</code>, you should immediately start the watcher daemon with <code>devmemory watch</code> in a separate terminal tab. This enables zero-friction automatic memory recording.</p>
+              <div class="alert-title">💡 DAEMON AUTO-STARTED</div>
+              <p class="doc-p">The background daemon is automatically registered and started during <code>devmemory init</code>. You do <strong>not</strong> need to run <code>devmemory watch</code> manually — the watcher persists silently across terminal closures and reboots. You can still run <code>devmemory watch</code> in a terminal to see a live foreground output stream.</p>
             </div>
           </section>
 
@@ -481,10 +490,10 @@ Build successfully recorded!</pre>
               Starts the continuous background watcher daemon. This is the <strong>core runtime mode</strong> of DevMemory AI. Once running, it silently monitors your project directory for file changes and git commits, automatically triggering memory captures with zero manual intervention.
             </p>
 
-            <div class="doc-alert warning">
-              <div class="alert-title">🔴 COMPULSORY — RUN THIS IN A BACKGROUND TERMINAL</div>
+            <div class="doc-alert">
+              <div class="alert-title">💡 AUTO-STARTED ON INIT</div>
               <p class="doc-p">
-                <strong>It is compulsory to run this command in a dedicated background terminal tab.</strong> The watcher is a long-running blocking process — it does not exit until you press <code>Ctrl+C</code>. Open a separate terminal window or tab, navigate to your project root, and run <code>devmemory watch</code>. Then continue coding in your main terminal. The watcher eliminates the overhead of manually calling <code>devmemory record</code> after every change.
+                The watcher daemon is <strong>automatically registered and launched</strong> when you run <code>devmemory init</code>. You rarely need to run <code>devmemory watch</code> manually. Run it when you want a <em>visible foreground output stream</em>, or to restart a stopped daemon instance.
               </p>
             </div>
 
@@ -500,7 +509,7 @@ Build successfully recorded!</pre>
 
             <h2 class="doc-h2">How It Works</h2>
             <p class="doc-p">
-              The watcher spawns a filesystem observer using the cross-platform <code>watchdog</code> Python library. It recursively monitors all files in your project directory, ignoring paths that match your exclude patterns (e.g., <code>.git</code>, <code>node_modules</code>, <code>__pycache__</code>, <code>.venv</code>). It listens to two types of triggers:
+              The watcher spawns a filesystem observer using the cross-platform <code>watchdog</code> Python library. It recursively monitors all files in your project directory, ignoring paths that match your exclude patterns (e.g., <code>.git</code>, <code>node_modules</code>, <code>__pycache__</code>, <code>.venv</code>, <code>.devmemory</code>). It ticks every second listening for two types of triggers:
             </p>
 
             <h3 class="doc-h3">Trigger 1: Git Commit (Fully Automatic)</h3>
@@ -510,48 +519,71 @@ Build successfully recorded!</pre>
             <ol class="doc-list numbered">
               <li>Detects the new commit and extracts the <strong>commit message</strong> as the developer intent/prompt.</li>
               <li>Parses the <strong>commit diff</strong> to understand what changed.</li>
-              <li>Runs the full Multi-Agent AI Pipeline (Summary → Architecture → Regeneration → Validation → Security).</li>
-              <li>Saves the build memory, updates brain, changelog, and context — all <strong>automatically with no user interaction</strong>.</li>
+              <li>Runs the full Multi-Agent AI Pipeline (Summary → Architecture → Regeneration → Validation → Security → Brain → Changelog).</li>
+              <li>Saves the build memory, updates brain, changelog, and context — all <strong>automatically with zero user interaction</strong>.</li>
             </ol>
 
-            <h3 class="doc-h3">Trigger 2: File Stabilization (Interactive)</h3>
+            <h3 class="doc-h3">Trigger 2: File Stabilization (Fully Automatic)</h3>
             <p class="doc-p">
-              When you edit files without committing, the watcher tracks the modifications. Once the files have been quiet (no new saves) for the configured <strong>cooldown period</strong> (default: 15 seconds), it:
+              When you edit files without committing, the watcher tracks the modifications. Once files have been quiet (no new saves) for the configured <strong>cooldown period</strong> (minimum 15 seconds), it automatically:
             </p>
             <ol class="doc-list numbered">
-              <li>Alerts you in the terminal: <em>"Detected stabilized changes in: auth.py, database.py"</em></li>
-              <li>Prompts you to enter a description: <em>"Enter prompt description to record these changes (or press Enter to capture automatically):"</em></li>
-              <li>If you type a description and press Enter, it uses that as the prompt. If you just press Enter with no text, it uses "Continuous file edits" as the default prompt.</li>
-              <li>Runs the full AI pipeline and saves the build memory.</li>
+              <li>Logs to terminal: <em>"Detected stabilized changes in: auth.py, database.py"</em></li>
+              <li>Uses <strong>"Continuous file edits"</strong> as the default prompt — <strong>no user input required</strong>. The watcher records entirely hands-free.</li>
+              <li>Runs the full AI pipeline and saves the build memory file.</li>
+              <li>Updates <code>project-brain.md</code>, <code>changelog.md</code>, and <code>FULL_PROJECT_CONTEXT.md</code> automatically.</li>
             </ol>
+
+            <h2 class="doc-h2">Failure Resilience &amp; Alerts</h2>
+            <p class="doc-p">The watcher is designed to never crash silently. It includes a multi-layered error handling system:</p>
+            <ul class="doc-list">
+              <li><strong>Pre-flight LLM health check</strong> — Before every recording attempt, the watcher pings your AI provider endpoint. If it is unreachable, the recording is skipped cleanly and an error is logged. Build index slots are never wasted.</li>
+              <li><strong>Native OS alert on connection loss</strong> — If the LLM connection fails, DevMemory shows a native system alert box: <strong>AppleScript</strong> on macOS, <strong>PowerShell WPF MessageBox</strong> on Windows, and <strong>Zenity or KDialog</strong> on Linux. This alerts you even when the terminal is hidden or minimized.</li>
+              <li><strong>Alert deduplication via <code>watcher_state.json</code></strong> — The failure state is persisted to <code>.devmemory/watcher_state.json</code>. If the daemon restarts after a reboot, it reads this file and will <em>not</em> show a duplicate alert for an already-known failure. The alert only fires once per failure event. It shows a "Connection Regained" alert when service is restored.</li>
+              <li><strong>Exponential backoff</strong> — After a failure, the watcher backs off for <code>30s</code>, then <code>60s</code>, then <code>120s</code>, capping at <code>5 minutes (300s)</code>. Once a successful LLM call is made, the backoff resets to zero.</li>
+              <li><strong>Non-fatal sub-steps</strong> — Brain Agent and Changelog Agent updates are wrapped in independent try/except blocks. If one step fails, the others still complete and the build memory file is always saved.</li>
+            </ul>
+
+            <h2 class="doc-h2">Daemon Persistence</h2>
+            <p class="doc-p">The daemon registered during <code>devmemory init</code> persists across system reboots and terminal closures:</p>
+            <ul class="doc-list">
+              <li><strong>macOS</strong> — A LaunchAgent plist is written to <code>~/Library/LaunchAgents/com.devmemory.watcher.&lt;hash&gt;.plist</code> with <code>RunAtLoad: true</code> and <code>KeepAlive: true</code>. Loaded via <code>launchctl</code>.</li>
+              <li><strong>Linux</strong> — A systemd user service is written to <code>~/.config/systemd/user/devmemory-watcher-&lt;hash&gt;.service</code> with <code>Restart=always</code>. Enabled with <code>systemctl --user enable --now</code>.</li>
+              <li><strong>Windows</strong> — A <code>.bat</code> startup file is placed in the Windows Startup folder and immediately executed. Runs silently using <code>pythonw.exe</code> (no console window).</li>
+            </ul>
+            <p class="doc-p">All daemon output (stdout + stderr) is written to <code>.devmemory/watcher.log</code> in real-time with unbuffered output (<code>PYTHONUNBUFFERED=1</code>).</p>
 
             <h2 class="doc-h2">Example Session</h2>
             <div class="code-container">
               <div class="code-header">
-                <span>TERMINAL — BACKGROUND TAB</span>
+                <span>TERMINAL — FOREGROUND INSTANCE</span>
                 <button class="code-copy-btn">copy</button>
               </div>
               <pre class="code-block">$ devmemory watch
 
 [DevMemory] Started watching /Users/dev/my-project
-[DevMemory] Listening for file edits (cooldown: 15s) and new Git commits...
+[DevMemory] Provider: ollama / qwen2.5-coder:0.5b
+[DevMemory] Cooldown: 15s
 [DevMemory] Press Ctrl+C to stop.
 
 [DevMemory] Detected new Git commit: Add user authentication endpoint
 [DevMemory] Recording build memory automatically...
-[DevMemory] Build memory saved: build-004-user-authentication.md
+[DevMemory] Build memory saved: build-004-user-authentication-endpoint.md
 [DevMemory] Memory successfully updated!
 
 [DevMemory] Detected stabilized changes in: api/routes.py, models/user.py
-[DevMemory] Enter prompt description to record these changes
-  (or press Enter to capture automatically): Add rate limiting middleware
-[DevMemory] Generating build memory...
-[DevMemory] Build memory saved: build-005-rate-limiting-middleware.md
-[DevMemory] Memory successfully updated!</pre>
+[DevMemory] Recording changes automatically in background...
+[DevMemory] Build memory saved: build-005-continuous-file-edits.md
+[DevMemory] Memory successfully updated!
+
+# On LLM failure:
+[DevMemory] LLM not reachable, skipping change recording.
+[DevMemory] Backing off for 30s before next retry.
+# (Native OS alert box appears on your desktop)</pre>
             </div>
 
             <h2 class="doc-h2">Stopping the Watcher</h2>
-            <p class="doc-p">Press <code>Ctrl+C</code> in the terminal where the watcher is running. It will gracefully shut down the filesystem observer and exit cleanly.</p>
+            <p class="doc-p">Press <code>Ctrl+C</code> to stop the foreground instance. The background daemon (registered via launchd/systemd) continues to run independently and is not affected.</p>
             <div class="code-container">
               <div class="code-header">
                 <span>TERMINAL</span>
@@ -732,12 +764,74 @@ Successfully regenerated .devmemory/FULL_PROJECT_CONTEXT.md</pre>
           </section>
 
           <!-- ============================================ -->
-          <!-- 10. MULTI-AGENT PIPELINE -->
+          <!-- 10. devmemory setup-ollama -->
+          <!-- ============================================ -->
+          <section id="section-setup-ollama" class="doc-section">
+            <h1 class="doc-h1">10. devmemory setup-ollama</h1>
+            <p class="doc-p">
+              Automatically installs a local portable instance of Ollama, starts the background service on port 11434, and pulls the lightweight <code>qwen2.5-coder:0.5b</code> model. This allows a completely automated, zero-config setup for running DevMemory offline and credit-free.
+            </p>
+
+            <h2 class="doc-h2">Syntax</h2>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">devmemory setup-ollama [OPTIONS]</pre>
+            </div>
+
+            <h2 class="doc-h2">Options</h2>
+            <ul class="doc-list">
+              <li><code>--model &lt;model-name&gt;</code> — The Ollama model to pull. Defaults to <code>qwen2.5-coder:0.5b</code>.</li>
+            </ul>
+
+            <h2 class="doc-h2">What It Does</h2>
+            <ol class="doc-list numbered">
+              <li><strong>OS Detection</strong> — Automatically detects whether you are running macOS, Windows, or Linux.</li>
+              <li><strong>Download & Install</strong> — If Ollama is not in your system <code>PATH</code>, downloads the official, platform-specific portable binary or archive and extracts it cleanly under <code>~/.devmemory/bin/</code>.</li>
+              <li><strong>Detached Background Service</strong> — Launches the background process (<code>ollama serve</code>) silently and polls the local endpoint until it responds on port 11434.</li>
+              <li><strong>Interactive Model Pulling</strong> — Queries Ollama if the target model is already pulled. If not, pulls the model while streaming the download progress bar directly to your terminal.</li>
+            </ol>
+
+            <h2 class="doc-h2">When to Use</h2>
+            <ul class="doc-list">
+              <li>When initializing DevMemory with the Ollama local provider for the first time.</li>
+              <li>To pull new models or pre-download dependencies for complete offline usage.</li>
+              <li>To fix stopped background instances of Ollama.</li>
+            </ul>
+
+            <h2 class="doc-h2">Example</h2>
+            <div class="code-container">
+              <div class="code-header">
+                <span>TERMINAL</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">$ devmemory setup-ollama
+=== DevMemory Local Ollama Setup ===
+[DevMemory] Downloading Ollama for darwin...
+[DevMemory] From: https://github.com/ollama/ollama/releases/latest/download/ollama-darwin.tgz
+[DevMemory] Extracting and installing Ollama...
+[DevMemory] Ollama successfully installed to /Users/username/.devmemory/bin/ollama!
+[DevMemory] Starting Ollama background service...
+[DevMemory] Waiting for Ollama service to start (max 15 seconds)...
+[DevMemory] Ollama service is running and ready!
+[DevMemory] Pulling model qwen2.5-coder:0.5b. This may take a few minutes...
+pulling 2ef70d8a5462... 100% ▕██████████████████████████████████████▏ 368 MB
+pulling 1f7df2b1ff20... 100% ▕██████████████████████████████████████▏  15 KB
+[DevMemory] Model qwen2.5-coder:0.5b successfully pulled!
+
+Ollama and model are fully set up and ready to use!</pre>
+            </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- 11. MULTI-AGENT PIPELINE -->
           <!-- ============================================ -->
           <section id="section-agents" class="doc-section">
-            <h1 class="doc-h1">10. Multi-Agent Pipeline</h1>
+            <h1 class="doc-h1">11. Multi-Agent Pipeline</h1>
             <p class="doc-p">
-              Every time DevMemory records a build (via <code>record</code> or <code>watch</code>), it orchestrates a team of <strong>6 specialized AI sub-agents</strong>. Each agent receives the git diff and relevant context, performs a focused analysis, and returns structured output. The results are combined into the final build memory file.
+              Every time DevMemory records a build (via <code>record</code> or <code>watch</code>), it orchestrates a team of <strong>7 specialized AI sub-agents</strong>. Each agent receives the git diff and relevant context, performs a focused analysis, and returns structured output. The first 5 agents produce the build memory file content; the final 2 agents update the living project brain and changelog.
             </p>
 
             <p class="doc-p">Here is the execution order and what each agent does:</p>
@@ -782,7 +876,7 @@ Successfully regenerated .devmemory/FULL_PROJECT_CONTEXT.md</pre>
           <!-- 11. FILE STRUCTURE -->
           <!-- ============================================ -->
           <section id="section-files" class="doc-section">
-            <h1 class="doc-h1">11. File Structure</h1>
+            <h1 class="doc-h1">12. File Structure</h1>
             <p class="doc-p">
               After initialization and a few recorded builds, your <code>.devmemory/</code> directory will look like this:
             </p>
@@ -797,6 +891,7 @@ Successfully regenerated .devmemory/FULL_PROJECT_CONTEXT.md</pre>
 │   ├── project-brain.md             # Living codebase description
 │   ├── changelog.md                 # Chronological change log
 │   ├── timeline.json                # Build metadata index
+│   ├── watcher_state.json           # Watcher connection state cache
 │   ├── FULL_PROJECT_CONTEXT.md      # Aggregated context for AI prompts
 │   ├── build-001-initial-setup.md   # Build #1 memory
 │   ├── build-002-add-auth.md        # Build #2 memory
@@ -847,6 +942,11 @@ Successfully regenerated .devmemory/FULL_PROJECT_CONTEXT.md</pre>
                     <td>✅ Yes</td>
                     <td>Individual build memory files containing prompt, summary, diagram, security audit, tests, and regeneration prompt.</td>
                   </tr>
+                  <tr>
+                    <td><code>watcher_state.json</code></td>
+                    <td>❌ No (gitignored)</td>
+                    <td>Caches connection error states to prevent duplicate alert boxes across daemon restarts.</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -869,7 +969,7 @@ Successfully regenerated .devmemory/FULL_PROJECT_CONTEXT.md</pre>
           <!-- 12. ENVIRONMENT VARIABLES -->
           <!-- ============================================ -->
           <section id="section-env" class="doc-section">
-            <h1 class="doc-h1">12. Environment Variables</h1>
+            <h1 class="doc-h1">13. Environment Variables</h1>
             <p class="doc-p">
               DevMemory supports environment variable overrides for API keys. If a matching environment variable is set, it takes priority over the key stored in <code>config.json</code>. This is useful for CI/CD environments or when you don't want to store keys on disk.
             </p>
@@ -919,7 +1019,7 @@ devmemory record -p "Add user dashboard"</pre>
           <!-- 13. SUPPORTED PROVIDERS -->
           <!-- ============================================ -->
           <section id="section-providers" class="doc-section">
-            <h1 class="doc-h1">13. Supported Providers</h1>
+            <h1 class="doc-h1">14. Supported Providers</h1>
             <p class="doc-p">
               DevMemory AI is provider-agnostic. You can use it with cloud APIs or run it <strong>completely free and offline</strong> using a local model. Here is the full list of supported providers, their default models, and endpoints:
             </p>
@@ -979,7 +1079,7 @@ devmemory record -p "Add user dashboard"</pre>
                   </tr>
                   <tr>
                     <td><strong>Ollama (Local)</strong></td>
-                    <td><code>qwen2.5-coder:7b</code></td>
+                    <td><code>qwen2.5-coder:0.5b</code></td>
                     <td><code>localhost:11434</code></td>
                     <td>No — 100% free</td>
                   </tr>
@@ -996,7 +1096,7 @@ devmemory record -p "Add user dashboard"</pre>
             <div class="doc-alert">
               <div class="alert-title">💡 RUNNING 100% FREE WITH OLLAMA</div>
               <p class="doc-p">
-                Install <a href="https://ollama.ai" target="_blank" style="color: var(--accent-primary); text-decoration: underline;">Ollama</a>, pull a model (e.g., <code>ollama pull qwen2.5-coder:7b</code>), select "Ollama" during <code>devmemory init</code>, and you have a fully functional AI memory layer running entirely on your local machine with zero API costs.
+                Select <strong>Ollama</strong> during <code>devmemory init</code>. If Ollama is not installed locally, DevMemory will automatically detect your OS, download and install the portable Ollama binary under <code>~/.devmemory/bin/</code>, launch the local service on port 11434 in the background, and pull the fast, low-resource <code>qwen2.5-coder:0.5b</code> model. No manual installation is required!
               </p>
             </div>
 
@@ -1009,6 +1109,24 @@ devmemory record -p "Add user dashboard"</pre>
           </section>
 
         </main>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ad Popup Modal -->
+  <div id="ad-overlay" class="ad-overlay">
+    <div class="ad-modal">
+      <div class="ad-header">
+        <span class="ad-title">SPONSORED AD</span>
+        <button id="ad-close-btn" class="ad-close-btn">&times;</button>
+      </div>
+      <div class="ad-body">
+        <a href="https://parkospace.xyz" target="_blank" class="ad-link" id="ad-link">
+          <img src="parkospace_ad.jpg" alt="ParkoSpace - Stop the Parking Nightmare!" class="ad-image">
+        </a>
+      </div>
+      <div class="ad-footer">
+        <span class="ad-redirect-hint">Click image to visit parkospace.xyz</span>
       </div>
     </div>
   </div>

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupScrollspy();
   setupCodeCopy();
   setupTerminalSimulation();
+  setupAdPopup();
 });
 
 // =============================================
@@ -29,6 +30,13 @@ function setupTabs() {
         content.classList.remove('active');
       }
     });
+
+    // Handle ad visibility based on active tab
+    if (tabId === 'home') {
+      showAdPopup();
+    } else {
+      hideAdPopup();
+    }
   }
 
   navButtons.forEach(btn => {
@@ -60,28 +68,39 @@ function setupScrollspy() {
 
   if (!readerPanel || sections.length === 0 || sidebarLinks.length === 0) return;
 
-  // Click handler: scroll smoothly to target section
+  // Click handler: scroll smoothly to target section (handles mobile and desktop scrolling)
   sidebarLinks.forEach(link => {
     link.addEventListener('click', () => {
       const targetId = link.getAttribute('data-target');
       const targetSection = document.getElementById(targetId);
 
       if (targetSection) {
-        const containerTop = readerPanel.getBoundingClientRect().top;
-        const targetTop = targetSection.getBoundingClientRect().top;
-        const scrollPosition = readerPanel.scrollTop + (targetTop - containerTop) - 20;
+        const isMobile = window.innerWidth <= 768;
+        if (isMobile) {
+          // On mobile, the window itself scrolls, offset by sticky horizontal header and sidebar (110px)
+          const targetTop = targetSection.getBoundingClientRect().top + window.scrollY - 110;
+          window.scrollTo({
+            top: targetTop,
+            behavior: 'smooth'
+          });
+        } else {
+          // On desktop, the reader panel scrolls internally
+          const containerTop = readerPanel.getBoundingClientRect().top;
+          const targetTop = targetSection.getBoundingClientRect().top;
+          const scrollPosition = readerPanel.scrollTop + (targetTop - containerTop) - 20;
 
-        readerPanel.scrollTo({
-          top: scrollPosition,
-          behavior: 'smooth'
-        });
+          readerPanel.scrollTo({
+            top: scrollPosition,
+            behavior: 'smooth'
+          });
+        }
       }
     });
   });
 
-  // Scroll handler: highlight sidebar link based on scroll position
+  // Scroll handler: highlight sidebar link based on scroll position (handles window scrolling on mobile, container on desktop)
   let ticking = false;
-  readerPanel.addEventListener('scroll', () => {
+  const handleScroll = () => {
     if (!ticking) {
       window.requestAnimationFrame(() => {
         updateActiveSection();
@@ -89,29 +108,52 @@ function setupScrollspy() {
       });
       ticking = true;
     }
-  });
+  };
+
+  readerPanel.addEventListener('scroll', handleScroll);
+  window.addEventListener('scroll', handleScroll);
 
   function updateActiveSection() {
-    const containerTop = readerPanel.getBoundingClientRect().top;
-    const scrollTop = readerPanel.scrollTop;
-    const scrollHeight = readerPanel.scrollHeight;
-    const clientHeight = readerPanel.clientHeight;
-
+    const isMobile = window.innerWidth <= 768;
     let activeSectionId = '';
 
-    // Check if we're at the bottom — force the last section
-    if (scrollTop + clientHeight >= scrollHeight - 10) {
-      activeSectionId = sections[sections.length - 1].id;
-    } else if (scrollTop === 0) {
-      // At the very top, select first section
-      activeSectionId = sections[0].id;
+    if (isMobile) {
+      const scrollY = window.scrollY;
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = window.innerHeight;
+
+      // Check if we are at the bottom of the page
+      if (scrollY + clientHeight >= scrollHeight - 30) {
+        activeSectionId = sections[sections.length - 1].id;
+      } else if (scrollY <= 50) {
+        activeSectionId = sections[0].id;
+      } else {
+        // Find which section is visible under the sticky horizontal nav (120px offset)
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const sectionTop = sections[i].getBoundingClientRect().top; // relative to viewport
+          if (sectionTop <= 130) {
+            activeSectionId = sections[i].id;
+            break;
+          }
+        }
+      }
     } else {
-      // Normal: find which section is currently visible
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const sectionTop = sections[i].getBoundingClientRect().top;
-        if (sectionTop - containerTop <= 80) {
-          activeSectionId = sections[i].id;
-          break;
+      const containerTop = readerPanel.getBoundingClientRect().top;
+      const scrollTop = readerPanel.scrollTop;
+      const scrollHeight = readerPanel.scrollHeight;
+      const clientHeight = readerPanel.clientHeight;
+
+      if (scrollTop + clientHeight >= scrollHeight - 10) {
+        activeSectionId = sections[sections.length - 1].id;
+      } else if (scrollTop === 0) {
+        activeSectionId = sections[0].id;
+      } else {
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const sectionTop = sections[i].getBoundingClientRect().top;
+          if (sectionTop - containerTop <= 80) {
+            activeSectionId = sections[i].id;
+            break;
+          }
         }
       }
     }
@@ -125,19 +167,33 @@ function setupScrollspy() {
         }
       });
 
-      // Scroll sidebar to keep active link visible
+      // Scroll sidebar to keep active link visible (supports vertical sidebar for desktop and horizontal for mobile)
       const activeLink = document.querySelector('.sidebar-link.active');
       const sidebar = document.getElementById('docs-sidebar');
       if (activeLink && sidebar) {
-        const linkTop = activeLink.offsetTop;
-        const sidebarScrollTop = sidebar.scrollTop;
-        const sidebarHeight = sidebar.clientHeight;
+        const isHorizontal = window.innerWidth <= 768;
+        if (isHorizontal) {
+          const linkLeft = activeLink.offsetLeft;
+          const sidebarScrollLeft = sidebar.scrollLeft;
+          const sidebarWidth = sidebar.clientWidth;
 
-        if (linkTop < sidebarScrollTop || linkTop > sidebarScrollTop + sidebarHeight - 40) {
-          sidebar.scrollTo({
-            top: linkTop - sidebarHeight / 3,
-            behavior: 'smooth'
-          });
+          if (linkLeft < sidebarScrollLeft || linkLeft > sidebarScrollLeft + sidebarWidth - 80) {
+            sidebar.scrollTo({
+              left: linkLeft - sidebarWidth / 3,
+              behavior: 'smooth'
+            });
+          }
+        } else {
+          const linkTop = activeLink.offsetTop;
+          const sidebarScrollTop = sidebar.scrollTop;
+          const sidebarHeight = sidebar.clientHeight;
+
+          if (linkTop < sidebarScrollTop || linkTop > sidebarScrollTop + sidebarHeight - 40) {
+            sidebar.scrollTo({
+              top: linkTop - sidebarHeight / 3,
+              behavior: 'smooth'
+            });
+          }
         }
       }
     }
@@ -255,4 +311,65 @@ function setupTerminalSimulation() {
 
   // Start after a short delay
   setTimeout(typeCommand, 700);
+}
+
+// =============================================
+// 5. Sponsored Ad Popup Logic
+// =============================================
+let adOverlayTimeout = null;
+
+function showAdPopup() {
+  const overlay = document.getElementById('ad-overlay');
+  if (!overlay) return;
+
+  if (adOverlayTimeout) {
+    clearTimeout(adOverlayTimeout);
+  }
+
+  // Show the ad after a brief delay for smoother loading experience
+  adOverlayTimeout = setTimeout(() => {
+    overlay.classList.add('active');
+  }, 1200);
+}
+
+function hideAdPopup() {
+  const overlay = document.getElementById('ad-overlay');
+  if (overlay) {
+    overlay.classList.remove('active');
+  }
+  if (adOverlayTimeout) {
+    clearTimeout(adOverlayTimeout);
+    adOverlayTimeout = null;
+  }
+}
+
+function setupAdPopup() {
+  const overlay = document.getElementById('ad-overlay');
+  const closeBtn = document.getElementById('ad-close-btn');
+  const adLink = document.getElementById('ad-link');
+
+  if (!overlay || !closeBtn) return;
+
+  // Show on initial page load (since Home is active by default)
+  showAdPopup();
+
+  // Close on close button click
+  closeBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    hideAdPopup();
+  });
+
+  // Close on clicking outside the modal
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) {
+      hideAdPopup();
+    }
+  });
+
+  // Close when clicking the ad link (so modal is closed if they return)
+  if (adLink) {
+    adLink.addEventListener('click', () => {
+      hideAdPopup();
+    });
+  }
 }
