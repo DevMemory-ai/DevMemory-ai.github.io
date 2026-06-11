@@ -96,20 +96,21 @@
           <button class="sidebar-link" data-target="section-prereqs">02. Prerequisites</button>
           <button class="sidebar-link" data-target="section-install">03. Installation</button>
 
-          <div class="sidebar-category">CORE COMMANDS</div>
-          <button class="sidebar-link" data-target="section-init">04. devmemory init</button>
-          <button class="sidebar-link" data-target="section-config">05. devmemory config</button>
-          <button class="sidebar-link" data-target="section-record">06. devmemory record</button>
-          <button class="sidebar-link" data-target="section-watch">07. devmemory watch</button>
-          <button class="sidebar-link" data-target="section-show">08. devmemory show</button>
-          <button class="sidebar-link" data-target="section-context">09. devmemory context</button>
-          <button class="sidebar-link" data-target="section-setup-ollama">10. devmemory setup-ollama</button>
+           <div class="sidebar-category">CORE COMMANDS</div>
+           <button class="sidebar-link" data-target="section-init">04. devmemory init</button>
+           <button class="sidebar-link" data-target="section-config">05. devmemory config</button>
+           <button class="sidebar-link" data-target="section-record">06. devmemory record</button>
+           <button class="sidebar-link" data-target="section-watch">07. devmemory watch</button>
+           <button class="sidebar-link" data-target="section-show">08. devmemory show</button>
+           <button class="sidebar-link" data-target="section-context">09. devmemory context</button>
+           <button class="sidebar-link" data-target="section-setup-ollama">10. devmemory setup-ollama</button>
+           <button class="sidebar-link" data-target="section-terminate">11. devmemory terminate</button>
 
-          <div class="sidebar-category">INTERNALS</div>
-          <button class="sidebar-link" data-target="section-agents">11. Multi-Agent Pipeline</button>
-          <button class="sidebar-link" data-target="section-files">12. File Structure</button>
-          <button class="sidebar-link" data-target="section-env">13. Environment Variables</button>
-          <button class="sidebar-link" data-target="section-providers">14. Supported Providers</button>
+           <div class="sidebar-category">INTERNALS</div>
+           <button class="sidebar-link" data-target="section-agents">12. Multi-Agent Pipeline</button>
+           <button class="sidebar-link" data-target="section-files">13. File Structure</button>
+           <button class="sidebar-link" data-target="section-env">14. Environment Variables</button>
+           <button class="sidebar-link" data-target="section-providers">15. Supported Providers</button>
         </aside>
 
         <!-- Docs Reader Panel -->
@@ -143,90 +144,82 @@
             </p>
           </section>
 
-          <!-- ============================================ -->
-          <!-- 02. PREREQUISITES -->
-          <!-- ============================================ -->
-          <section id="section-prereqs" class="doc-section">
-            <h1 class="doc-h1">02. Prerequisites</h1>
-            <p class="doc-p">
-              Before installing DevMemory AI, you need two tools installed on your machine and available in your system <code>PATH</code>. Without these, the CLI will not function.
-            </p>
+           <!-- ============================================ -->
+           <!-- 02. PREREQUISITES -->
+           <!-- ============================================ -->
+           <section id="section-prereqs" class="doc-section">
+             <h1 class="doc-h1">02. Prerequisites</h1>
+             <p class="doc-p">
+               Before installing DevMemory AI, you need two tools installed on your machine and available in your system <code>PATH</code>. Without these, the CLI will not function.
+             </p>
 
-            <div class="prereq-grid">
-              <div class="prereq-card">
-                <div class="prereq-icon">🐍</div>
-                <h3 class="prereq-title">Python 3</h3>
-                <p class="prereq-desc">Version <strong>3.8 or higher</strong> is required. DevMemory's core engine is written in Python and uses libraries like <code>requests</code>, <code>GitPython</code>, <code>pydantic</code>, <code>click</code>, and <code>watchdog</code>.</p>
-                <a href="https://www.python.org/downloads/" target="_blank" class="prereq-link">↗ Download Python 3</a>
-              </div>
-              <div class="prereq-card">
-                <div class="prereq-icon">📦</div>
-                <h3 class="prereq-title">Git</h3>
-                <p class="prereq-desc">Git must be installed and initialized in your project. DevMemory reads git diffs, commit history, and staging areas to analyze your code changes.</p>
-                <a href="https://git-scm.com/downloads" target="_blank" class="prereq-link">↗ Download Git</a>
-              </div>
-            </div>
+             <div class="prereq-grid">
+               <div class="prereq-card">
+                 <div class="prereq-icon">🟢</div>
+                 <h3 class="prereq-title">Node.js 18+</h3>
+                 <p class="prereq-desc">Version <strong>18.0.0 or higher</strong> is required. DevMemory is built on Node.js and distributed via npm.</p>
+                 <a href="https://nodejs.org/" target="_blank" class="prereq-link">↗ Download Node.js</a>
+               </div>
+               <div class="prereq-card">
+                 <div class="prereq-icon">📦</div>
+                 <h3 class="prereq-title">Git</h3>
+                 <p class="prereq-desc">Git must be installed and initialized in your project. DevMemory reads git diffs, commit history, and staging areas to analyze your code changes.</p>
+                 <a href="https://git-scm.com/downloads" target="_blank" class="prereq-link">↗ Download Git</a>
+               </div>
+             </div>
 
-            <h2 class="doc-h2">Verifying Your Installation</h2>
-            <p class="doc-p">Open a terminal and run these commands to confirm both tools are accessible:</p>
-            <div class="code-container">
-              <div class="code-header">
-                <span>TERMINAL</span>
-                <button class="code-copy-btn">copy</button>
-              </div>
-              <pre class="code-block">python3 --version
-# Expected output: Python 3.8.x or higher
+             <h2 class="doc-h2">Verifying Your Installation</h2>
+             <p class="doc-p">Open a terminal and run these commands to confirm both tools are accessible:</p>
+             <div class="code-container">
+               <div class="code-header">
+                 <span>TERMINAL</span>
+                 <button class="code-copy-btn">copy</button>
+               </div>
+               <pre class="code-block">node --version
+# Expected output: v18.0.0 or higher
 
 git --version
 # Expected output: git version 2.x.x</pre>
-            </div>
-            <p class="doc-p">
-              If <code>python3</code> is not found, try <code>python --version</code> instead. On Windows, the command is often just <code>python</code>. DevMemory's Node wrapper automatically detects both.
-            </p>
-            <div class="doc-alert warning">
-              <div class="alert-title">⚠ IMPORTANT</div>
-              <p class="doc-p">
-                You do <strong>not</strong> need to install Python dependencies manually. When DevMemory runs for the first time, the Node wrapper automatically installs <code>requests</code>, <code>GitPython</code>, <code>pydantic</code>, <code>click</code>, and <code>watchdog</code> via <code>pip</code> silently in the background.
-              </p>
-            </div>
-          </section>
+             </div>
+             <p class="doc-p">
+               Node.js includes npm by default. You can verify npm is available by running <code>npm --version</code>.
+             </p>
+           </section>
 
-          <!-- ============================================ -->
-          <!-- 03. INSTALLATION -->
-          <!-- ============================================ -->
-          <section id="section-install" class="doc-section">
-            <h1 class="doc-h1">03. Installation</h1>
-            <p class="doc-p">
-              DevMemory AI is distributed as a global npm package. It contains a lightweight Node.js binary wrapper that manages the underlying Python engine. Installing it globally registers the <code>devmemory</code> command system-wide.
-            </p>
-            <div class="code-container">
-              <div class="code-header">
-                <span>TERMINAL</span>
-                <button class="code-copy-btn">copy</button>
-              </div>
-              <pre class="code-block">npm install -g devmemory-ai</pre>
-            </div>
+           <!-- ============================================ -->
+           <!-- 03. INSTALLATION -->
+           <!-- ============================================ -->
+           <section id="section-install" class="doc-section">
+             <h1 class="doc-h1">03. Installation</h1>
+             <p class="doc-p">
+               DevMemory AI is distributed as a global npm package. Installing it globally registers the <code>devmemory</code> command system-wide.
+             </p>
+             <div class="code-container">
+               <div class="code-header">
+                 <span>TERMINAL</span>
+                 <button class="code-copy-btn">copy</button>
+               </div>
+               <pre class="code-block">npm install -g devmemory-ai</pre>
+             </div>
 
-            <h2 class="doc-h2">What Happens During Installation</h2>
-            <ol class="doc-list numbered">
-              <li>npm downloads the <code>devmemory-ai</code> package and registers the global <code>devmemory</code> binary.</li>
-              <li>The binary points to <code>bin/index.js</code>, a Node.js wrapper script.</li>
-              <li>On first run, <code>bin/index.js</code> checks if <code>python3</code> (or <code>python</code> on Windows) exists on your system.</li>
-              <li>It then silently installs the required Python packages (<code>pip install requests GitPython pydantic click watchdog</code>) if they are missing.</li>
-              <li>Finally, it spawns the Python CLI module (<code>python3 -m devmemory.cli</code>) and forwards all your command-line arguments to it.</li>
-            </ol>
+             <h2 class="doc-h2">What Happens During Installation</h2>
+             <ol class="doc-list numbered">
+               <li>npm downloads the <code>devmemory-ai</code> package and registers the global <code>devmemory</code> binary.</li>
+               <li>The binary is ready to use immediately — no additional setup required.</li>
+               <li>All dependencies are pre-built and included in the package.</li>
+             </ol>
 
-            <h2 class="doc-h2">Verify Installation</h2>
-            <p class="doc-p">After installing, confirm the CLI is working by running:</p>
-            <div class="code-container">
-              <div class="code-header">
-                <span>TERMINAL</span>
-                <button class="code-copy-btn">copy</button>
-              </div>
-              <pre class="code-block">devmemory --help</pre>
-            </div>
-            <p class="doc-p">You should see the help menu listing all available subcommands: <code>init</code>, <code>config</code>, <code>record</code>, <code>watch</code>, <code>show</code>, <code>context</code>, and <code>setup-ollama</code>.</p>
-          </section>
+             <h2 class="doc-h2">Verify Installation</h2>
+             <p class="doc-p">After installing, confirm the CLI is working by running:</p>
+             <div class="code-container">
+               <div class="code-header">
+                 <span>TERMINAL</span>
+                 <button class="code-copy-btn">copy</button>
+               </div>
+               <pre class="code-block">devmemory --help</pre>
+             </div>
+             <p class="doc-p">You should see the help menu listing all available subcommands: <code>init</code>, <code>config</code>, <code>record</code>, <code>watch</code>, <code>show</code>, <code>context</code>, <code>setup-ollama</code>, and <code>terminate</code>.</p>
+           </section>
 
           <!-- ============================================ -->
           <!-- 04. devmemory init -->
@@ -823,13 +816,69 @@ pulling 1f7df2b1ff20... 100% ▕████████████████
 
 Ollama and model are fully set up and ready to use!</pre>
             </div>
-          </section>
+           </section>
 
-          <!-- ============================================ -->
-          <!-- 11. MULTI-AGENT PIPELINE -->
-          <!-- ============================================ -->
-          <section id="section-agents" class="doc-section">
-            <h1 class="doc-h1">11. Multi-Agent Pipeline</h1>
+           <!-- ============================================ -->
+           <!-- 11. devmemory terminate -->
+           <!-- ============================================ -->
+           <section id="section-terminate" class="doc-section">
+             <h1 class="doc-h1">11. devmemory terminate</h1>
+             <p class="doc-p">
+               Stops and removes the background daemon, preventing it from auto-starting on system reboot. This is useful when you want to completely disable DevMemory monitoring for a project or clean up system resources.
+             </p>
+
+             <h2 class="doc-h2">Syntax</h2>
+             <div class="code-container">
+               <div class="code-header">
+                 <span>TERMINAL</span>
+                 <button class="code-copy-btn">copy</button>
+               </div>
+               <pre class="code-block">devmemory terminate</pre>
+             </div>
+             <p class="doc-p">No flags or arguments. Must be run from the root directory of your initialized project.</p>
+
+             <h2 class="doc-h2">What It Does</h2>
+             <p class="doc-p">
+               Unregisters and stops the daemon service that was created during <code>devmemory init</code>:
+             </p>
+             <ul class="doc-list">
+               <li><strong>macOS</strong> — Unloads and removes the LaunchAgent plist from <code>~/Library/LaunchAgents/com.devmemory.watcher.&lt;hash&gt;.plist</code>. Kills any running daemon process.</li>
+               <li><strong>Linux</strong> — Stops and disables the systemd user service from <code>~/.config/systemd/user/devmemory-watcher-&lt;hash&gt;.service</code>. Kills any running daemon process.</li>
+               <li><strong>Windows</strong> — Removes the startup batch file from the Windows Startup folder and terminates the daemon process.</li>
+             </ul>
+
+             <h2 class="doc-h2">When to Use</h2>
+             <ul class="doc-list">
+               <li>When you want to stop monitoring a project permanently.</li>
+               <li>Before uninstalling DevMemory globally or deleting a project directory.</li>
+               <li>To free up system resources on machines with limited memory.</li>
+               <li>If the daemon becomes unresponsive or you want to manually clean it up.</li>
+             </ul>
+
+             <h2 class="doc-h2">Example</h2>
+             <div class="code-container">
+               <div class="code-header">
+                 <span>TERMINAL — EXAMPLE OUTPUT</span>
+                 <button class="code-copy-btn">copy</button>
+               </div>
+               <pre class="code-block">$ devmemory terminate
+[DevMemory] Stopping background daemon...
+[DevMemory] Daemon successfully terminated and removed from system startup.</pre>
+             </div>
+
+             <div class="doc-alert">
+               <div class="alert-title">💡 NOTE</div>
+               <p class="doc-p">
+                 This command only affects the daemon process. Your memory files (<code>.devmemory/</code>) and project data are preserved. You can run <code>devmemory init</code> again to restart monitoring at any time.
+               </p>
+             </div>
+           </section>
+
+           <!-- ============================================ -->
+           <!-- 12. MULTI-AGENT PIPELINE -->
+           <!-- ============================================ -->
+           <section id="section-agents" class="doc-section">
+             <h1 class="doc-h1">12. Multi-Agent Pipeline</h1>
             <p class="doc-p">
               Every time DevMemory records a build (via <code>record</code> or <code>watch</code>), it orchestrates a team of <strong>7 specialized AI sub-agents</strong>. Each agent receives the git diff and relevant context, performs a focused analysis, and returns structured output. The first 5 agents produce the build memory file content; the final 2 agents update the living project brain and changelog.
             </p>
@@ -873,10 +922,10 @@ Ollama and model are fully set up and ready to use!</pre>
           </section>
 
           <!-- ============================================ -->
-          <!-- 11. FILE STRUCTURE -->
-          <!-- ============================================ -->
-          <section id="section-files" class="doc-section">
-            <h1 class="doc-h1">12. File Structure</h1>
+           <!-- 13. FILE STRUCTURE -->
+           <!-- ============================================ -->
+           <section id="section-files" class="doc-section">
+             <h1 class="doc-h1">13. File Structure</h1>
             <p class="doc-p">
               After initialization and a few recorded builds, your <code>.devmemory/</code> directory will look like this:
             </p>
@@ -966,10 +1015,10 @@ Ollama and model are fully set up and ready to use!</pre>
           </section>
 
           <!-- ============================================ -->
-          <!-- 12. ENVIRONMENT VARIABLES -->
-          <!-- ============================================ -->
-          <section id="section-env" class="doc-section">
-            <h1 class="doc-h1">13. Environment Variables</h1>
+           <!-- 14. ENVIRONMENT VARIABLES -->
+           <!-- ============================================ -->
+           <section id="section-env" class="doc-section">
+             <h1 class="doc-h1">14. Environment Variables</h1>
             <p class="doc-p">
               DevMemory supports environment variable overrides for API keys. If a matching environment variable is set, it takes priority over the key stored in <code>config.json</code>. This is useful for CI/CD environments or when you don't want to store keys on disk.
             </p>
@@ -1016,10 +1065,10 @@ devmemory record -p "Add user dashboard"</pre>
           </section>
 
           <!-- ============================================ -->
-          <!-- 13. SUPPORTED PROVIDERS -->
-          <!-- ============================================ -->
-          <section id="section-providers" class="doc-section">
-            <h1 class="doc-h1">14. Supported Providers</h1>
+           <!-- 15. SUPPORTED PROVIDERS -->
+           <!-- ============================================ -->
+           <section id="section-providers" class="doc-section">
+             <h1 class="doc-h1">15. Supported Providers</h1>
             <p class="doc-p">
               DevMemory AI is provider-agnostic. You can use it with cloud APIs or run it <strong>completely free and offline</strong> using a local model. Here is the full list of supported providers, their default models, and endpoints:
             </p>
