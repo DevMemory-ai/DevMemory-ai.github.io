@@ -19,7 +19,7 @@
       <nav>
         <button class="nav-btn active" data-tab="home">[ HOME ]</button>
         <button class="nav-btn" data-tab="docs">[ DOCS ]</button>
-        <a href="https://github.com/DevMemory-ai/DevMemory" target="_blank" style="text-decoration: none;">
+        <a href="https://github.com/umeshadabala/DevMemory" target="_blank" style="text-decoration: none;">
           <button class="nav-btn">[ SOURCE ]</button>
         </a>
         <a href="https://umeshadabala.github.io/" target="_blank" style="text-decoration: none;">
@@ -40,7 +40,7 @@
           </p>
           <div class="hero-actions">
             <button class="btn-primary" id="hero-get-started">/docs/start</button>
-            <a href="https://github.com/DevMemory-ai/DevMemory" target="_blank">
+            <a href="https://github.com/umeshadabala/DevMemory" target="_blank">
               <button class="btn-secondary">git clone</button>
             </a>
           </div>
@@ -105,12 +105,14 @@
            <button class="sidebar-link" data-target="section-context">09. devmemory context</button>
            <button class="sidebar-link" data-target="section-setup-ollama">10. devmemory setup-ollama</button>
            <button class="sidebar-link" data-target="section-terminate">11. devmemory terminate</button>
+           <button class="sidebar-link" data-target="section-status">12. devmemory status</button>
+           <button class="sidebar-link" data-target="section-logs">13. devmemory logs</button>
 
            <div class="sidebar-category">INTERNALS</div>
-           <button class="sidebar-link" data-target="section-agents">12. Multi-Agent Pipeline</button>
-           <button class="sidebar-link" data-target="section-files">13. File Structure</button>
-           <button class="sidebar-link" data-target="section-env">14. Environment Variables</button>
-           <button class="sidebar-link" data-target="section-providers">15. Supported Providers</button>
+           <button class="sidebar-link" data-target="section-agents">14. Multi-Agent Pipeline</button>
+           <button class="sidebar-link" data-target="section-files">15. File Structure</button>
+           <button class="sidebar-link" data-target="section-env">16. Environment Variables</button>
+           <button class="sidebar-link" data-target="section-providers">17. Supported Providers</button>
         </aside>
 
         <!-- Docs Reader Panel -->
@@ -194,9 +196,22 @@ git --version
              <p class="doc-p">
                DevMemory AI is distributed as a global npm package. Installing it globally registers the <code>devmemory</code> command system-wide.
              </p>
+             <div class="doc-alert warning">
+               <div class="alert-title">⚠ IMPORTANT PRIVILEGES NOTE</div>
+               Because DevMemory AI registers global binaries and configures background watcher daemons (launchd plist, systemd user services, or startup batch files), you must run the installation command with Administrator/Superuser privileges.
+             </div>
+             <p class="doc-p"><strong>macOS & Linux (using sudo):</strong></p>
              <div class="code-container">
                <div class="code-header">
                  <span>TERMINAL</span>
+                 <button class="code-copy-btn">copy</button>
+               </div>
+               <pre class="code-block">sudo npm install -g devmemory-ai</pre>
+             </div>
+             <p class="doc-p"><strong>Windows (Administrator mode):</strong> Open PowerShell or Command Prompt as Administrator and run:</p>
+             <div class="code-container">
+               <div class="code-header">
+                 <span>POWERSHELL (ADMIN)</span>
                  <button class="code-copy-btn">copy</button>
                </div>
                <pre class="code-block">npm install -g devmemory-ai</pre>
@@ -532,7 +547,7 @@ Build successfully recorded!</pre>
             <ul class="doc-list">
               <li><strong>Pre-flight LLM health check</strong> — Before every recording attempt, the watcher pings your AI provider endpoint. If it is unreachable, the recording is skipped cleanly and an error is logged. Build index slots are never wasted.</li>
               <li><strong>Native OS alert on connection loss</strong> — If the LLM connection fails, DevMemory shows a native system alert box: <strong>AppleScript</strong> on macOS, <strong>PowerShell WPF MessageBox</strong> on Windows, and <strong>Zenity or KDialog</strong> on Linux. This alerts you even when the terminal is hidden or minimized.</li>
-              <li><strong>Alert deduplication via <code>watcher_state.json</code></strong> — The failure state is persisted to <code>.devmemory/watcher_state.json</code>. If the daemon restarts after a reboot, it reads this file and will <em>not</em> show a duplicate alert for an already-known failure. The alert only fires once per failure event. It shows a "Connection Regained" alert when service is restored.</li>
+              <li><strong>Alert deduplication via <code>watcher_state.json</code></strong> — The failure state is persisted to <code>.devmemory/watcher_state.json</code>. If the daemon restarts after a reboot, it reads this file and will <em>not* show a duplicate alert for an already-known failure. The alert only fires once per failure event. It shows a "Connection Regained" alert when service is restored.</li>
               <li><strong>Exponential backoff</strong> — After a failure, the watcher backs off for <code>30s</code>, then <code>60s</code>, then <code>120s</code>, capping at <code>5 minutes (300s)</code>. Once a successful LLM call is made, the backoff resets to zero.</li>
               <li><strong>Non-fatal sub-steps</strong> — Brain Agent and Changelog Agent updates are wrapped in independent try/except blocks. If one step fails, the others still complete and the build memory file is always saved.</li>
             </ul>
@@ -787,6 +802,16 @@ Successfully regenerated .devmemory/FULL_PROJECT_CONTEXT.md</pre>
               <li><strong>Interactive Model Pulling</strong> — Queries Ollama if the target model is already pulled. If not, pulls the model while streaming the download progress bar directly to your terminal.</li>
             </ol>
 
+            <div class="doc-alert warning">
+              <div class="alert-title">⚠ MANUAL INSTALLATION FALLBACK</div>
+              If the automatic setup fails due to restricted environments or connection limits, you can install Ollama manually:
+              <br><br>
+              <strong>macOS & Linux:</strong>
+              <pre class="code-block" style="margin-top: 5px; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px;">curl -fsSL https://ollama.com/install.sh | sh</pre>
+              <strong>Windows:</strong> Open PowerShell <strong>as Administrator</strong> and run:
+              <pre class="code-block" style="margin-top: 5px; background: rgba(0,0,0,0.3); padding: 8px; border-radius: 4px;">irm https://ollama.com/install.ps1 | iex</pre>
+            </div>
+
             <h2 class="doc-h2">When to Use</h2>
             <ul class="doc-list">
               <li>When initializing DevMemory with the Ollama local provider for the first time.</li>
@@ -875,10 +900,99 @@ Ollama and model are fully set up and ready to use!</pre>
            </section>
 
            <!-- ============================================ -->
-           <!-- 12. MULTI-AGENT PIPELINE -->
+           <!-- 12. devmemory status -->
+           <!-- ============================================ -->
+           <section id="section-status" class="doc-section">
+             <h1 class="doc-h1">12. devmemory status</h1>
+             <p class="doc-p">
+               Displays the current configuration settings, active LLM provider, target model, and details of the background watcher daemon. On macOS and Linux, it actively queries the OS service managers (launchd or systemd) to verify the process status (PID and running/stopped state) and lists the platform-specific commands to manage the service.
+             </p>
+
+             <h2 class="doc-h2">Syntax</h2>
+             <div class="code-container">
+               <div class="code-header">
+                 <span>TERMINAL</span>
+                 <button class="code-copy-btn">copy</button>
+               </div>
+               <pre class="code-block">devmemory status</pre>
+             </div>
+             <p class="doc-p">No flags or arguments. Must be run from the root directory of your initialized project.</p>
+
+             <h2 class="doc-h2">What It Does</h2>
+             <ul class="doc-list">
+               <li><strong>Configuration Summary</strong> — Prints the current project settings (Provider, Model, Base URL, Cooldown period).</li>
+               <li><strong>Active Process Check</strong> — Verifies if the daemon is loaded and running under the current user session.</li>
+               <li><strong>Platform Management Instructions</strong> — Lists the exact terminal commands to manually start, stop, restart, or view standard logs for the daemon on your current operating system.</li>
+             </ul>
+
+             <h2 class="doc-h2">Example</h2>
+             <div class="code-container">
+               <div class="code-header">
+                 <span>TERMINAL — EXAMPLE OUTPUT</span>
+                 <button class="code-copy-btn">copy</button>
+               </div>
+               <pre class="code-block">$ devmemory status
+=== DevMemory AI Status ===
+Project Path: /Users/username/my-project
+Provider:     ollama
+Model:        qwen2.5-coder:0.5b
+Base URL:     http://localhost:11434
+Cooldown:     15s
+
+--- Background Daemon Information ---
+Launchd Label: com.devmemory.watcher.c4472d443f75
+Status:        Active (PID: 75874)
+
+Management Commands:
+  Start:   launchctl load ~/Library/LaunchAgents/com.devmemory.watcher.c4472d443f75.plist
+  Stop:    launchctl unload ~/Library/LaunchAgents/com.devmemory.watcher.c4472d443f75.plist
+  Logs:    devmemory logs</pre>
+             </div>
+           </section>
+
+           <!-- ============================================ -->
+           <!-- 13. devmemory logs -->
+           <!-- ============================================ -->
+           <section id="section-logs" class="doc-section">
+             <h1 class="doc-h1">13. devmemory logs</h1>
+             <p class="doc-p">
+               Reads and outputs the recent log entries of the background watcher daemon directly from the local <code>.devmemory/watcher.log</code> file. This is highly useful for troubleshooting connectivity errors, verifying watcher events, or checking the progress of the multi-agent analysis.
+             </p>
+
+             <h2 class="doc-h2">Syntax</h2>
+             <div class="code-container">
+               <div class="code-header">
+                 <span>TERMINAL</span>
+                 <button class="code-copy-btn">copy</button>
+               </div>
+               <pre class="code-block">devmemory logs [OPTIONS]</pre>
+             </div>
+
+             <h2 class="doc-h2">Options</h2>
+             <ul class="doc-list">
+               <li><code>--lines, -n &lt;number&gt;</code> — The number of lines to display from the tail of the log file. Defaults to <code>50</code>.</li>
+             </ul>
+
+             <h2 class="doc-h2">Example</h2>
+             <div class="code-container">
+               <div class="code-header">
+                 <span>TERMINAL — EXAMPLE OUTPUT</span>
+                 <button class="code-copy-btn">copy</button>
+               </div>
+               <pre class="code-block">$ devmemory logs -n 5
+[2026-06-12T06:09:41.011Z] [DevMemory Watcher Event] change on index.html
+[2026-06-12T06:09:41.012Z] [DevMemory Watcher Change Detected] Relative path: index.html
+[2026-06-12T06:09:56.022Z] [DevMemory] Detected stabilized changes in: index.html
+[2026-06-12T06:09:56.023Z] [DevMemory] Recording changes automatically in background...
+[2026-06-12T06:10:04.550Z] [DevMemory] Memory successfully updated!</pre>
+             </div>
+           </section>
+
+           <!-- ============================================ -->
+           <!-- 14. MULTI-AGENT PIPELINE -->
            <!-- ============================================ -->
            <section id="section-agents" class="doc-section">
-             <h1 class="doc-h1">12. Multi-Agent Pipeline</h1>
+             <h1 class="doc-h1">14. Multi-Agent Pipeline</h1>
             <p class="doc-p">
               Every time DevMemory records a build (via <code>record</code> or <code>watch</code>), it orchestrates a team of <strong>7 specialized AI sub-agents</strong>. Each agent receives the git diff and relevant context, performs a focused analysis, and returns structured output. The first 5 agents produce the build memory file content; the final 2 agents update the living project brain and changelog.
             </p>
@@ -922,10 +1036,10 @@ Ollama and model are fully set up and ready to use!</pre>
           </section>
 
           <!-- ============================================ -->
-           <!-- 13. FILE STRUCTURE -->
+           <!-- 15. FILE STRUCTURE -->
            <!-- ============================================ -->
            <section id="section-files" class="doc-section">
-             <h1 class="doc-h1">13. File Structure</h1>
+             <h1 class="doc-h1">15. File Structure</h1>
             <p class="doc-p">
               After initialization and a few recorded builds, your <code>.devmemory/</code> directory will look like this:
             </p>
@@ -1015,10 +1129,10 @@ Ollama and model are fully set up and ready to use!</pre>
           </section>
 
           <!-- ============================================ -->
-           <!-- 14. ENVIRONMENT VARIABLES -->
+           <!-- 16. ENVIRONMENT VARIABLES -->
            <!-- ============================================ -->
            <section id="section-env" class="doc-section">
-             <h1 class="doc-h1">14. Environment Variables</h1>
+             <h1 class="doc-h1">16. Environment Variables</h1>
             <p class="doc-p">
               DevMemory supports environment variable overrides for API keys. If a matching environment variable is set, it takes priority over the key stored in <code>config.json</code>. This is useful for CI/CD environments or when you don't want to store keys on disk.
             </p>
@@ -1065,10 +1179,10 @@ devmemory record -p "Add user dashboard"</pre>
           </section>
 
           <!-- ============================================ -->
-           <!-- 15. SUPPORTED PROVIDERS -->
+           <!-- 17. SUPPORTED PROVIDERS -->
            <!-- ============================================ -->
            <section id="section-providers" class="doc-section">
-             <h1 class="doc-h1">15. Supported Providers</h1>
+             <h1 class="doc-h1">17. Supported Providers</h1>
             <p class="doc-p">
               DevMemory AI is provider-agnostic. You can use it with cloud APIs or run it <strong>completely free and offline</strong> using a local model. Here is the full list of supported providers, their default models, and endpoints:
             </p>
@@ -1152,7 +1266,7 @@ devmemory record -p "Add user dashboard"</pre>
             <div class="doc-alert warning">
               <div class="alert-title">🔒 GIT PRIVACY</div>
               <p class="doc-p">
-                Your API key is saved in <code>.devmemory/config.json</code> which is automatically added to <code>.gitignore</code> during initialization. If you prefer not to store keys on disk at all, use environment variables (see section 12) and leave the key blank during setup.
+                Your API key is saved in <code>.devmemory/config.json</code> which is automatically added to <code>.gitignore</code> during initialization. If you prefer not to store keys on disk at all, use environment variables (see section 16) and leave the key blank during setup.
               </p>
             </div>
           </section>
