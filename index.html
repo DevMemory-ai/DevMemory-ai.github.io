@@ -95,6 +95,7 @@
           <button class="sidebar-link active" data-target="section-intro">01. Introduction</button>
           <button class="sidebar-link" data-target="section-prereqs">02. Prerequisites</button>
           <button class="sidebar-link" data-target="section-install">03. Installation</button>
+          <button class="sidebar-link" data-target="section-version">03a. devmemory --version</button>
 
            <div class="sidebar-category">CORE COMMANDS</div>
            <button class="sidebar-link" data-target="section-init">04. devmemory init</button>
@@ -107,13 +108,13 @@
            <button class="sidebar-link" data-target="section-terminate">11. devmemory terminate</button>
            <button class="sidebar-link" data-target="section-status">12. devmemory status</button>
            <button class="sidebar-link" data-target="section-logs">13. devmemory logs</button>
+           <button class="sidebar-link" data-target="section-ratelimit">13a. Rate Limiting</button>
 
            <div class="sidebar-category">INTERNALS</div>
            <button class="sidebar-link" data-target="section-agents">14. Multi-Agent Pipeline</button>
            <button class="sidebar-link" data-target="section-files">15. File Structure</button>
            <button class="sidebar-link" data-target="section-env">16. Environment Variables</button>
            <button class="sidebar-link" data-target="section-providers">17. Supported Providers</button>
-           <button class="sidebar-link" data-target="section-ratelimit">18. Rate Limiting</button>
         </aside>
 
         <!-- Docs Reader Panel -->
@@ -235,6 +236,38 @@ git --version
                <pre class="code-block">devmemory --help</pre>
              </div>
              <p class="doc-p">You should see the help menu listing all available subcommands: <code>init</code>, <code>config</code>, <code>record</code>, <code>watch</code>, <code>show</code>, <code>context</code>, <code>setup-ollama</code>, and <code>terminate</code>.</p>
+           </section>
+
+           <!-- ============================================ -->
+           <!-- 03a. devmemory --version -->
+           <!-- ============================================ -->
+           <section id="section-version" class="doc-section">
+             <h1 class="doc-h1">03a. devmemory --version</h1>
+             <p class="doc-p">
+               Outputs the active version of the installed DevMemory AI package.
+             </p>
+
+             <h2 class="doc-h2">Syntax</h2>
+             <div class="code-container">
+               <div class="code-header">
+                 <span>TERMINAL</span>
+                 <button class="code-copy-btn">copy</button>
+               </div>
+               <pre class="code-block">devmemory --version
+# OR:
+devmemory -v
+# OR:
+devmemory version</pre>
+             </div>
+
+             <h2 class="doc-h2">Example Output</h2>
+             <div class="code-container">
+               <div class="code-header">
+                 <span>TERMINAL OUTPUT</span>
+                 <button class="code-copy-btn">copy</button>
+               </div>
+               <pre class="code-block">v2.3.1</pre>
+             </div>
            </section>
 
           <!-- ============================================ -->
@@ -981,16 +1014,42 @@ Management Commands:
                  <button class="code-copy-btn">copy</button>
                </div>
                <pre class="code-block">$ devmemory logs -n 5
+              <pre class="code-block">$ devmemory logs -n 5
 [2026-06-12T06:09:41.011Z] [DevMemory Watcher Event] change on index.html
 [2026-06-12T06:09:41.012Z] [DevMemory Watcher Change Detected] Relative path: index.html
 [2026-06-12T06:09:56.022Z] [DevMemory] Detected stabilized changes in: index.html
 [2026-06-12T06:09:56.023Z] [DevMemory] Recording changes automatically in background...
 [2026-06-12T06:10:04.550Z] [DevMemory] Memory successfully updated!</pre>
-             </div>
-           </section>
+            </div>
+            </section>
 
-           <!-- ============================================ -->
-           <!-- 14. MULTI-AGENT PIPELINE -->
+            <!-- ============================================ -->
+            <!-- 13a. Rate Limiting -->
+            <!-- ============================================ -->
+            <section id="section-ratelimit" class="doc-section">
+              <h1 class="doc-h1">13a. Rate Limiting</h1>
+              <p class="doc-p">
+                DevMemory AI features an autonomous, customizable session rate limit system designed to safeguard your local machine and API budgets.
+              </p>
+
+              <h2 class="doc-h2">Why Rate Limiting is Necessary</h2>
+              <ul class="doc-list">
+                <li><strong>Infinite Loops in Small Models</strong> — Smaller local LLMs (like <code>qwen2.5-coder:0.5b</code>) are prone to repetitive generation bugs. If the model gets caught in a loop, it could write infinitely to the build files, bloating your storage and keeping your CPU pegged at 100%. Rate limiting forces a safety break.</li>
+                <li><strong>API Cost Protection</strong> — Prevents background watch events from running wild and making hundreds of expensive cloud API requests (e.g., using Gemini, Claude, or OpenAI), protecting you from unexpected bills.</li>
+                <li><strong>System Resource Conservation</strong> — Rather than allowing a stuck watcher to continue consuming background CPU and API credits, DevMemory breaks early and goes dormant.</li>
+              </ul>
+
+              <h2 class="doc-h2">How It Works</h2>
+              <ul class="doc-list">
+                <li><strong>Session Threshold</strong> — During <code>devmemory config</code>, you can define a maximum number of API calls permitted per session (leave it blank for unlimited).</li>
+                <li><strong>One-Time Desktop Alert</strong> — When the threshold is reached, DevMemory triggers a native OS popup warning on your screen (using AppleScript on macOS, PowerShell on Windows, or zenity on Linux) to notify you immediately. To prevent notification spam, this popup is shown <strong>only once</strong> per configuration (tracked via <code>.devmemory/rate_limit_warned</code>).</li>
+                <li><strong>Graceful Service Kill</strong> — The background daemon is automatically stopped (equivalent to running <code>devmemory terminate</code>) to ensure it doesn't try to auto-restart and hit the limit again.</li>
+                <li><strong>Warning Reset</strong> — Once you run <code>devmemory config</code> or <code>devmemory init</code> to adjust your limits, the warning state is reset.</li>
+              </ul>
+            </section>
+
+            <!-- ============================================ -->
+            <!-- 14. MULTI-AGENT PIPELINE -->
            <!-- ============================================ -->
            <section id="section-agents" class="doc-section">
              <h1 class="doc-h1">14. Multi-Agent Pipeline</h1>
@@ -1270,27 +1329,6 @@ devmemory record -p "Add user dashboard"</pre>
                 Your API key is saved in <code>.devmemory/config.json</code> which is automatically added to <code>.gitignore</code> during initialization. If you prefer not to store keys on disk at all, use environment variables (see section 16) and leave the key blank during setup.
               </p>
             </div>
-          </section>
-
-          <!-- ============================================ -->
-          <!-- 18. RATE LIMITING -->
-          <!-- ============================================ -->
-          <section id="section-ratelimit" class="doc-section">
-            <h1 class="doc-h1">18. Rate Limiting</h1>
-            <p class="doc-p">
-              DevMemory AI includes a customizable rate limit system to prevent runaway processes, unexpected API costs, or infinite generation loops (especially when utilizing small or local models).
-            </p>
-            <p class="doc-p">
-              You can specify the maximum number of API calls permitted per session during the configuration wizard. If the watcher daemon or CLI reaches this limit, it will break execution, trigger a native OS warning dialog on your desktop, and terminate the background daemon process to save resources.
-            </p>
-
-            <h2 class="doc-h2">How It Works</h2>
-            <ul class="doc-list">
-              <li><strong>Configurable Threshold</strong> — During <code>devmemory config</code>, you are prompted to set an API call limit. Leaving it blank sets it to unlimited.</li>
-               <li><strong>Single-Warning Popup</strong> — When the limit is reached, a desktop notification/alert box is triggered exactly once per session. This is tracked using <code>.devmemory/rate_limit_warned</code> to prevent desktop alert spam.</li>
-              <li><strong>Graceful Shutdown</strong> — The background watcher daemon is terminated automatically, so it won't repeatedly restart or continue hitting rate limits.</li>
-              <li><strong>Warning Reset</strong> — Running <code>devmemory config</code> or <code>devmemory init</code> automatically resets the warning state and clears the rate limit counter.</li>
-            </ul>
           </section>
 
         </main>
