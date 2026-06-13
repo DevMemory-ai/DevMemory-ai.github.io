@@ -95,26 +95,26 @@
           <button class="sidebar-link active" data-target="section-intro">01. Introduction</button>
           <button class="sidebar-link" data-target="section-prereqs">02. Prerequisites</button>
           <button class="sidebar-link" data-target="section-install">03. Installation</button>
-          <button class="sidebar-link" data-target="section-version">03a. devmemory --version</button>
+          <button class="sidebar-link" data-target="section-version">04. devmemory --version</button>
 
            <div class="sidebar-category">CORE COMMANDS</div>
-           <button class="sidebar-link" data-target="section-init">04. devmemory init</button>
-           <button class="sidebar-link" data-target="section-config">05. devmemory config</button>
-           <button class="sidebar-link" data-target="section-record">06. devmemory record</button>
-           <button class="sidebar-link" data-target="section-watch">07. devmemory watch</button>
-           <button class="sidebar-link" data-target="section-show">08. devmemory show</button>
-           <button class="sidebar-link" data-target="section-context">09. devmemory context</button>
-           <button class="sidebar-link" data-target="section-setup-ollama">10. devmemory setup-ollama</button>
-           <button class="sidebar-link" data-target="section-terminate">11. devmemory terminate</button>
-           <button class="sidebar-link" data-target="section-status">12. devmemory status</button>
-           <button class="sidebar-link" data-target="section-logs">13. devmemory logs</button>
-           <button class="sidebar-link" data-target="section-ratelimit">13a. Rate Limiting</button>
+           <button class="sidebar-link" data-target="section-init">05. devmemory init</button>
+           <button class="sidebar-link" data-target="section-config">06. devmemory config</button>
+           <button class="sidebar-link" data-target="section-record">07. devmemory record</button>
+           <button class="sidebar-link" data-target="section-watch">08. devmemory watch</button>
+           <button class="sidebar-link" data-target="section-show">09. devmemory show</button>
+           <button class="sidebar-link" data-target="section-context">10. devmemory context</button>
+           <button class="sidebar-link" data-target="section-setup-ollama">11. devmemory setup-ollama</button>
+           <button class="sidebar-link" data-target="section-terminate">12. devmemory terminate</button>
+           <button class="sidebar-link" data-target="section-status">13. devmemory status</button>
+           <button class="sidebar-link" data-target="section-logs">14. devmemory logs</button>
+           <button class="sidebar-link" data-target="section-ratelimit">15. Rate Limiting</button>
 
            <div class="sidebar-category">INTERNALS</div>
-           <button class="sidebar-link" data-target="section-agents">14. Multi-Agent Pipeline</button>
-           <button class="sidebar-link" data-target="section-files">15. File Structure</button>
-           <button class="sidebar-link" data-target="section-env">16. Environment Variables</button>
-           <button class="sidebar-link" data-target="section-providers">17. Supported Providers</button>
+           <button class="sidebar-link" data-target="section-agents">16. Multi-Agent Pipeline</button>
+           <button class="sidebar-link" data-target="section-files">17. File Structure</button>
+           <button class="sidebar-link" data-target="section-env">18. Environment Variables</button>
+           <button class="sidebar-link" data-target="section-providers">19. Supported Providers</button>
         </aside>
 
         <!-- Docs Reader Panel -->
@@ -239,10 +239,10 @@ git --version
            </section>
 
            <!-- ============================================ -->
-           <!-- 03a. devmemory --version -->
+           <!-- 04. devmemory --version -->
            <!-- ============================================ -->
            <section id="section-version" class="doc-section">
-             <h1 class="doc-h1">03a. devmemory --version</h1>
+             <h1 class="doc-h1">04. devmemory --version</h1>
              <p class="doc-p">
                Outputs the active version of the installed DevMemory AI package.
              </p>
@@ -271,10 +271,10 @@ devmemory version</pre>
            </section>
 
           <!-- ============================================ -->
-          <!-- 04. devmemory init -->
+          <!-- 05. devmemory init -->
           <!-- ============================================ -->
           <section id="section-init" class="doc-section">
-            <h1 class="doc-h1">04. devmemory init</h1>
+            <h1 class="doc-h1">05. devmemory init</h1>
             <p class="doc-p">
               Initializes DevMemory AI in your project repository. This is the <strong>first command</strong> you must run before using any other DevMemory features. It sets up the configuration, creates the memory vault directory, and prepares your project for autonomous documentation.
             </p>
@@ -291,7 +291,7 @@ devmemory version</pre>
 
             <h2 class="doc-h2">What Happens When You Run It</h2>
             <ol class="doc-list numbered">
-              <li><strong>Interactive Configuration Wizard launches</strong> — You are prompted to select your AI provider, enter your API key, choose a model, and set a cooldown timer (see section 05 for details).</li>
+              <li><strong>Interactive Configuration Wizard launches</strong> — You are prompted to select your AI provider, enter your API key, choose a model, and set a cooldown timer (see section 06 for details).</li>
               <li><strong>Creates the <code>.devmemory/</code> directory</strong> — This folder is your local memory vault. All build logs, brain files, changelogs, and context files live here.</li>
               <li><strong>Saves <code>.devmemory/config.json</code></strong> — Your provider, model, API key, cooldown time, and exclude patterns are written to this file.</li>
               <li><strong>Generates <code>.devmemory/project-brain.md</code></strong> — A blank template for the project brain (the living description of your codebase that gets updated on every build).</li>
@@ -349,10 +349,10 @@ Run 'devmemory watch' to start monitoring changes continuously.</pre>
           </section>
 
           <!-- ============================================ -->
-          <!-- 05. devmemory config -->
+          <!-- 06. devmemory config -->
           <!-- ============================================ -->
           <section id="section-config" class="doc-section">
-            <h1 class="doc-h1">05. devmemory config</h1>
+            <h1 class="doc-h1">06. devmemory config</h1>
             <p class="doc-p">
               Re-runs the interactive configuration wizard. Use this command when you need to change your AI provider, swap API keys, switch models, or adjust the watcher cooldown time — without re-initializing the entire project.
             </p>
@@ -430,10 +430,10 @@ Run 'devmemory watch' to start monitoring changes continuously.</pre>
           </section>
 
           <!-- ============================================ -->
-          <!-- 06. devmemory record -->
+          <!-- 07. devmemory record -->
           <!-- ============================================ -->
           <section id="section-record" class="doc-section">
-            <h1 class="doc-h1">06. devmemory record</h1>
+            <h1 class="doc-h1">07. devmemory record</h1>
             <p class="doc-p">
               Manually triggers a one-time build memory capture from your current uncommitted changes. This is the <strong>on-demand</strong> alternative to the continuous <code>watch</code> daemon. Use it when you want precise control over when a memory snapshot is taken.
             </p>
@@ -483,7 +483,7 @@ devmemory record -p "Fix database connection pooling"</pre>
               <li><strong>Computes a unified git diff</strong> combining all staged changes, unstaged modifications, and newly created untracked files.</li>
               <li><strong>Checks for changes</strong>. If there are no uncommitted changes, exits cleanly with a message.</li>
               <li><strong>Collects the developer prompt</strong>. Either from the <code>--prompt</code> flag or by prompting you interactively in the terminal.</li>
-              <li><strong>Runs the Multi-Agent AI Pipeline</strong> (see section 10):
+              <li><strong>Runs the Multi-Agent AI Pipeline</strong> (see section 16):
                 <ul class="doc-list nested">
                   <li><strong>Summary Agent</strong> → generates title, slug, summary, bullet points, and file list.</li>
                   <li><strong>Architecture Agent</strong> → generates a Mermaid.js diagram and architectural explanation.</li>
@@ -524,10 +524,10 @@ Build successfully recorded!</pre>
           </section>
 
           <!-- ============================================ -->
-          <!-- 07. devmemory watch -->
+          <!-- 08. devmemory watch -->
           <!-- ============================================ -->
           <section id="section-watch" class="doc-section">
-            <h1 class="doc-h1">07. devmemory watch</h1>
+            <h1 class="doc-h1">08. devmemory watch</h1>
             <p class="doc-p">
               Starts the continuous background watcher daemon. This is the <strong>core runtime mode</strong> of DevMemory AI. Once running, it silently monitors your project directory for file changes and git commits, automatically triggering memory captures with zero manual intervention.
             </p>
@@ -638,10 +638,10 @@ Build successfully recorded!</pre>
           </section>
 
           <!-- ============================================ -->
-          <!-- 08. devmemory show -->
+          <!-- 09. devmemory show -->
           <!-- ============================================ -->
           <section id="section-show" class="doc-section">
-            <h1 class="doc-h1">08. devmemory show</h1>
+            <h1 class="doc-h1">09. devmemory show</h1>
             <p class="doc-p">
               Renders and prints a markdown memory file beautifully in the terminal using ANSI color formatting. Reading raw markdown files in a shell is painful — the <code>show</code> command parses markdown syntax and outputs a color-styled, wrapped, human-readable rendering directly in your console.
             </p>
@@ -756,10 +756,10 @@ devmemory show /absolute/path/to/notes.md</pre>
           </section>
 
           <!-- ============================================ -->
-          <!-- 09. devmemory context -->
+          <!-- 10. devmemory context -->
           <!-- ============================================ -->
           <section id="section-context" class="doc-section">
-            <h1 class="doc-h1">09. devmemory context</h1>
+            <h1 class="doc-h1">10. devmemory context</h1>
             <p class="doc-p">
               Manually regenerates the <code>.devmemory/FULL_PROJECT_CONTEXT.md</code> file. This is a utility command for when you need to rebuild the aggregated context without recording a new build.
             </p>
@@ -806,10 +806,10 @@ Successfully regenerated .devmemory/FULL_PROJECT_CONTEXT.md</pre>
           </section>
 
           <!-- ============================================ -->
-          <!-- 10. devmemory setup-ollama -->
+          <!-- 11. devmemory setup-ollama -->
           <!-- ============================================ -->
           <section id="section-setup-ollama" class="doc-section">
-            <h1 class="doc-h1">10. devmemory setup-ollama</h1>
+            <h1 class="doc-h1">11. devmemory setup-ollama</h1>
             <p class="doc-p">
               Automatically installs a local portable instance of Ollama, starts the background service on port 11434, and pulls the lightweight <code>qwen2.5-coder:0.5b</code> model. This allows a completely automated, zero-config setup for running DevMemory offline and credit-free.
             </p>
@@ -878,10 +878,10 @@ Ollama and model are fully set up and ready to use!</pre>
            </section>
 
            <!-- ============================================ -->
-           <!-- 11. devmemory terminate -->
+           <!-- 12. devmemory terminate -->
            <!-- ============================================ -->
            <section id="section-terminate" class="doc-section">
-             <h1 class="doc-h1">11. devmemory terminate</h1>
+             <h1 class="doc-h1">12. devmemory terminate</h1>
              <p class="doc-p">
                Stops and removes the background daemon, preventing it from auto-starting on system reboot. This is useful when you want to completely disable DevMemory monitoring for a project or clean up system resources.
              </p>
@@ -934,10 +934,10 @@ Ollama and model are fully set up and ready to use!</pre>
            </section>
 
            <!-- ============================================ -->
-           <!-- 12. devmemory status -->
+           <!-- 13. devmemory status -->
            <!-- ============================================ -->
            <section id="section-status" class="doc-section">
-             <h1 class="doc-h1">12. devmemory status</h1>
+             <h1 class="doc-h1">13. devmemory status</h1>
              <p class="doc-p">
                Displays the current configuration settings, active LLM provider, target model, and details of the background watcher daemon. On macOS and Linux, it actively queries the OS service managers (launchd or systemd) to verify the process status (PID and running/stopped state) and lists the platform-specific commands to manage the service.
              </p>
@@ -985,10 +985,10 @@ Management Commands:
            </section>
 
            <!-- ============================================ -->
-           <!-- 13. devmemory logs -->
+           <!-- 14. devmemory logs -->
            <!-- ============================================ -->
            <section id="section-logs" class="doc-section">
-             <h1 class="doc-h1">13. devmemory logs</h1>
+             <h1 class="doc-h1">14. devmemory logs</h1>
              <p class="doc-p">
                Reads and outputs the recent log entries of the background watcher daemon directly from the local <code>.devmemory/watcher.log</code> file. This is highly useful for troubleshooting connectivity errors, verifying watcher events, or checking the progress of the multi-agent analysis.
              </p>
@@ -1014,7 +1014,6 @@ Management Commands:
                  <button class="code-copy-btn">copy</button>
                </div>
                <pre class="code-block">$ devmemory logs -n 5
-              <pre class="code-block">$ devmemory logs -n 5
 [2026-06-12T06:09:41.011Z] [DevMemory Watcher Event] change on index.html
 [2026-06-12T06:09:41.012Z] [DevMemory Watcher Change Detected] Relative path: index.html
 [2026-06-12T06:09:56.022Z] [DevMemory] Detected stabilized changes in: index.html
@@ -1024,10 +1023,10 @@ Management Commands:
             </section>
 
             <!-- ============================================ -->
-            <!-- 13a. Rate Limiting -->
+            <!-- 15. Rate Limiting -->
             <!-- ============================================ -->
             <section id="section-ratelimit" class="doc-section">
-              <h1 class="doc-h1">13a. Rate Limiting</h1>
+              <h1 class="doc-h1">15. Rate Limiting</h1>
               <p class="doc-p">
                 DevMemory AI features an autonomous, customizable session rate limit system designed to safeguard your local machine and API budgets.
               </p>
@@ -1049,10 +1048,10 @@ Management Commands:
             </section>
 
             <!-- ============================================ -->
-            <!-- 14. MULTI-AGENT PIPELINE -->
-           <!-- ============================================ -->
+            <!-- 16. MULTI-AGENT PIPELINE -->
+            <!-- ============================================ -->
            <section id="section-agents" class="doc-section">
-             <h1 class="doc-h1">14. Multi-Agent Pipeline</h1>
+             <h1 class="doc-h1">16. Multi-Agent Pipeline</h1>
             <p class="doc-p">
               Every time DevMemory records a build (via <code>record</code> or <code>watch</code>), it orchestrates a team of <strong>7 specialized AI sub-agents</strong>. Each agent receives the git diff and relevant context, performs a focused analysis, and returns structured output. The first 5 agents produce the build memory file content; the final 2 agents update the living project brain and changelog.
             </p>
@@ -1096,10 +1095,10 @@ Management Commands:
           </section>
 
           <!-- ============================================ -->
-           <!-- 15. FILE STRUCTURE -->
+           <!-- 17. FILE STRUCTURE -->
            <!-- ============================================ -->
            <section id="section-files" class="doc-section">
-             <h1 class="doc-h1">15. File Structure</h1>
+             <h1 class="doc-h1">17. File Structure</h1>
             <p class="doc-p">
               After initialization and a few recorded builds, your <code>.devmemory/</code> directory will look like this:
             </p>
@@ -1189,10 +1188,10 @@ Management Commands:
           </section>
 
           <!-- ============================================ -->
-           <!-- 16. ENVIRONMENT VARIABLES -->
+           <!-- 18. ENVIRONMENT VARIABLES -->
            <!-- ============================================ -->
            <section id="section-env" class="doc-section">
-             <h1 class="doc-h1">16. Environment Variables</h1>
+             <h1 class="doc-h1">18. Environment Variables</h1>
             <p class="doc-p">
               DevMemory supports environment variable overrides for API keys. If a matching environment variable is set, it takes priority over the key stored in <code>config.json</code>. This is useful for CI/CD environments or when you don't want to store keys on disk.
             </p>
@@ -1239,10 +1238,10 @@ devmemory record -p "Add user dashboard"</pre>
           </section>
 
           <!-- ============================================ -->
-           <!-- 17. SUPPORTED PROVIDERS -->
+           <!-- 19. SUPPORTED PROVIDERS -->
            <!-- ============================================ -->
            <section id="section-providers" class="doc-section">
-             <h1 class="doc-h1">17. Supported Providers</h1>
+             <h1 class="doc-h1">19. Supported Providers</h1>
             <p class="doc-p">
               DevMemory AI is provider-agnostic. You can use it with cloud APIs or run it <strong>completely free and offline</strong> using a local model. Here is the full list of supported providers, their default models, and endpoints:
             </p>
@@ -1326,7 +1325,7 @@ devmemory record -p "Add user dashboard"</pre>
             <div class="doc-alert warning">
               <div class="alert-title">🔒 GIT PRIVACY</div>
               <p class="doc-p">
-                Your API key is saved in <code>.devmemory/config.json</code> which is automatically added to <code>.gitignore</code> during initialization. If you prefer not to store keys on disk at all, use environment variables (see section 16) and leave the key blank during setup.
+                Your API key is saved in <code>.devmemory/config.json</code> which is automatically added to <code>.gitignore</code> during initialization. If you prefer not to store keys on disk at all, use environment variables (see section 18) and leave the key blank during setup.
               </p>
             </div>
           </section>
