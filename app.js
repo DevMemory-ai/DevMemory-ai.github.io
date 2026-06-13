@@ -274,7 +274,7 @@ function setupTerminalSimulation() {
 
     setTimeout(() => {
       appendLine('[DevMemory] Listening for file edits (cooldown: 15s) and new Git commits...');
-      appendLine('[DevMemory] Press Ctrl+C to stop.');
+      appendLine("[DevMemory] Run 'devmemory terminate' (or press Ctrl+C) to stop.");
     }, 350);
 
     setTimeout(() => {

@@ -19,10 +19,10 @@
       <nav>
         <button class="nav-btn active" data-tab="home">[ HOME ]</button>
         <button class="nav-btn" data-tab="docs">[ DOCS ]</button>
-        <a href="https://github.com/umeshadabala/DevMemory" target="_blank" style="text-decoration: none;">
+        <a href="https://github.com/DevMemory-ai/DevMemory" target="_blank" style="text-decoration: none;">
           <button class="nav-btn">[ SOURCE ]</button>
         </a>
-        <a href="https://umeshadabala.github.io/" target="_blank" style="text-decoration: none;">
+        <a href="https://devmemory-ai.github.io/" target="_blank" style="text-decoration: none;">
           <button class="nav-btn">[ ABOUT ]</button>
         </a>
       </nav>
@@ -40,7 +40,7 @@
           </p>
           <div class="hero-actions">
             <button class="btn-primary" id="hero-get-started">/docs/start</button>
-            <a href="https://github.com/umeshadabala/DevMemory" target="_blank">
+            <a href="https://github.com/DevMemory-ai/DevMemory" target="_blank">
               <button class="btn-secondary">git clone</button>
             </a>
           </div>
@@ -113,6 +113,7 @@
            <button class="sidebar-link" data-target="section-files">15. File Structure</button>
            <button class="sidebar-link" data-target="section-env">16. Environment Variables</button>
            <button class="sidebar-link" data-target="section-providers">17. Supported Providers</button>
+           <button class="sidebar-link" data-target="section-ratelimit">18. Rate Limiting</button>
         </aside>
 
         <!-- Docs Reader Panel -->
@@ -572,7 +573,7 @@ Build successfully recorded!</pre>
 [DevMemory] Started watching /Users/dev/my-project
 [DevMemory] Provider: ollama / qwen2.5-coder:0.5b
 [DevMemory] Cooldown: 15s
-[DevMemory] Press Ctrl+C to stop.
+[DevMemory] Run 'devmemory terminate' (or press Ctrl+C) to stop.
 
 [DevMemory] Detected new Git commit: Add user authentication endpoint
 [DevMemory] Recording build memory automatically...
@@ -591,7 +592,7 @@ Build successfully recorded!</pre>
             </div>
 
             <h2 class="doc-h2">Stopping the Watcher</h2>
-            <p class="doc-p">Press <code>Ctrl+C</code> to stop the foreground instance. The background daemon (registered via launchd/systemd) continues to run independently and is not affected.</p>
+            <p class="doc-p">Run <code>devmemory terminate</code> (or press <code>Ctrl+C</code>) to stop the watcher. The background daemon (registered via launchd/systemd) is fully managed and removed when using the terminate command.</p>
             <div class="code-container">
               <div class="code-header">
                 <span>TERMINAL</span>
@@ -1269,6 +1270,27 @@ devmemory record -p "Add user dashboard"</pre>
                 Your API key is saved in <code>.devmemory/config.json</code> which is automatically added to <code>.gitignore</code> during initialization. If you prefer not to store keys on disk at all, use environment variables (see section 16) and leave the key blank during setup.
               </p>
             </div>
+          </section>
+
+          <!-- ============================================ -->
+          <!-- 18. RATE LIMITING -->
+          <!-- ============================================ -->
+          <section id="section-ratelimit" class="doc-section">
+            <h1 class="doc-h1">18. Rate Limiting</h1>
+            <p class="doc-p">
+              DevMemory AI includes a customizable rate limit system to prevent runaway processes, unexpected API costs, or infinite generation loops (especially when utilizing small or local models).
+            </p>
+            <p class="doc-p">
+              You can specify the maximum number of API calls permitted per session during the configuration wizard. If the watcher daemon or CLI reaches this limit, it will break execution, trigger a native OS warning dialog on your desktop, and terminate the background daemon process to save resources.
+            </p>
+
+            <h2 class="doc-h2">How It Works</h2>
+            <ul class="doc-list">
+              <li><strong>Configurable Threshold</strong> — During <code>devmemory config</code>, you are prompted to set an API call limit. Leaving it blank sets it to unlimited.</li>
+               <li><strong>Single-Warning Popup</strong> — When the limit is reached, a desktop notification/alert box is triggered exactly once per session. This is tracked using <code>.devmemory/rate_limit_warned</code> to prevent desktop alert spam.</li>
+              <li><strong>Graceful Shutdown</strong> — The background watcher daemon is terminated automatically, so it won't repeatedly restart or continue hitting rate limits.</li>
+              <li><strong>Warning Reset</strong> — Running <code>devmemory config</code> or <code>devmemory init</code> automatically resets the warning state and clears the rate limit counter.</li>
+            </ul>
           </section>
 
         </main>
