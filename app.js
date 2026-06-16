@@ -1,21 +1,70 @@
+/* global AsciinemaPlayer */
+
 document.addEventListener('DOMContentLoaded', () => {
   setupTabs();
-  setupScrollspy();
+  setupScrollspy('docs-sidebar', 'docs-reader-panel', '.doc-section');
   setupCodeCopy();
   setupTerminalSimulation();
-  setupAdPopup();
+  setupThemeToggle();
+  setupPromptGenerator();
+  setupWaitlistModal();
+  setupEnterpriseWaitlist();
+  setupMobileMenu();
+
+  // Initialize home player on initial load
+  initTabPlayers('home');
 });
 
 // =============================================
-// 1. Tab Switcher Logic
+// 1. Tab Switcher Logic & Asciinema Loader
 // =============================================
+const players = {};
+
+function initPlayer(elementId, castName) {
+  if (players[elementId]) return;
+  const container = document.getElementById(elementId);
+  if (!container) return;
+
+  const castContent = window.CAST_DATA && window.CAST_DATA[castName];
+  if (!castContent) {
+    console.error(`No cast content found for ${castName}`);
+    return;
+  }
+
+  try {
+    // Pass the parsed cast content object directly to bypass file:// CORS blocks
+    players[elementId] = AsciinemaPlayer.create({ data: castContent }, container, {
+      speed: 1,
+      idleTimeLimit: 2,
+      poster: "npt:0:01",
+      autoPlay: elementId === 'demo-player', // Autoplay homepage demo player
+      loop: true
+    });
+  } catch (e) {
+    console.error(`Failed to initialize asciinema player for ${elementId}:`, e);
+  }
+}
+
+function initTabPlayers(tabId) {
+  if (tabId === 'home') {
+    initPlayer('demo-player', 'watch');
+  } else if (tabId === 'docs') {
+    initPlayer('player-init', 'init');
+    initPlayer('player-record', 'record');
+    initPlayer('player-watch', 'watch');
+    initPlayer('player-show', 'show');
+    initPlayer('player-status', 'status');
+    initPlayer('player-mcp', 'mcp');
+  }
+}
+
 function setupTabs() {
-  const navButtons = document.querySelectorAll('.nav-btn[data-tab]');
   const tabContents = document.querySelectorAll('.tab-content');
-  const getStartedBtn = document.getElementById('hero-get-started');
 
   function switchTab(tabId) {
-    navButtons.forEach(btn => {
+    // Update active class for header navigation buttons
+    const headerNavButtons = document.querySelectorAll('.nav-btn[data-tab], .mobile-nav-btn[data-tab]');
+    headerNavButtons.forEach(btn => {
       if (btn.getAttribute('data-tab') === tabId) {
         btn.classList.add('active');
       } else {
@@ -31,60 +80,150 @@ function setupTabs() {
       }
     });
 
-    // Handle ad visibility based on active tab
-    if (tabId === 'home') {
-      showAdPopup();
-    } else {
-      hideAdPopup();
-    }
+    // Reset scroll positions
+    window.scrollTo({ top: 0 });
+    const docsPanel = document.getElementById('docs-reader-panel');
+    if (docsPanel) docsPanel.scrollTop = 0;
+
+    // Initialize players for this tab
+    initTabPlayers(tabId);
   }
 
-  navButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
+  // Attach tab switching listener to all elements with data-tab attribute
+  const allTabTriggers = document.querySelectorAll('[data-tab]');
+  allTabTriggers.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      // Prevent standard link behavior if it's just a tab toggle
+      if (btn.tagName === 'A' && btn.getAttribute('href') === '#') {
+        e.preventDefault();
+      }
       const tabId = btn.getAttribute('data-tab');
       switchTab(tabId);
     });
   });
 
-  // CTA button triggers docs tab and scrolls to top
-  if (getStartedBtn) {
-    getStartedBtn.addEventListener('click', () => {
-      switchTab('docs');
-      const readerPanel = document.getElementById('docs-reader-panel');
-      if (readerPanel) {
-        readerPanel.scrollTop = 0;
+  // Clicking logo goes home
+  const logoTriggers = document.querySelectorAll('.logo-container');
+  logoTriggers.forEach(trigger => {
+    trigger.addEventListener('click', () => {
+      switchTab('home');
+      // Collapse mobile menu if open
+      const dropdown = document.getElementById('mobile-dropdown-menu');
+      const burger = document.getElementById('hamburger-btn');
+      if (dropdown && !dropdown.classList.contains('hidden')) {
+        dropdown.classList.add('hidden');
+        burger.classList.remove('open');
       }
     });
+  });
+
+  // Generic copy-on-click for all npm install code pills (.code-pill)
+  const copyPills = document.querySelectorAll('.code-pill');
+  copyPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      const commandText = 'npm install -g devmemory-ai';
+      navigator.clipboard.writeText(commandText).then(() => {
+        const originalText = pill.textContent;
+        pill.textContent = '✓ copied';
+        
+        const originalBg = pill.style.backgroundColor;
+        const originalBorder = pill.style.borderColor;
+        const originalColor = pill.style.color;
+
+        pill.style.backgroundColor = '#16a34a'; // green
+        pill.style.borderColor = '#16a34a';
+        pill.style.color = '#ffffff';
+
+        setTimeout(() => {
+          pill.textContent = originalText;
+          pill.style.backgroundColor = originalBg;
+          pill.style.borderColor = originalBorder;
+          pill.style.color = originalColor;
+        }, 1500);
+      }).catch(err => {
+        console.error('Failed to copy command:', err);
+      });
+    });
+  });
+
+  // Pro docs link button in pricing
+  const proPricingBtn = document.getElementById('pricing-pro-docs-btn');
+  if (proPricingBtn) {
+    proPricingBtn.addEventListener('click', () => {
+      switchTab('docs');
+      setTimeout(() => {
+        const targetSection = document.getElementById('pro-overview');
+        const readerPanel = document.getElementById('docs-reader-panel');
+        if (targetSection && readerPanel) {
+          const isMobile = window.innerWidth <= 768;
+          if (isMobile) {
+            const targetTop = targetSection.getBoundingClientRect().top + window.scrollY - 110;
+            window.scrollTo({ top: targetTop, behavior: 'smooth' });
+          } else {
+            const containerTop = readerPanel.getBoundingClientRect().top;
+            const targetTop = targetSection.getBoundingClientRect().top;
+            const scrollPosition = readerPanel.scrollTop + (targetTop - containerTop) - 20;
+            readerPanel.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+          }
+        }
+      }, 100);
+    });
   }
+
+  // Footer links doc target scrolling
+  const docTargetBtns = document.querySelectorAll('[data-doc-target]');
+  docTargetBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const targetId = btn.getAttribute('data-doc-target');
+      setTimeout(() => {
+        const targetSection = document.getElementById(targetId);
+        const readerPanel = document.getElementById('docs-reader-panel');
+        if (targetSection && readerPanel) {
+          const isMobile = window.innerWidth <= 768;
+          if (isMobile) {
+            const targetTop = targetSection.getBoundingClientRect().top + window.scrollY - 110;
+            window.scrollTo({ top: targetTop, behavior: 'smooth' });
+          } else {
+            const containerTop = readerPanel.getBoundingClientRect().top;
+            const targetTop = targetSection.getBoundingClientRect().top;
+            const scrollPosition = readerPanel.scrollTop + (targetTop - containerTop) - 20;
+            readerPanel.scrollTo({ top: scrollPosition, behavior: 'smooth' });
+          }
+        }
+      }, 150);
+    });
+  });
 }
 
 // =============================================
 // 2. Scrollspy & Sidebar Smooth Scrolling
 // =============================================
-function setupScrollspy() {
-  const readerPanel = document.getElementById('docs-reader-panel');
-  const sections = document.querySelectorAll('.doc-section');
-  const sidebarLinks = document.querySelectorAll('.sidebar-link');
+function setupScrollspy(sidebarId, readerPanelId, sectionSelector) {
+  const readerPanel = document.getElementById(readerPanelId);
+  const sidebar = document.getElementById(sidebarId);
+  if (!readerPanel || !sidebar) return;
 
-  if (!readerPanel || sections.length === 0 || sidebarLinks.length === 0) return;
+  const sections = readerPanel.querySelectorAll(sectionSelector);
+  const sidebarLinks = sidebar.querySelectorAll('.sidebar-link');
+  if (sections.length === 0 || sidebarLinks.length === 0) return;
 
-  // Click handler: scroll smoothly to target section (handles mobile and desktop scrolling)
+  // Click handler: scroll smoothly to target section
   sidebarLinks.forEach(link => {
     link.addEventListener('click', () => {
       const targetId = link.getAttribute('data-target');
-      const targetSection = document.getElementById(targetId);
+      const targetSection = readerPanel.querySelector(`#${targetId}`);
 
       if (targetSection) {
         const isMobile = window.innerWidth <= 768;
         if (isMobile) {
-          // On mobile, the window itself scrolls, offset by sticky horizontal header and sidebar (110px)
+          // On mobile, scroll window offset by sticky header/sidebar (110px)
           const targetTop = targetSection.getBoundingClientRect().top + window.scrollY - 110;
           window.scrollTo({
             top: targetTop,
             behavior: 'smooth'
           });
         } else {
-          // On desktop, the reader panel scrolls internally
+          // On desktop, scroll reader panel internally
           const containerTop = readerPanel.getBoundingClientRect().top;
           const targetTop = targetSection.getBoundingClientRect().top;
           const scrollPosition = readerPanel.scrollTop + (targetTop - containerTop) - 20;
@@ -98,7 +237,7 @@ function setupScrollspy() {
     });
   });
 
-  // Scroll handler: highlight sidebar link based on scroll position (handles window scrolling on mobile, container on desktop)
+  // Scroll handler: highlight active section link
   let ticking = false;
   const handleScroll = () => {
     if (!ticking) {
@@ -122,15 +261,13 @@ function setupScrollspy() {
       const scrollHeight = document.documentElement.scrollHeight;
       const clientHeight = window.innerHeight;
 
-      // Check if we are at the bottom of the page
       if (scrollY + clientHeight >= scrollHeight - 30) {
         activeSectionId = sections[sections.length - 1].id;
       } else if (scrollY <= 50) {
         activeSectionId = sections[0].id;
       } else {
-        // Find which section is visible under the sticky horizontal nav (120px offset)
         for (let i = sections.length - 1; i >= 0; i--) {
-          const sectionTop = sections[i].getBoundingClientRect().top; // relative to viewport
+          const sectionTop = sections[i].getBoundingClientRect().top;
           if (sectionTop <= 130) {
             activeSectionId = sections[i].id;
             break;
@@ -159,18 +296,18 @@ function setupScrollspy() {
     }
 
     if (activeSectionId) {
+      const targetMatchId = activeSectionId;
       sidebarLinks.forEach(link => {
-        if (link.getAttribute('data-target') === activeSectionId) {
+        if (link.getAttribute('data-target') === targetMatchId) {
           link.classList.add('active');
         } else {
           link.classList.remove('active');
         }
       });
 
-      // Scroll sidebar to keep active link visible (supports vertical sidebar for desktop and horizontal for mobile)
-      const activeLink = document.querySelector('.sidebar-link.active');
-      const sidebar = document.getElementById('docs-sidebar');
-      if (activeLink && sidebar) {
+      // Keep active sidebar link scrolled into view
+      const activeLink = sidebar.querySelector('.sidebar-link.active');
+      if (activeLink) {
         const isHorizontal = window.innerWidth <= 768;
         if (isHorizontal) {
           const linkLeft = activeLink.offsetLeft;
@@ -257,7 +394,6 @@ function setupTerminalSimulation() {
     termBody.scrollTop = termBody.scrollHeight;
   }
 
-  // Typing effect
   function typeCommand() {
     if (charIdx < command.length) {
       inputEl.textContent += command.charAt(charIdx);
@@ -268,7 +404,6 @@ function setupTerminalSimulation() {
     }
   }
 
-  // Simulated output
   function runWatcherSimulation() {
     appendLine('[DevMemory] Started watching /home/dev/spaghetti-code');
 
@@ -309,67 +444,366 @@ function setupTerminalSimulation() {
     }, 7200);
   }
 
-  // Start after a short delay
   setTimeout(typeCommand, 700);
 }
 
 // =============================================
-// 5. Sponsored Ad Popup Logic
+// 5. Light/Dark Mode Theme Toggle (Light Default)
 // =============================================
-let adOverlayTimeout = null;
+function setupThemeToggle() {
+  const toggleBtn = document.getElementById('theme-toggle');
+  const mobileToggleBtn = document.getElementById('mobile-theme-toggle');
+  const logoImgs = document.querySelectorAll('#header-logo, .header-logo-mobile');
 
-function showAdPopup() {
-  const overlay = document.getElementById('ad-overlay');
-  if (!overlay) return;
+  const updateLogo = (theme) => {
+    logoImgs.forEach(img => {
+      img.src = theme === 'dark' ? 'logos/icon-dark-48.svg' : 'logos/icon-light-48.svg';
+    });
+  };
 
-  if (adOverlayTimeout) {
-    clearTimeout(adOverlayTimeout);
+  const setThemeState = (isDark) => {
+    if (isDark) {
+      document.body.classList.add('dark-mode');
+      if (toggleBtn) toggleBtn.textContent = 'Light';
+      if (mobileToggleBtn) mobileToggleBtn.textContent = 'Light';
+      updateLogo('dark');
+    } else {
+      document.body.classList.remove('dark-mode');
+      if (toggleBtn) toggleBtn.textContent = 'Dark';
+      if (mobileToggleBtn) mobileToggleBtn.textContent = 'Dark';
+      updateLogo('light');
+    }
+  };
+
+  // Check saved theme
+  const currentTheme = localStorage.getItem('theme');
+  if (currentTheme === 'light') {
+    setThemeState(false);
+  } else {
+    setThemeState(true);
   }
 
-  // Show the ad after a brief delay for smoother loading experience
-  adOverlayTimeout = setTimeout(() => {
-    overlay.classList.add('active');
-  }, 1200);
+  const handleToggle = () => {
+    const isDark = document.body.classList.contains('dark-mode');
+    if (isDark) {
+      localStorage.setItem('theme', 'light');
+      setThemeState(false);
+    } else {
+      localStorage.setItem('theme', 'dark');
+      setThemeState(true);
+    }
+  };
+
+  if (toggleBtn) toggleBtn.addEventListener('click', handleToggle);
+  if (mobileToggleBtn) mobileToggleBtn.addEventListener('click', handleToggle);
 }
 
-function hideAdPopup() {
-  const overlay = document.getElementById('ad-overlay');
-  if (overlay) {
-    overlay.classList.remove('active');
-  }
-  if (adOverlayTimeout) {
-    clearTimeout(adOverlayTimeout);
-    adOverlayTimeout = null;
-  }
-}
+// =============================================
+// 6. Prompt Generator Tool Logic
+// =============================================
+const PROVIDER_MODELS = {
+  gemini: ['gemini-2.5-flash', 'gemini-2.5-pro'],
+  openai: ['gpt-4o-mini', 'gpt-4o', 'gpt-3.5-turbo'],
+  anthropic: ['claude-3-5-haiku-latest', 'claude-3-5-sonnet-latest'],
+  openrouter: ['google/gemini-2.5-flash', 'anthropic/claude-3.5-sonnet'],
+  deepseek: ['deepseek-chat', 'deepseek-coder'],
+  groq: ['llama-3.3-70b-versatile', 'mixtral-8x7b-32768'],
+  together: ['Meta-Llama-3.1-70B-Instruct-Turbo'],
+  ollama: ['qwen2.5-coder:0.5b', 'llama3:8b'],
+  custom: ['custom-model-name']
+};
 
-function setupAdPopup() {
-  const overlay = document.getElementById('ad-overlay');
-  const closeBtn = document.getElementById('ad-close-btn');
-  const adLink = document.getElementById('ad-link');
+function setupPromptGenerator() {
+  const modal = document.getElementById('prompt-generator-modal');
+  const openNavBtn = document.getElementById('nav-prompt-gen');
+  const openDocsBtn = document.getElementById('pro-open-generator-btn');
+  const closeBtn = document.getElementById('prompt-modal-close-btn');
 
-  if (!overlay || !closeBtn) return;
+  const typeSelect = document.getElementById('prompt-type');
+  const providerSelect = document.getElementById('prompt-provider');
+  const modelInput = document.getElementById('prompt-model');
+  const modelDatalist = document.getElementById('model-suggestions');
+  const keyInput = document.getElementById('prompt-key');
+  const limitInput = document.getElementById('prompt-limit');
+  const cooldownInput = document.getElementById('prompt-cooldown');
 
-  // Show on initial page load (since Home is active by default)
-  showAdPopup();
+  const generateBtn = document.getElementById('prompt-generate-btn');
+  const outputContainer = document.getElementById('prompt-output-container');
+  const outputBlock = document.getElementById('prompt-output-block');
+  const copyBtn = document.getElementById('prompt-copy-btn');
 
-  // Close on close button click
-  closeBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    hideAdPopup();
+  if (!modal) return;
+
+  // Open Handlers
+  const openModal = () => {
+    modal.classList.add('active');
+    updateModelSuggestions();
+  };
+
+  if (openNavBtn) openNavBtn.addEventListener('click', openModal);
+  if (openDocsBtn) openDocsBtn.addEventListener('click', openModal);
+
+  // Close Handlers
+  const closeModal = () => {
+    modal.classList.remove('active');
+  };
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
   });
 
-  // Close on clicking outside the modal
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) {
-      hideAdPopup();
+  // Dynamic Datalist suggestions
+  function updateModelSuggestions() {
+    const provider = providerSelect.value;
+    const models = PROVIDER_MODELS[provider] || [];
+    
+    modelDatalist.innerHTML = '';
+    models.forEach(model => {
+      const option = document.createElement('option');
+      option.value = model;
+      modelDatalist.appendChild(option);
+    });
+
+    if (models.length > 0) {
+      modelInput.value = models[0];
+    }
+  }
+
+  providerSelect.addEventListener('change', updateModelSuggestions);
+
+  // Prompt compiler
+  generateBtn.addEventListener('click', () => {
+    const type = typeSelect.value;
+    const provider = providerSelect.value;
+    const model = modelInput.value.trim() || PROVIDER_MODELS[provider][0];
+    const key = keyInput.value.trim() || '[your_api_key_here]';
+    const limit = limitInput.value.trim() || '0';
+    const cooldown = cooldownInput.value.trim() || '10';
+
+    let promptText;
+
+    if (type === 'setup') {
+      promptText = 
+`Help me configure DevMemory globally in my system. Please invoke the \`devmemory_init\` tool with \`global: true\` using the following details:
+
+- Provider: ${provider}
+- API Key: ${key}
+- Model: ${model}
+- Rate Limit: ${limit}
+- Cooldown: ${cooldown}
+
+Once initialized globally, DevMemory will automatically configure all of my current and future projects, copying this configuration locally and spinning up the background watcher daemon automatically whenever I open a new project.`;
+    } else {
+      promptText = 
+`Help me edit my DevMemory configuration. Please call the \`devmemory_init\` tool to update the configuration with the following details:
+
+- Provider: ${provider}
+- API Key: ${key}
+- Model: ${model}
+- Rate Limit: ${limit}
+- Cooldown: ${cooldown}
+- Global Update: true
+
+Update only the requested options and leave the remaining configuration options unchanged.`;
+    }
+
+    outputBlock.textContent = promptText;
+    outputContainer.classList.remove('hidden');
+  });
+
+  // Copy handler
+  copyBtn.addEventListener('click', () => {
+    const textToCopy = outputBlock.textContent;
+    navigator.clipboard.writeText(textToCopy).then(() => {
+      const originalText = copyBtn.textContent;
+      copyBtn.textContent = '✓ copied';
+      copyBtn.style.borderColor = 'var(--accent-primary)';
+      copyBtn.style.color = 'var(--accent-primary)';
+
+      setTimeout(() => {
+        copyBtn.textContent = originalText;
+        copyBtn.style.borderColor = '';
+        copyBtn.style.color = '';
+      }, 1500);
+    }).catch(err => {
+      console.error('Copy failed:', err);
+    });
+  });
+}
+
+// =============================================
+// 7. Pro Waitlist Modal Logic
+// =============================================
+function setupWaitlistModal() {
+  const modal = document.getElementById('waitlist-modal');
+  const buyBtn = document.getElementById('pricing-pro-buy-btn');
+  const closeBtn = document.getElementById('waitlist-modal-close-btn');
+  const form = document.getElementById('waitlist-form');
+  const successMsg = document.getElementById('waitlist-success-message');
+  const emailInput = document.getElementById('waitlist-email');
+
+  if (!modal) return;
+
+  const openModal = () => {
+    modal.classList.add('active');
+    if (successMsg) successMsg.classList.add('hidden');
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('active');
+  };
+
+  if (buyBtn) buyBtn.addEventListener('click', openModal);
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const email = emailInput ? emailInput.value : '';
+      const submitBtn = form.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn ? submitBtn.textContent : 'Join Waitlist';
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Submitting...';
+      }
+
+      fetch('https://formspree.io/f/xnjyrnvz', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({ email: email })
+      })
+      .then(response => {
+        if (response.ok) {
+          if (successMsg) {
+            successMsg.textContent = '✓ Thank you! You have been added to the waitlist.';
+            successMsg.style.color = 'var(--accent-primary)';
+            successMsg.classList.remove('hidden');
+          }
+          if (form) {
+            form.reset();
+          }
+          setTimeout(() => {
+            closeModal();
+          }, 2000);
+        } else {
+          throw new Error('Formspree submission rejected');
+        }
+      })
+      .catch(err => {
+        console.error('Waitlist submission failed:', err);
+        if (successMsg) {
+          successMsg.textContent = '✗ Submission failed. Please try again.';
+          successMsg.style.color = 'var(--accent-warn)';
+          successMsg.classList.remove('hidden');
+        }
+      })
+      .finally(() => {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalBtnText;
+        }
+      });
+    });
+  }
+}
+
+// =============================================
+// 8. Enterprise Waitlist Form Logic
+// =============================================
+function setupEnterpriseWaitlist() {
+  const form = document.getElementById('enterprise-waitlist-form');
+  const emailInput = document.getElementById('enterprise-waitlist-email');
+  const successMsg = document.getElementById('enterprise-waitlist-success-message');
+
+  if (!form) return;
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    const email = emailInput ? emailInput.value : '';
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn ? submitBtn.textContent : 'Join Enterprise Waitlist';
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+    }
+
+    fetch('https://formspree.io/f/xnjyrjgq', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({ email: email, type: 'enterprise-waitlist' })
+    })
+    .then(response => {
+      if (response.ok) {
+        if (successMsg) {
+          successMsg.textContent = '✓ Added to enterprise waitlist!';
+          successMsg.style.color = 'var(--accent-primary)';
+          successMsg.classList.remove('hidden');
+        }
+        form.reset();
+      } else {
+        throw new Error('Formspree rejection');
+      }
+    })
+    .catch(err => {
+      console.error('Enterprise waitlist failed:', err);
+      if (successMsg) {
+        successMsg.textContent = '✗ Submission failed. Try again.';
+        successMsg.style.color = 'var(--accent-warn)';
+        successMsg.classList.remove('hidden');
+      }
+    })
+    .finally(() => {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+      }
+    });
+  });
+}
+
+// =============================================
+// 8. Mobile Navigation Dropdown & Hamburger
+// =============================================
+function setupMobileMenu() {
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const mobileDropdownMenu = document.getElementById('mobile-dropdown-menu');
+  if (!hamburgerBtn || !mobileDropdownMenu) return;
+
+  hamburgerBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    hamburgerBtn.classList.toggle('open');
+    mobileDropdownMenu.classList.toggle('hidden');
+  });
+
+  // Close when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!mobileDropdownMenu.contains(e.target) && e.target !== hamburgerBtn && !hamburgerBtn.contains(e.target)) {
+      hamburgerBtn.classList.remove('open');
+      mobileDropdownMenu.classList.add('hidden');
     }
   });
 
-  // Close when clicking the ad link (so modal is closed if they return)
-  if (adLink) {
-    adLink.addEventListener('click', () => {
-      hideAdPopup();
+  // Close when clicking a nav option
+  const mobileNavBtns = mobileDropdownMenu.querySelectorAll('.mobile-nav-btn, .mobile-github-link');
+  mobileNavBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      hamburgerBtn.classList.remove('open');
+      mobileDropdownMenu.classList.add('hidden');
     });
-  }
+  });
 }

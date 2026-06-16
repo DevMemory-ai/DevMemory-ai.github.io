@@ -1,0 +1,14 @@
+<svg width="220" height="44" viewBox="0 0 220 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Mark -->
+  <rect x="0.5" y="0.5" width="43" height="43" rx="8" fill="#FFF7ED" stroke="#E4E4E7"/>
+  <path d="M11 10 L8 10 L8 34 L11 34" stroke="#C2410C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <path d="M33 10 L36 10 L36 34 L33 34" stroke="#C2410C" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+  <line x1="14" y1="17" x2="30" y2="17" stroke="#09090B" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="14" y1="22" x2="26" y2="22" stroke="#71717A" stroke-width="1.4" stroke-linecap="round"/>
+  <line x1="14" y1="27" x2="28" y2="27" stroke="#71717A" stroke-width="1.4" stroke-linecap="round"/>
+  <circle cx="33" cy="12" r="3" fill="#C2410C"/>
+  <!-- Wordmark -->
+  <text x="56" y="24" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="500" fill="#09090B" letter-spacing="-0.3">DevMemory</text>
+  <text x="168" y="24" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="500" fill="#C2410C" letter-spacing="-0.3"> AI</text>
+  <text x="56" y="38" font-family="Inter, system-ui, sans-serif" font-size="10" font-weight="500" fill="#71717A" letter-spacing="1">AI DEV OBSERVABILITY</text>
+</svg>
