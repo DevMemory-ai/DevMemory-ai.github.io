@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupWaitlistModal();
   setupEnterpriseWaitlist();
   setupMobileMenu();
+  setupInteractiveHowItWorks();
 
   // Initialize home player on initial load
   initTabPlayers('home');
@@ -114,6 +115,20 @@ function setupTabs() {
         dropdown.classList.add('hidden');
         burger.classList.remove('open');
       }
+    });
+  });
+
+  // Footer How It Works scroll triggers
+  const howItWorksTriggers = document.querySelectorAll('.footer-link-btn-how-it-works');
+  howItWorksTriggers.forEach(btn => {
+    btn.addEventListener('click', () => {
+      switchTab('home');
+      setTimeout(() => {
+        const section = document.getElementById('home-how-it-works');
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 50);
     });
   });
 
@@ -524,6 +539,7 @@ function setupPromptGenerator() {
   const modelInput = document.getElementById('prompt-model');
   const modelDatalist = document.getElementById('model-suggestions');
   const keyInput = document.getElementById('prompt-key');
+  const licenseInput = document.getElementById('prompt-license');
   const limitInput = document.getElementById('prompt-limit');
   const cooldownInput = document.getElementById('prompt-cooldown');
 
@@ -578,6 +594,7 @@ function setupPromptGenerator() {
     const provider = providerSelect.value;
     const model = modelInput.value.trim() || PROVIDER_MODELS[provider][0];
     const key = keyInput.value.trim() || '[your_api_key_here]';
+    const license = licenseInput.value.trim() || '';
     const limit = limitInput.value.trim() || '0';
     const cooldown = cooldownInput.value.trim() || '10';
 
@@ -592,7 +609,7 @@ function setupPromptGenerator() {
 - Model: ${model}
 - Rate Limit: ${limit}
 - Cooldown: ${cooldown}
-
+${license ? `- License Key: ${license}\n` : ''}
 Once initialized globally, DevMemory will automatically configure all of my current and future projects, copying this configuration locally and spinning up the background watcher daemon automatically whenever I open a new project.`;
     } else {
       promptText = 
@@ -603,6 +620,7 @@ Once initialized globally, DevMemory will automatically configure all of my curr
 - Model: ${model}
 - Rate Limit: ${limit}
 - Cooldown: ${cooldown}
+${license ? `- License Key: ${license}\n` : ''}
 - Global Update: true
 
 Update only the requested options and leave the remaining configuration options unchanged.`;
@@ -807,3 +825,150 @@ function setupMobileMenu() {
     });
   });
 }
+
+// =============================================
+// 12. Interactive Stepper (How It Works)
+// =============================================
+function setupInteractiveHowItWorks() {
+  // Stepper Step Navigation
+  const stepBtns = document.querySelectorAll('.step-nav-btn');
+  const stepViews = document.querySelectorAll('.step-view');
+  
+  if (stepBtns.length === 0) return;
+
+  stepBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const step = btn.getAttribute('data-step');
+      
+      // Update navigation active state
+      stepBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // Update content view active state
+      stepViews.forEach(v => v.classList.remove('active'));
+      const activeView = document.getElementById(`step-view-${step}`);
+      if (activeView) {
+        activeView.classList.add('active');
+      }
+    });
+  });
+
+  // Vault File Explorer Mockup Interactivity (Step 4)
+  const fileButtons = document.querySelectorAll('.vault-tree-file');
+  const previewFilename = document.getElementById('vault-preview-filename');
+  const previewLang = document.getElementById('vault-preview-lang');
+  const previewBody = document.getElementById('vault-preview-body');
+
+  const fileContents = {
+    config: {
+      name: 'config.json',
+      lang: 'JSON',
+      body: `{
+  "model": "claude-3-5-sonnet",
+  "temperature": 0.2,
+  "max_context_tokens": 120000,
+  "dashboard": {
+    "port": 31415,
+    "enabled": true
+  }
+}`
+    },
+    brain: {
+      name: 'project-brain.md',
+      lang: 'Markdown',
+      body: `# DevMemory Project Brain
+
+## Current Architecture
+* Local watch daemon on port 31415
+* Port 31414 dedicated for license setups
+* Cryptographic hardware bound activation
+
+## Design Decisions
+* Offline first local JWT validation
+* Stored in encrypted file ~/.devmemory_secure_token.json`
+    },
+    changelog: {
+      name: 'changelog.md',
+      lang: 'Markdown',
+      body: `# Changelog
+
+## [2026-06-24] Security Audit Sanitization
+* Implemented automated input sanitation checks
+* Audited memory leak in watcher file descriptors
+* Spawns setup server fallback on port 31414`
+    },
+    context: {
+      name: 'FULL_PROJECT_CONTEXT.md',
+      lang: 'Markdown',
+      body: `# FULL PROJECT CONTEXT
+
+This file compiles the current project-brain, latest changelog entries,
+and watcher timeline diagnostics to load as a single unified context.`
+    },
+    watcher: {
+      name: 'watcher.log',
+      lang: 'LOG',
+      body: `[2026-06-24 17:01:30] [info] Background daemon active.
+[2026-06-24 17:01:31] [info] Watcher workspace bound to /Users/umimac/DevMemory
+[2026-06-24 17:03:45] [event] File save: src/routes/auth.js (modified)
+[2026-06-24 17:03:46] [info] Compilation complete: 7 agents processed successfully.`
+    }
+  };
+
+  fileButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const fileKey = btn.getAttribute('data-file');
+      const fileData = fileContents[fileKey];
+      if (fileData && previewFilename && previewLang && previewBody) {
+        fileButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        previewFilename.textContent = fileData.name;
+        previewLang.textContent = fileData.lang;
+        previewBody.textContent = fileData.body;
+      }
+    });
+  });
+
+  // MCP Configuration Switcher (Step 5)
+  const mcpTabs = document.querySelectorAll('.mcp-tab');
+  const mcpConfigBody = document.getElementById('mcp-config-body');
+
+  const mcpConfigs = {
+    cursor: `{
+  "mcpServers": {
+    "devmemory": {
+      "command": "node",
+      "args": ["/usr/local/bin/devmemory", "mcp"],
+      "env": {
+        "DEVMEMORY_PORT": "31415"
+      },
+      "disabled": false
+    }
+  }
+}`,
+    claude: `{
+  "mcpServers": {
+    "devmemory": {
+      "command": "node",
+      "args": ["/usr/local/bin/devmemory", "mcp"],
+      "env": {
+        "DEVMEMORY_PORT": "31415"
+      }
+    }
+  }
+}`
+  };
+
+  mcpTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const clientKey = tab.getAttribute('data-mcp-client');
+      const configText = mcpConfigs[clientKey];
+      if (configText && mcpConfigBody) {
+        mcpTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        mcpConfigBody.textContent = configText;
+      }
+    });
+  });
+}
+

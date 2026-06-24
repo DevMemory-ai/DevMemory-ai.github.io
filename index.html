@@ -24,7 +24,6 @@
       <!-- Centered Navigation Links -->
       <nav class="nav-links header-desktop-nav">
         <button class="nav-btn active" data-tab="home">Home</button>
-        <button class="nav-btn" data-tab="how-it-works">How it works</button>
         <button class="nav-btn" data-tab="pricing">Pricing</button>
         <button class="nav-btn" data-tab="docs">Docs</button>
       </nav>
@@ -54,7 +53,6 @@
       <!-- Mobile dropdown menu: hidden by default -->
       <div id="mobile-dropdown-menu" class="mobile-dropdown-menu hidden">
         <button class="mobile-nav-btn active" data-tab="home">Home</button>
-        <button class="mobile-nav-btn" data-tab="how-it-works">How it works</button>
         <button class="mobile-nav-btn" data-tab="pricing">Pricing</button>
         <button class="mobile-nav-btn" data-tab="docs">Docs</button>
         <div class="mobile-menu-divider"></div>
@@ -74,10 +72,11 @@
           </p>
           <div class="hero-actions">
             <button class="btn-primary code-pill" id="hero-get-started" style="font-family: monospace;">npm install -g devmemory-ai</button>
-            <button class="btn-secondary" data-tab="pricing">Get Pro MCP → $9.99</button>
+            <button class="btn-secondary" data-tab="pricing">Get Pro MCP → $20</button>
           </div>
-          <div style="margin-top: 16px; font-size: 13.5px; color: var(--text-dim);">
-            Have questions? <a href="https://cal.com/devmemoryai/introduction-to-devmemeoryai" target="_blank" style="color: var(--accent-primary); text-decoration: underline;">Book a short chat</a> ↗
+          <div style="margin-top: 16px; font-size: 13.5px; color: var(--text-dim); display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span>Have questions?</span>
+            <a href="https://cal.com/devmemoryai/introduction-to-devmemory-ai?duration=15&overlayCalendar=true" target="_blank" class="btn-call">Book a 15-min chat ↗</a>
           </div>
         </div>
 
@@ -122,6 +121,253 @@
           <div class="problem-card">
             <h3 class="problem-h">Prompt fatigue</h3>
             <p class="problem-desc">Every new AI session starts from zero. The same context, re-typed, over and over.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- How It Works Integrated Stepper -->
+      <div id="home-how-it-works" class="home-how-it-works-section">
+        <h2 class="section-title">How DevMemory Works</h2>
+        <p class="section-subtitle">An automated background memory layer that operates entirely locally.</p>
+        
+        <div class="stepper-container">
+          <!-- Left side: Step Navigation -->
+          <div class="stepper-navigation">
+            <button class="step-nav-btn active" data-step="1">
+              <span class="step-num">01</span>
+              <div class="step-meta">
+                <span class="step-title">The Watcher Daemon</span>
+                <span class="step-sub">Continuous background tracking</span>
+              </div>
+            </button>
+            <button class="step-nav-btn" data-step="2">
+              <span class="step-num">02</span>
+              <div class="step-meta">
+                <span class="step-title">Event Detection</span>
+                <span class="step-sub">Smart diff compilation</span>
+              </div>
+            </button>
+            <button class="step-nav-btn" data-step="3">
+              <span class="step-num">03</span>
+              <div class="step-meta">
+                <span class="step-title">7-Agent LLM Compiler</span>
+                <span class="step-sub">Parallel local intent analysis</span>
+              </div>
+            </button>
+            <button class="step-nav-btn" data-step="4">
+              <span class="step-num">04</span>
+              <div class="step-meta">
+                <span class="step-title">The .devmemory/ Vault</span>
+                <span class="step-sub">Offline repository database</span>
+              </div>
+            </button>
+            <button class="step-nav-btn" data-step="5">
+              <span class="step-num">05</span>
+              <div class="step-meta">
+                <span class="step-title">MCP Context Injection</span>
+                <span class="step-sub">IDE native integration (Pro)</span>
+              </div>
+            </button>
+          </div>
+          
+          <!-- Right side: Step Contents View -->
+          <div class="stepper-display">
+            <!-- Step 1 Content -->
+            <div class="step-view active" id="step-view-1">
+              <h3 class="step-view-title">The Watcher Daemon</h3>
+              <p class="step-view-desc">The core watcher runs locally in the background of your workspace. With one CLI command, it starts watching your files and directory structure, automatically detecting saved changes, staged edits, and deleted files completely offline.</p>
+              <div class="code-container" style="width: 100%; margin-top: 16px;">
+                <div class="code-header">
+                  <span>TERMINAL</span>
+                  <button class="code-copy-btn">copy</button>
+                </div>
+                <pre class="code-block">devmemory watch</pre>
+              </div>
+              <div class="simulated-terminal-output" style="margin-top: 16px;">
+                <div class="terminal-header-bar">
+                  <span class="terminal-status-dot green"></span>
+                  <span class="terminal-status-text">DAEMON ACTIVE</span>
+                </div>
+                <div class="terminal-body-lines">
+                  <div class="term-line"><span class="term-time">[17:01:30]</span> <span class="term-info">info</span> Starting background watcher daemon...</div>
+                  <div class="term-line"><span class="term-time">[17:01:31]</span> <span class="term-info">info</span> Watching workspace: /Users/umimac/Documents/DevMemory</div>
+                  <div class="term-line highlighted"><span class="term-time">[17:03:45]</span> <span class="term-event">event</span> File change detected: src/routes/auth.js (modified)</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Step 2 Content -->
+            <div class="step-view" id="step-view-2">
+              <h3 class="step-view-title">Automated Event Detection</h3>
+              <p class="step-view-desc">No manual logging required. Whenever you save files or stage a Git commit, DevMemory's daemon automatically intercepts the event, compiles the exact git diff, parses affected lines, and packages the workspace state for the compiler pipeline.</p>
+              <div class="git-diff-mockup" style="margin-top: 16px;">
+                <div class="diff-header">
+                  <div class="vault-dots">
+                    <span class="vault-dot"></span>
+                    <span class="vault-dot"></span>
+                    <span class="vault-dot"></span>
+                  </div>
+                  <span class="diff-status">✓ EVENT DETECTED (src/routes/auth.js)</span>
+                </div>
+                <div class="diff-body">
+                  <div class="diff-line-normal">diff --git a/src/routes/auth.js b/src/routes/auth.js</div>
+                  <div class="diff-line-normal">--- a/src/routes/auth.js</div>
+                  <div class="diff-line-normal">+++ b/src/routes/auth.js</div>
+                  <div class="diff-line-normal">@@ -15,4 +15,9 @@</div>
+                  <div class="diff-line-del">-  const isPasswordValid = await bcrypt.compare(password, user.password);</div>
+                  <div class="diff-line-add">+  const isPasswordValid = await bcrypt.compare(password, user.password);</div>
+                  <div class="diff-line-add">+  if (!isPasswordValid) {</div>
+                  <div class="diff-line-add">+    req.log.warn({ email }, "Failed login attempt");</div>
+                  <div class="diff-line-add">+    return reply.status(401).send({ error: "Invalid credentials" });</div>
+                  <div class="diff-line-add">+  }</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Step 3 Content -->
+            <div class="step-view" id="step-view-3">
+              <h3 class="step-view-title">7-Agent LLM Compiler Pipeline</h3>
+              <p class="step-view-desc">Your codebase modifications are analyzed in parallel by seven specialized AI agents. They compile developer intent, verify system architecture, audit security, and document changes completely locally or via secure API proxies.</p>
+              <div class="agent-compiler-grid" style="margin-top: 16px;">
+                <div class="agent-compact-card">
+                  <span class="agent-compact-num">[1]</span>
+                  <div class="agent-compact-meta">
+                    <span class="agent-compact-title">Summarizer Agent</span>
+                    <span class="agent-compact-desc">Translates raw git diff edits into clear, plain-English change descriptions.</span>
+                  </div>
+                </div>
+                <div class="agent-compact-card">
+                  <span class="agent-compact-num">[2]</span>
+                  <div class="agent-compact-meta">
+                    <span class="agent-compact-title">Architecture Agent</span>
+                    <span class="agent-compact-desc">Auto-draws visual Mermaid.js dependency diagrams mapping modified data structures.</span>
+                  </div>
+                </div>
+                <div class="agent-compact-card">
+                  <span class="agent-compact-num">[3]</span>
+                  <div class="agent-compact-meta">
+                    <span class="agent-compact-title">Security Auditor</span>
+                    <span class="agent-compact-desc">Scans code edits for exposed secrets, sanitization issues, and vulnerability vectors.</span>
+                  </div>
+                </div>
+                <div class="agent-compact-card">
+                  <span class="agent-compact-num">[4]</span>
+                  <div class="agent-compact-meta">
+                    <span class="agent-compact-title">Test Architect</span>
+                    <span class="agent-compact-desc">Generates a verification plan with mock test inputs, validation scripts, and scenarios.</span>
+                  </div>
+                </div>
+                <div class="agent-compact-card">
+                  <span class="agent-compact-num">[5]</span>
+                  <div class="agent-compact-meta">
+                    <span class="agent-compact-title">Regenerator Agent</span>
+                    <span class="agent-compact-desc">Compiles a model-agnostic blueprint prompt to recreate the exact feature from scratch.</span>
+                  </div>
+                </div>
+                <div class="agent-compact-card">
+                  <span class="agent-compact-num">[6]</span>
+                  <div class="agent-compact-meta">
+                    <span class="agent-compact-title">Changelog Compiler</span>
+                    <span class="agent-compact-desc">Formats and appends clean, chronological release summaries to your changelog file.</span>
+                  </div>
+                </div>
+                <div class="agent-compact-card">
+                  <span class="agent-compact-num">[7]</span>
+                  <div class="agent-compact-meta">
+                    <span class="agent-compact-title">Brain Synchronizer</span>
+                    <span class="agent-compact-desc">Refines and updates the living project brain representing the accumulated knowledge.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Step 4 Content -->
+            <div class="step-view" id="step-view-4">
+              <h3 class="step-view-title">The .devmemory/ Vault</h3>
+              <p class="step-view-desc">All structured outputs are stored in a local folder inside your project. This vault serves as a secure knowledge base containing your historical design decisions and is kept completely offline. Click on a file below to preview it:</p>
+              
+              <div class="vault-browser" style="margin-top: 16px;">
+                <div class="vault-browser-sidebar">
+                  <div class="vault-tree-node header">your-project/</div>
+                  <div class="vault-tree-node folder">.devmemory/</div>
+                  <button class="vault-tree-file active" data-file="config">config.json</button>
+                  <button class="vault-tree-file" data-file="brain">project-brain.md</button>
+                  <button class="vault-tree-file" data-file="changelog">changelog.md</button>
+                  <button class="vault-tree-file" data-file="context">FULL_PROJECT_CONTEXT.md</button>
+                  <button class="vault-tree-file" data-file="watcher">watcher.log</button>
+                </div>
+                <div class="vault-browser-preview">
+                  <div class="preview-header">
+                    <span class="preview-filename" id="vault-preview-filename">config.json</span>
+                    <span class="preview-lang" id="vault-preview-lang">JSON</span>
+                  </div>
+                  <pre class="preview-body" id="vault-preview-body">{
+  "model": "claude-3-5-sonnet",
+  "temperature": 0.2,
+  "max_context_tokens": 120000,
+  "dashboard": {
+    "port": 31415,
+    "enabled": true
+  }
+}</pre>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Step 5 Content -->
+            <div class="step-view" id="step-view-5">
+              <h3 class="step-view-title">MCP Context Injection (Pro)</h3>
+              <p class="step-view-desc">The Pro MCP server loads your local memories directly into your IDE's active LLM context. When you open a session, the AI reads your project history automatically—no copy-paste needed. Supported in Cursor, Claude Code, Cline, Windsurf, Claude Desktop, Antigravity, and any other MCP-compatible tool.</p>
+              
+              <div class="mcp-config-mockup" style="margin-top: 16px;">
+                <div class="mcp-config-header">
+                  <span class="mcp-tab active" data-mcp-client="cursor">CURSOR (mcp.json)</span>
+                  <span class="mcp-tab" data-mcp-client="claude">CLAUDE DESKTOP</span>
+                </div>
+                <pre class="mcp-config-body" id="mcp-config-body">{
+  "mcpServers": {
+    "devmemory": {
+      "command": "node",
+      "args": ["/usr/local/bin/devmemory", "mcp"],
+      "env": {
+        "DEVMEMORY_PORT": "31415"
+      },
+      "disabled": false
+    }
+  }
+}</pre>
+                <div class="mcp-activation-info" style="margin-top: 12px; font-size: 13px; color: var(--text-dim);">
+                  Note: The Pro edition runs an interactive local dashboard on port <strong>31415</strong>. If no valid license is found, it automatically starts a setup server on port <strong>31414</strong> to guide you through offline activation.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="supported-section" style="margin-top: 60px;">
+          <h3 style="text-align: center;">Supported IDEs &amp; AI Clients</h3>
+          <p class="supported-subtitle" style="text-align: center; color: var(--text-dim); margin-top: 4px; margin-bottom: 24px; font-size: 14px;">Compatible with any tool or editor that supports the Model Context Protocol (MCP).</p>
+          <div class="supported-grid">
+            <div class="tool-item">Claude Code</div>
+            <div class="tool-item">Cursor</div>
+            <div class="tool-item">Windsurf</div>
+            <div class="tool-item">VS Code + Cline</div>
+            <div class="tool-item">Aider</div>
+            <div class="tool-item">Claude Desktop</div>
+            <div class="tool-item">Antigravity</div>
+            <div class="tool-item">Any MCP-compatible client</div>
+          </div>
+        </div>
+        
+        <div class="supported-section" style="margin-top: 40px; margin-bottom: 60px;">
+          <h3 style="text-align: center;">Supported Model Providers</h3>
+          <div class="supported-grid">
+            <div class="provider-item">Claude (3.5 Sonnet [and above] / Haiku [and above])</div>
+            <div class="provider-item">Gemini (2.5 Flash [and above] / Pro [and above])</div>
+            <div class="provider-item">GPT (4o [and above] / 4o-mini [and above])</div>
+            <div class="provider-item">DeepSeek (V3 [and above] / Coder [and above])</div>
+            <div class="provider-item">Groq / Together (Llama 3 [and above])</div>
+            <div class="provider-item">Ollama (Offline models [and above])</div>
           </div>
         </div>
       </div>
@@ -174,6 +420,10 @@
           </thead>
           <tbody>
             <tr>
+              <td>Source code on GitHub (CLI-only)</td>
+              <td>Interactive local Web Dashboard &amp; Analytics</td>
+            </tr>
+            <tr>
               <td>Background watcher daemon</td>
               <td>Everything in Free</td>
             </tr>
@@ -182,7 +432,7 @@
               <td>Zero-config IDE native integration</td>
             </tr>
             <tr>
-              <td>Multi-provider support (Gemini, Claude, Ollama)</td>
+              <td>Multi-provider support (Gemini, Claude, OpenAI, Ollama, etc.)</td>
               <td>Autostart on project open</td>
             </tr>
             <tr>
@@ -193,6 +443,18 @@
               <td>Ollama offline support</td>
               <td>Auto context injection in Cursor, Claude Code, Cline, Windsurf</td>
             </tr>
+            <tr>
+              <td>GPL-3.0 Open Source (Free forever)</td>
+              <td>Commercial Lifetime License (Buy once, keep forever)</td>
+            </tr>
+            <tr>
+              <td>Unlimited devices, no activation required</td>
+              <td>Up to 2 active devices (fingerprint bound)</td>
+            </tr>
+            <tr>
+              <td>N/A (No activation required)</td>
+              <td>Offline-first validation (JWT-cached with 7-day grace period)</td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -202,10 +464,11 @@
         <h2 class="final-cta-title">Start remembering everything. Free forever for solo developers.</h2>
         <div class="hero-actions" style="margin-top: 24px; justify-content: center;">
           <button class="btn-primary code-pill final-get-started" style="font-family: monospace;">npm install -g devmemory-ai</button>
-          <button class="btn-secondary" data-tab="pricing">Get Pro MCP → $9.99</button>
+          <button class="btn-secondary" data-tab="pricing">Get Pro MCP → $20</button>
         </div>
-        <div style="margin-top: 16px; font-size: 13.5px; color: var(--text-dim); text-align: center; width: 100%;">
-          Have questions? <a href="https://cal.com/devmemoryai/introduction-to-devmemeoryai" target="_blank" style="color: var(--accent-primary); text-decoration: underline;">Book a short chat</a> ↗
+        <div style="margin-top: 16px; font-size: 13.5px; color: var(--text-dim); text-align: center; display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; width: 100%;">
+          <span>Have questions?</span>
+          <a href="https://cal.com/devmemoryai/introduction-to-devmemory-ai?duration=15&overlayCalendar=true" target="_blank" class="btn-call">Book a 15-min chat ↗</a>
         </div>
       </div>
 
@@ -215,7 +478,7 @@
           <div class="footer-col">
             <h4>Product</h4>
             <ul>
-              <li><button class="footer-link-btn" data-tab="how-it-works">How it works</button></li>
+              <li><button class="footer-link-btn footer-link-btn-how-it-works">How it works</button></li>
               <li><button class="footer-link-btn" data-tab="pricing">Pricing</button></li>
             </ul>
           </div>
@@ -235,7 +498,7 @@
             <ul>
               <li><a href="https://github.com/DevMemory-ai/DevMemory" target="_blank">GitHub &nearrow;</a></li>
               <li><a href="https://www.npmjs.com/package/devmemory-ai" target="_blank">npm package &nearrow;</a></li>
-              <li><a href="https://github.com/DevMemory-ai/DevMemory/blob/main/LICENSE" target="_blank">MIT License</a></li>
+              <li><a href="https://github.com/DevMemory-ai/DevMemory/blob/main/LICENSE" target="_blank">GPL-3.0 License</a></li>
               <li><a href="https://github.com/DevMemory-ai/DevMemory/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a></li>
             </ul>
           </div>
@@ -252,7 +515,7 @@
         
         <div class="footer-bottom">
           <div class="footer-copyright">
-            DevMemory AI &copy; 2026 &middot; MIT License &middot; Open Source
+            DevMemory AI &copy; 2026 &middot; GPL-3.0 License &middot; Open Source
           </div>
           <div class="footer-credit">
             Made by a solo developer who lost too much AI context
@@ -261,146 +524,7 @@
       </footer>
     </div>
 
-    <!-- Tab 1.5: How It Works Page -->
-    <div id="tab-how-it-works" class="tab-content">
-      <div class="how-it-works-layout">
-        <div class="how-it-works-header">
-          <h1 class="how-it-works-title">From commit to memory in under 60 seconds</h1>
-          <p class="how-it-works-subtitle">How DevMemory tracks developer intent, audits your builds, and injects context into your IDE.</p>
-        </div>
-        
-        <div class="how-it-works-steps">
-          <div class="step-detail">
-            <h3>Step 1 — The Watcher Daemon</h3>
-            <p>The core daemon runs continuously in the background of your workspace. With one command, it starts watching your files and directory structure, detecting edits, file saves, and staged changes.</p>
-            <div class="code-container">
-              <div class="code-header">
-                <span>TERMINAL</span>
-              </div>
-              <pre class="code-block">devmemory watch</pre>
-            </div>
-          </div>
-          
-          <div class="step-detail">
-            <h3>Step 2 — Commit detection</h3>
-            <p>Every time you commit changes via git or trigger a build, DevMemory intercepts the action, captures the git diff, parses the changed lines, and retrieves your development logs.</p>
-          </div>
-          
-          <div class="step-detail">
-            <h3>Step 3 — The 7-agent pipeline</h3>
-            <p>Your diffs are analyzed by seven specialized local or cloud agents. Here is what they build:</p>
-            <ul class="agent-list">
-              <li><strong>Summarizer</strong> — Reads the diff and explains what changed and why in plain English.</li>
-              <li><strong>Architect</strong> — Generates a Mermaid.js data flow diagram showing affected modules.</li>
-              <li><strong>Security</strong> — Scans for hardcoded credentials, input validation flaws, and logic exploits.</li>
-              <li><strong>Tester</strong> — Builds a verification plan with mock inputs and validation scripts.</li>
-              <li><strong>Regenerator</strong> — Writes the exact prompt needed to rebuild this feature from scratch in any AI tool.</li>
-              <li><strong>Changelog</strong> — Auto-updates your project changelog with human-readable entries.</li>
-              <li><strong>Brain</strong> — Updates the living project-brain.md that your AI reads at every session start.</li>
-            </ul>
-          </div>
-          
-          <div class="step-detail">
-            <h3>Step 4 — The .devmemory/ vault</h3>
-            <p>All structured outputs are stored in a local `.devmemory/` vault on your computer. This vault serves as a secure knowledge base containing your historical design decisions.</p>
-            <div class="code-container">
-              <div class="code-header">
-                <span>DIRECTORY STRUCTURE</span>
-              </div>
-              <pre class="code-block">.devmemory/
-├── config.json
-├── brain/
-│   └── project-brain.md
-├── builds/
-│   ├── 2026-06-16_01_user-auth.md
-│   └── 2026-06-16_02_payment-gateway.md
-└── logs/
-    └── daemon.log</pre>
-            </div>
-          </div>
-          
-          <div class="step-detail">
-            <h3>Step 5 — MCP context injection (Pro)</h3>
-            <p>The Pro MCP Server interfaces directly with your IDE (Cursor, Claude Code, VS Code, Windsurf). When you boot up a new session, the IDE queries the server, loading the `.devmemory/` vault contents into the active LLM context so the assistant knows exactly where you left off.</p>
-          </div>
-        </div>
-        
-        <div class="supported-section">
-          <h3>Supported tools</h3>
-          <div class="supported-grid">
-            <div class="tool-item">Claude Code</div>
-            <div class="tool-item">Cursor</div>
-            <div class="tool-item">Windsurf</div>
-            <div class="tool-item">VS Code</div>
-            <div class="tool-item">Aider</div>
-            <div class="tool-item">Cline</div>
-          </div>
-        </div>
-        
-        <div class="supported-section">
-          <h3>Supported AI providers</h3>
-          <div class="supported-grid">
-            <div class="provider-item">Claude (Claude 3.5 Sonnet / Haiku and above)</div>
-            <div class="provider-item">Gemini (Gemini 2.5 Flash / Pro and above)</div>
-            <div class="provider-item">GPT (gpt-4o / gpt-4o-mini and above)</div>
-            <div class="provider-item">DeepSeek (V3 / Coder)</div>
-            <div class="provider-item">Groq / Together (Llama 3 / Mixtral)</div>
-            <div class="provider-item">Ollama (Offline Qwen / Llama and above)</div>
-          </div>
-        </div>
 
-        <!-- Footer -->
-        <footer class="site-footer">
-          <div class="footer-grid">
-            <div class="footer-col">
-              <h4>Product</h4>
-              <ul>
-                <li><button class="footer-link-btn" data-tab="how-it-works">How it works</button></li>
-                <li><button class="footer-link-btn" data-tab="pricing">Pricing</button></li>
-              </ul>
-            </div>
-            
-            <div class="footer-col">
-              <h4>Docs</h4>
-              <ul>
-                <li><button class="footer-link-btn" data-tab="docs" data-doc-target="section-intro">Quickstart</button></li>
-                <li><button class="footer-link-btn" data-tab="docs" data-doc-target="section-init">CLI Reference</button></li>
-                <li><button class="footer-link-btn" data-tab="docs" data-doc-target="pro-overview">Pro MCP Setup</button></li>
-                <li><button class="footer-link-btn" data-tab="docs" data-doc-target="section-config">Configuration</button></li>
-              </ul>
-            </div>
-
-            <div class="footer-col">
-              <h4>Open Source</h4>
-              <ul>
-                <li><a href="https://github.com/DevMemory-ai/DevMemory" target="_blank">GitHub &nearrow;</a></li>
-                <li><a href="https://www.npmjs.com/package/devmemory-ai" target="_blank">npm package &nearrow;</a></li>
-                <li><a href="https://github.com/DevMemory-ai/DevMemory/blob/main/LICENSE" target="_blank">MIT License</a></li>
-                <li><a href="https://github.com/DevMemory-ai/DevMemory/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a></li>
-              </ul>
-            </div>
-
-            <div class="footer-col">
-              <h4>Connect</h4>
-              <ul>
-                <li><a href="mailto:services@devmemoryai.org">services@devmemoryai.org</a></li>
-                <li><a href="https://x.com/DevMemoryAI" target="_blank">Twitter / X &nearrow;</a></li>
-                <li><a href="https://discord.gg/devmemory" target="_blank">Discord &nearrow;</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div class="footer-bottom">
-            <div class="footer-copyright">
-              DevMemory AI &copy; 2026 &middot; MIT License &middot; Open Source
-            </div>
-            <div class="footer-credit">
-              Made by a solo developer who lost too much AI context
-            </div>
-          </div>
-        </footer>
-      </div>
-    </div>
 
     <!-- Tab 2: Pricing Page -->
     <div id="tab-pricing" class="tab-content">
@@ -418,11 +542,16 @@
               <span class="price-amount">$0</span>
               <span class="price-period">forever</span>
             </div>
-            <p class="card-desc">Open source CLI for developers who want autonomous code documentation.</p>
+            <p class="card-desc">Open-source CLI built from our public GitHub repository. Strictly CLI-only (no local dashboard, no MCP integration).</p>
+            <div class="card-license-detail">
+              <strong>Source Code:</strong> <a href="https://github.com/DevMemory-ai/DevMemory/tree/main" target="_blank" style="color: var(--accent-primary); text-decoration: underline;">GitHub Repository &nearrow;</a><br>
+              <strong>License:</strong> GNU GPLv3 Open Source<br>
+              <strong>Activation:</strong> Free forever, no activation required
+            </div>
             <ul class="card-features">
               <li><span class="check">✓</span> Background watcher daemon</li>
               <li><span class="check">✓</span> 7-agent AI analysis pipeline</li>
-              <li><span class="check">✓</span> Multi-provider support (Gemini, Claude, OpenAI)</li>
+              <li><span class="check">✓</span> Multi-provider support (Gemini, Claude, OpenAI, Ollama, etc.)</li>
               <li><span class="check">✓</span> Persistent daemon config</li>
               <li><span class="check">✓</span> Rate limiting & OS alerts</li>
               <li><span class="check">✓</span> Offline mode with Ollama</li>
@@ -433,13 +562,18 @@
 
           <!-- Pro Tier -->
           <div class="pricing-card pro-card">
-            <div class="card-tier-label">PRO <span class="launch-badge">LAUNCH OFFER</span></div>
+            <div class="card-tier-label">PRO <span class="launch-badge">60% OFF LAUNCH OFFER</span></div>
             <div class="card-price">
               <span class="price-original">$50</span>
-              <span class="price-amount pro-price">$9.99</span>
+              <span class="price-amount pro-price">$20</span>
               <span class="price-period">lifetime access</span>
             </div>
             <p class="card-desc">MCP Server for seamless IDE integration. Lifetime access — purchase once, use forever. This special launch price might change soon, so be the early ones to avail the offer!</p>
+            <div class="card-license-detail">
+              <strong>License:</strong> Commercial Lifetime Access<br>
+              <strong>Seats:</strong> Up to 2 active devices (fingerprint bound)<br>
+              <strong>Keys:</strong> Offline JWT token validation with 7-day grace period
+            </div>
             <ul class="card-features">
               <li><span class="check">✓</span> Everything in Free</li>
               <li><span class="check pro">✓</span> MCP Server — zero-config IDE integration</li>
@@ -450,10 +584,11 @@
               <li><span class="check pro">✓</span> Watcher to MCP coordination</li>
             </ul>
             <div style="display: flex; flex-direction: column; gap: 8px; margin-top: auto; width: 100%;">
-              <button class="btn-card btn-pro" id="pricing-pro-buy-btn">Buy Pro License — $9.99 →</button>
+              <button class="btn-card btn-pro" id="pricing-pro-buy-btn">Buy Pro License — $20 →</button>
               <button class="btn-card btn-free" id="pricing-pro-docs-btn">Read Pro Docs →</button>
-              <div style="margin-top: 4px; font-size: 12.5px; text-align: center; color: var(--text-dim);">
-                Have questions? <a href="https://cal.com/devmemoryai/introduction-to-devmemeoryai" target="_blank" style="color: var(--accent-primary); text-decoration: underline;">Book a short chat</a> ↗
+              <div style="margin-top: 8px; font-size: 12.5px; text-align: center; color: var(--text-dim); display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                <span>Have questions?</span>
+                <a href="https://cal.com/devmemoryai/introduction-to-devmemory-ai?duration=15&overlayCalendar=true" target="_blank" class="btn-call" style="margin-left: 0; width: 100%;">Book a 15-min chat ↗</a>
               </div>
             </div>
           </div>
@@ -466,6 +601,11 @@
               <span class="price-period">pricing depending on users</span>
             </div>
             <p class="card-desc">For engineering organizations that require shared context repositories, centralized security policies, and workspace-wide context synchronization.</p>
+            <div class="card-license-detail">
+              <strong>License:</strong> Commercial Subscription<br>
+              <strong>Seats:</strong> Centralized dashboard registry seat controls<br>
+              <strong>Keys:</strong> Multi-device workspace context sync & group keys
+            </div>
             <ul class="card-features">
               <li><span class="check">✓</span> Everything in Pro</li>
               <li><span class="check pro">✓</span> Enterprise shared memory vaults</li>
@@ -477,8 +617,9 @@
               <input type="email" id="enterprise-waitlist-email" placeholder="enterprise@company.com" required style="padding: 10px; border-radius: 6px; border: 1px solid var(--border-color); background-color: var(--panel-bg-hover); color: var(--text-main); font-size: 13.5px;" />
               <button type="submit" class="btn-card btn-free" style="margin-top: 4px;">Join Enterprise Waitlist &rarr;</button>
               <div id="enterprise-waitlist-success-message" class="hidden" style="font-size: 12px; font-weight: 500; margin-top: 4px; text-align: center;"></div>
-              <div style="margin-top: 4px; font-size: 12.5px; text-align: center; color: var(--text-dim);">
-                Need custom terms? <a href="https://cal.com/devmemoryai/introduction-to-devmemeoryai" target="_blank" style="color: var(--accent-primary); text-decoration: underline;">Schedule a call</a> ↗
+              <div style="margin-top: 8px; font-size: 12.5px; text-align: center; color: var(--text-dim); display: flex; flex-direction: column; align-items: center; gap: 6px;">
+                <span>Need custom terms?</span>
+                <a href="https://cal.com/devmemoryai/introduction-to-devmemory-ai?duration=15&overlayCalendar=true" target="_blank" class="btn-call" style="margin-left: 0; width: 100%;">Schedule a call ↗</a>
               </div>
             </form>
           </div>
@@ -516,6 +657,12 @@
                 <td>Yes</td>
               </tr>
               <tr>
+                <td>Local Dashboard &amp; Analytics</td>
+                <td>No</td>
+                <td>Yes</td>
+                <td>Yes</td>
+              </tr>
+              <tr>
                 <td>Zero-config MCP Server</td>
                 <td>No</td>
                 <td>Yes</td>
@@ -539,6 +686,24 @@
                 <td>No</td>
                 <td>Yes</td>
               </tr>
+              <tr>
+                <td>Licensing type</td>
+                <td>GNU GPLv3 Open Source</td>
+                <td>Commercial Lifetime Access</td>
+                <td>Commercial Subscription</td>
+              </tr>
+              <tr>
+                <td>Device seats</td>
+                <td>Unlimited</td>
+                <td>2 active devices (fingerprint bound)</td>
+                <td>Custom seat quotas</td>
+              </tr>
+              <tr>
+                <td>Offline license validation</td>
+                <td>N/A (No activation required)</td>
+                <td>Yes (Cryptographic JWT, 7-day grace)</td>
+                <td>Yes (Centralized seat controls)</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -561,11 +726,11 @@
             </div>
             <div class="faq-item">
               <h4 class="faq-question">Q: What's the difference between the CLI and the MCP server?</h4>
-              <p class="faq-answer">A: The free CLI captures and documents your builds locally. The Pro MCP server goes further — it connects your .devmemory/ vault directly to your IDE so your AI reads it automatically at every session start. No copy-pasting required.</p>
+              <p class="faq-answer">A: The free CLI is a local-only tool built from the open-source codebase on GitHub (no dashboard interface, no direct MCP integration). You can use it to capture and document builds via terminal. The Pro MCP server integrates directly with your IDE (Cursor, Claude Code, Cline, Windsurf, etc.) to automatically read/write memories, and includes our premium local Web Dashboard &amp; Analytics UI.</p>
             </div>
             <div class="faq-item">
               <h4 class="faq-question">Q: Is DevMemory open source?</h4>
-              <p class="faq-answer">A: The core CLI is fully open source under MIT license. The Pro MCP server is commercial. You can inspect, fork, and contribute to the CLI on GitHub.</p>
+              <p class="faq-answer">A: The core CLI is fully open source under GNU General Public License v3.0 (GPL-3.0). The Pro MCP server is commercial. You can inspect, fork, and contribute to the CLI on GitHub.</p>
             </div>
           </div>
         </div>
@@ -576,7 +741,7 @@
             <div class="footer-col">
               <h4>Product</h4>
               <ul>
-                <li><button class="footer-link-btn" data-tab="how-it-works">How it works</button></li>
+                <li><button class="footer-link-btn footer-link-btn-how-it-works">How it works</button></li>
                 <li><button class="footer-link-btn" data-tab="pricing">Pricing</button></li>
               </ul>
             </div>
@@ -596,7 +761,7 @@
               <ul>
                 <li><a href="https://github.com/DevMemory-ai/DevMemory" target="_blank">GitHub &nearrow;</a></li>
                 <li><a href="https://www.npmjs.com/package/devmemory-ai" target="_blank">npm package &nearrow;</a></li>
-                <li><a href="https://github.com/DevMemory-ai/DevMemory/blob/main/LICENSE" target="_blank">MIT License</a></li>
+                <li><a href="https://github.com/DevMemory-ai/DevMemory/blob/main/LICENSE" target="_blank">GPL-3.0 License</a></li>
                 <li><a href="https://github.com/DevMemory-ai/DevMemory/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a></li>
               </ul>
             </div>
@@ -613,7 +778,7 @@
           
           <div class="footer-bottom">
             <div class="footer-copyright">
-              DevMemory AI &copy; 2026 &middot; MIT License &middot; Open Source
+              DevMemory AI &copy; 2026 &middot; GPL-3.0 License &middot; Open Source
             </div>
             <div class="footer-credit">
               Made by a solo developer who lost too much AI context
@@ -626,43 +791,42 @@
     <!-- Tab 3: Docs -->
     <div id="tab-docs" class="tab-content">
       <div class="docs-layout">
-        <!-- Sidebar Navigation -->
-        <aside class="docs-sidebar" id="docs-sidebar">
-          <div class="sidebar-category">A. CLI ENGINE SETUP</div>
-          <button class="sidebar-link active" data-target="section-intro">A1. Introduction</button>
-          <button class="sidebar-link" data-target="section-prereqs">A2. Prerequisites</button>
-          <button class="sidebar-link" data-target="section-install">A3. Installation</button>
-          <button class="sidebar-link" data-target="section-version">A4. devmemory --version</button>
-          <button class="sidebar-link" data-target="section-init">A5. devmemory init</button>
-          <button class="sidebar-link" data-target="section-config">A6. devmemory config</button>
-          <button class="sidebar-link" data-target="section-record">A7. devmemory record</button>
-          <button class="sidebar-link" data-target="section-watch">A8. devmemory watch</button>
-          <button class="sidebar-link" data-target="section-show">A9. devmemory show</button>
-          <button class="sidebar-link" data-target="section-context">A10. devmemory context</button>
-          <button class="sidebar-link" data-target="section-setup-ollama">A11. devmemory setup-ollama</button>
-          <button class="sidebar-link" data-target="section-terminate">A12. devmemory terminate</button>
-          <button class="sidebar-link" data-target="section-status">A13. devmemory status</button>
-          <button class="sidebar-link" data-target="section-logs">A14. devmemory logs</button>
-          <button class="sidebar-link" data-target="section-ratelimit">A15. Rate Limiting</button>
-          <button class="sidebar-link" data-target="section-agents">A16. Multi-Agent Pipeline</button>
-          <button class="sidebar-link" data-target="section-files">A17. File Structure</button>
-          <button class="sidebar-link" data-target="section-env">A18. Environment Variables</button>
-          <button class="sidebar-link" data-target="section-providers">A19. Supported Providers</button>
+         <!-- Sidebar Navigation -->
+         <aside class="docs-sidebar" id="docs-sidebar">
+            <div class="sidebar-category">A. CLI ENGINE SETUP</div>
+            <button class="sidebar-link active" data-target="section-intro">A1. Introduction</button>
+            <button class="sidebar-link" data-target="section-prereqs">A2. Prerequisites</button>
+            <button class="sidebar-link" data-target="section-install">A3. Installation</button>
+            <button class="sidebar-link" data-target="section-version">A4. devmemory --version</button>
+            <button class="sidebar-link" data-target="section-init">A5. devmemory init</button>
+            <button class="sidebar-link" data-target="section-config">A6. devmemory config</button>
+            <button class="sidebar-link" data-target="section-record">A7. devmemory record</button>
+            <button class="sidebar-link" data-target="section-watch">A8. devmemory watch</button>
+            <button class="sidebar-link" data-target="section-show">A9. devmemory show</button>
+            <button class="sidebar-link" data-target="section-context">A10. devmemory context</button>
+            <button class="sidebar-link" data-target="section-setup-ollama">A11. devmemory setup-ollama</button>
+            <button class="sidebar-link" data-target="section-terminate">A12. devmemory terminate</button>
+            <button class="sidebar-link" data-target="section-status">A13. devmemory status</button>
+            <button class="sidebar-link" data-target="section-logs">A14. devmemory logs</button>
+            <button class="sidebar-link" data-target="section-ratelimit">A15. Rate Limiting</button>
+            <button class="sidebar-link" data-target="section-agents">A16. Multi-Agent Pipeline</button>
+            <button class="sidebar-link" data-target="section-files">A17. File Structure</button>
+            <button class="sidebar-link" data-target="section-providers">A18. Supported Providers</button>
 
           <div class="sidebar-divider"></div>
 
-          <div class="sidebar-category">B. PRO MCP INTEGRATION (COMING SOON)</div>
-          <button class="sidebar-link" data-target="pro-overview">B1. Pro Overview (Coming Soon)</button>
-          <button class="sidebar-link" data-target="pro-license">B2. License Activation (Coming Soon)</button>
-          <button class="sidebar-link" data-target="pro-ide">B3. IDE Configuration (Coming Soon)</button>
-          <button class="sidebar-link" data-target="pro-autoinit">B4. Auto-Initialization (Coming Soon)</button>
-          <button class="sidebar-link" data-target="pro-global-config">B5. Global Config (Coming Soon)</button>
-          <button class="sidebar-link" data-target="pro-tools">B6. Tool Reference (Coming Soon)</button>
-          <button class="sidebar-link" data-target="pro-resources">B7. Resource Reference (Coming Soon)</button>
-          <button class="sidebar-link" data-target="pro-workflow">B8. Workflow Guide (Coming Soon)</button>
-          <button class="sidebar-link" data-target="pro-dashboard">B9. Local Dashboard (Coming Soon)</button>
-          <button class="sidebar-link" data-target="pro-byok">B10. BYOK (Bring Your Own Key) (Coming Soon)</button>
-          <button class="sidebar-link" data-target="pro-coordination">B11. Watcher ↔ MCP (Coming Soon)</button>
+          <div class="sidebar-category">B. PRO MCP INTEGRATION</div>
+          <button class="sidebar-link" data-target="pro-overview">B1. Pro Overview</button>
+          <button class="sidebar-link" data-target="pro-license">B2. License Activation</button>
+          <button class="sidebar-link" data-target="pro-ide">B3. IDE Configuration</button>
+          <button class="sidebar-link" data-target="pro-autoinit">B4. Auto-Initialization</button>
+          <button class="sidebar-link" data-target="pro-global-config">B5. Global Config</button>
+          <button class="sidebar-link" data-target="pro-tools">B6. Tool Reference</button>
+          <button class="sidebar-link" data-target="pro-resources">B7. Resource Reference</button>
+          <button class="sidebar-link" data-target="pro-workflow">B8. Workflow Guide</button>
+          <button class="sidebar-link" data-target="pro-dashboard">B9. Local Dashboard &amp; Analytics</button>
+          <button class="sidebar-link" data-target="pro-byok">B10. BYOK (Bring Your Own Key)</button>
+          <button class="sidebar-link" data-target="pro-coordination">B11. Watcher ↔ MCP</button>
         </aside>
 
         <!-- Docs Reader Panel -->
@@ -690,6 +854,10 @@
             </div>
             <p class="doc-p">
               The goal is to make every AI-generated feature <strong>understandable</strong>, <strong>reproducible</strong>, <strong>searchable</strong>, and <strong>reusable</strong> — even months after it was written.
+            </p>
+            <h2 class="doc-h2" style="font-size: 18px; margin-top: 16px;">Open Source GPL-3.0 Engine</h2>
+            <p class="doc-p">
+              The core CLI documentation engine is fully open-source and released under the <strong>GNU General Public License v3.0 (GPL-3.0)</strong>. This means it is free to inspect, run locally, modify, and redistribute. It requires no license keys or online authentication, offering lifetime utility for developers who prefer an entirely offline, open-source documentation workflow.
             </p>
           </section>
 
@@ -770,7 +938,7 @@ git --version
               </div>
               <pre class="code-block">devmemory --help</pre>
             </div>
-            <p class="doc-p">You should see the help menu listing all available subcommands: <code>init</code>, <code>config</code>, <code>record</code>, <code>watch</code>, <code>show</code>, <code>context</code>, <code>setup-ollama</code>, and <code>terminate</code>.</p>
+            <p class="doc-p">You should see the help menu listing all available subcommands: <code>init</code>, <code>config</code>, <code>record</code>, <code>watch</code>, <code>show</code>, <code>status</code>, <code>logs</code>, <code>context</code>, <code>setup-ollama</code>, and <code>terminate</code>.</p>
           </section>
 
           <!-- 04. devmemory --version -->
@@ -1038,21 +1206,21 @@ devmemory record -p "Fix database connection pooling"</pre>
             <div class="asciinema-container"><div id="player-status"></div></div>
           </section>
 
-          <!-- 14. devmemory logs -->
-          <section id="section-logs" class="doc-section">
-            <h1 class="doc-h1">A14. devmemory logs</h1>
-            <p class="doc-p">
-              Reads and outputs recent logs from the background daemon (`.devmemory/watcher.log`).
-            </p>
-            <h2 class="doc-h2">Syntax</h2>
-            <div class="code-container">
-              <div class="code-header">
-                <span>TERMINAL</span>
-                <button class="code-copy-btn">copy</button>
-              </div>
-              <pre class="code-block">devmemory logs [OPTIONS]</pre>
-            </div>
-          </section>
+           <!-- 14. devmemory logs -->
+           <section id="section-logs" class="doc-section">
+             <h1 class="doc-h1">A14. devmemory logs</h1>
+             <p class="doc-p">
+               Reads and outputs recent logs from the background daemon (`.devmemory/watcher.log`).
+             </p>
+             <h2 class="doc-h2">Syntax</h2>
+             <div class="code-container">
+               <div class="code-header">
+                 <span>TERMINAL</span>
+                 <button class="code-copy-btn">copy</button>
+               </div>
+               <pre class="code-block">devmemory logs [OPTIONS]</pre>
+             </div>
+           </section>
 
           <!-- 15. Rate Limiting -->
           <section id="section-ratelimit" class="doc-section">
@@ -1086,46 +1254,57 @@ devmemory record -p "Fix database connection pooling"</pre>
             <pre class="code-block">your-project/
 ├── .devmemory/
 │   ├── config.json
+│   ├── timeline.json
 │   ├── project-brain.md
 │   ├── changelog.md
-│   └── timeline.json</pre>
+│   ├── FULL_PROJECT_CONTEXT.md
+│   ├── watcher.log
+│   ├── build-001-user-auth.md
+│   └── build-002-payment-gateway.md</pre>
           </section>
-
-          <!-- 18. Environment Variables -->
-          <section id="section-env" class="doc-section">
-            <h1 class="doc-h1">A18. Environment Variables</h1>
-            <p class="doc-p">You can override keys using env vars: <code>GEMINI_API_KEY</code>, <code>OPENAI_API_KEY</code>, <code>ANTHROPIC_API_KEY</code>, etc.</p>
-          </section>
-
-          <!-- A19. Supported Providers -->
+          <!-- 18. Supported Providers -->
           <section id="section-providers" class="doc-section">
-            <h1 class="doc-h1">A19. Supported Providers</h1>
-            <p class="doc-p">Supports Gemini, Claude, OpenAI, OpenRouter, DeepSeek, Groq, Together, and Ollama offline local models.</p>
+            <h1 class="doc-h1">A18. Supported Providers</h1>
+            <p class="doc-p">Supports Gemini (2.5 Flash [and above] / Pro [and above]), Claude (3.5 Sonnet [and above] / Haiku [and above]), OpenAI (GPT-4o [and above] / GPT-4o-mini [and above]), OpenRouter, DeepSeek (V3 [and above] / Coder [and above]), Groq / Together (Llama 3 [and above]), and Ollama offline local models [and above].</p>
           </section>
 
-          <!-- Docs Pro Divider -->
           <div class="docs-pro-divider">
-            <span class="pro-badge">PRO FEATURES (COMING SOON)</span>
+            <span class="pro-badge">PRO FEATURES</span>
             <h2>B. Pro MCP Integration</h2>
             <p>Connect your project's memory vault directly to your favorite AI assistant in your IDE using the Model Context Protocol (MCP).</p>
           </div>
 
           <!-- B1. Pro Overview -->
           <section id="pro-overview" class="doc-section">
-            <h1 class="doc-h1">B1. Pro Overview (Coming Soon)</h1>
+            <h1 class="doc-h1">B1. Pro Overview</h1>
             <p class="doc-p">
               DevMemory Pro connects your project's memory vault directly to your favorite AI assistant in your IDE using the <b>Model Context Protocol (MCP)</b>.
             </p>
             <p class="doc-p">
-              With Pro, there is no need to manually copy-paste the <code>FULL_PROJECT_CONTEXT.md</code> file anymore. When you open a project in an MCP-compatible IDE (Cursor, Claude Code, Cline, Windsurf, or Claude Desktop), the AI assistant will automatically read your project memory, update the brain, and record builds in real-time.
+              With Pro, there is no need to manually copy-paste the <code>FULL_PROJECT_CONTEXT.md</code> file anymore. When you open a project in any MCP-compatible IDE or AI client (including Cursor, Claude Code, Cline, Windsurf, Claude Desktop, Aider, Antigravity, and any other tool that supports MCP), the AI assistant will automatically read your project memory, update the brain, and record builds in real-time.
             </p>
           </section>
 
           <!-- 02. License Activation -->
           <section id="pro-license" class="doc-section">
-            <h1 class="doc-h1">B2. License Activation (Coming Soon)</h1>
+            <h1 class="doc-h1">B2. License Activation</h1>
             <p class="doc-p">
               DevMemory Pro is a license-based utility. Follow these steps to activate Pro on your system:
+            </p>
+            
+            <h2 class="doc-h2" style="font-size: 18px; margin-top: 16px;">Option 1: Graphical Setup Server (Recommended)</h2>
+            <p class="doc-p">
+              If your license key is missing, invalid, or expired when the MCP server launches, DevMemory automatically starts a lightweight local setup server on port <code>31414</code>.
+            </p>
+            <ol class="doc-list numbered">
+              <li>Open your browser and navigate to: <pre><code class="language-text">http://localhost:31414</code></pre></li>
+              <li>Paste your license key in the input field and click <b>Activate License</b>.</li>
+              <li>Once activated, the setup server shuts down automatically, saving your license token and starting the core MCP server.</li>
+            </ol>
+
+            <h2 class="doc-h2" style="font-size: 18px; margin-top: 16px;">Option 2: Command-Line Activation</h2>
+            <p class="doc-p">
+              If you prefer using the terminal, you can activate your license key directly via the CLI:
             </p>
             <ol class="doc-list numbered">
               <li>Purchase your Pro lifetime license from our portal to receive your activation key.</li>
@@ -1145,11 +1324,24 @@ devmemory record -p "Fix database connection pooling"</pre>
             <p class="doc-p">
               The license key is verified securely, and a global Pro configuration is saved locally under <code>~/.devmemory_config.json</code>, enabling your IDE tool integrations instantly.
             </p>
+            
+            <h2 class="doc-h2" style="font-size: 18px; margin-top: 16px;">How Pro Licensing Works</h2>
+            <p class="doc-p">
+              DevMemory Pro utilizes a local-first, privacy-respecting licensing system:
+            </p>
+            <ul class="doc-list">
+              <li><strong>License Setup Port:</strong> Port <code>31414</code> is exclusively reserved for the initial license activation page. It only runs when your machine requires a valid key.</li>
+              <li><strong>Device Seats Limit:</strong> Each lifetime license key supports activation on up to <strong>2 active devices</strong> (e.g., your personal desktop and work laptop).</li>
+              <li><strong>Hardware Binding:</strong> During activation, the dashboard server queries a unique, anonymized hardware fingerprint based on your system motherboard serial number, CPU ID, or BIOS ID to associate the key to that machine without collecting personal identifying data.</li>
+              <li><strong>Cryptographic Local Token:</strong> Upon successful database verification, our server signs an activation token (JWT token) and stores it securely inside <code>~/.devmemory_secure_token.json</code> using AES-256-GCM encryption with a key derived from your hardware fingerprint.</li>
+              <li><strong>Offline Grace Period:</strong> Once activated, DevMemory operates entirely local and offline. The local server validates the cryptographic signature of the local JWT token offline. It only needs an online ping once every <strong>7 days</strong> to refresh the grace period, meaning you can code in airplanes or remote cabins without connectivity.</li>
+              <li><strong>System Clock Rollback Protection:</strong> To prevent rolling back your operating system time to bypass grace period limits, the background watcher logs timestamp checkpoints. Clock tampering automatically locks the dashboard until an online refresh is completed.</li>
+            </ul>
           </section>
 
           <!-- 03. IDE Configuration -->
           <section id="pro-ide" class="doc-section">
-            <h1 class="doc-h1">B3. IDE Configuration (Coming Soon)</h1>
+            <h1 class="doc-h1">B3. IDE Configuration</h1>
             <p class="doc-p">
               IDE configuration is completely automated using prompt-based setup. Rather than editing configuration files manually, you can generate and run a simple setup prompt in your AI assistant (Cursor, Cline, Claude Code, etc.). The assistant will call the appropriate tools to configure the MCP settings globally.
             </p>
@@ -1197,6 +1389,26 @@ Once initialized globally, DevMemory will automatically configure all of my curr
 Update only the requested options and leave the remaining configuration options unchanged.</pre>
             </div>
 
+            <h2 class="doc-h2">3. Manual IDE Config (Optional)</h2>
+            <p class="doc-p">If you prefer to configure the MCP server manually in your IDE settings file (e.g., <code>~/.cursor/mcp.json</code> or Claude Desktop settings), you can add the following JSON configuration directly:</p>
+            <div class="code-container">
+              <div class="code-header">
+                <span>MCP JSON CONFIG</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">{
+  "mcpServers": {
+    "devmemory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "https://premium.devmemory.ai/downloads/devmemory-mcp-latest.tgz"
+      ]
+    }
+  }
+}</pre>
+            </div>
+
             <h2 class="doc-h2">What Happens Under the Hood?</h2>
             <ol class="doc-list numbered">
               <li>The AI assistant calls the <code>devmemory_init</code> tool with the merged parameters.</li>
@@ -1208,7 +1420,7 @@ Update only the requested options and leave the remaining configuration options 
 
           <!-- 04. Auto-Initialization -->
           <section id="pro-autoinit" class="doc-section">
-            <h1 class="doc-h1">B4. Auto-Initialization (Coming Soon)</h1>
+            <h1 class="doc-h1">B4. Auto-Initialization</h1>
             <p class="doc-p">
               Once configured, the MCP server performs <b>silent auto-initialization</b>. Whenever you open any folder in your IDE:
             </p>
@@ -1221,7 +1433,7 @@ Update only the requested options and leave the remaining configuration options 
 
           <!-- 05. Global Config -->
           <section id="pro-global-config" class="doc-section">
-            <h1 class="doc-h1">B5. Global Config (Coming Soon)</h1>
+            <h1 class="doc-h1">B5. Global Config</h1>
             <p class="doc-p">
               Running <code>devmemory login</code> writes your API configuration preferences globally to <code>~/.devmemory_config.json</code>.
             </p>
@@ -1232,7 +1444,7 @@ Update only the requested options and leave the remaining configuration options 
 
           <!-- 06. Tool Reference -->
           <section id="pro-tools" class="doc-section">
-            <h1 class="doc-h1">B6. Tool Reference (Coming Soon)</h1>
+            <h1 class="doc-h1">B6. Tool Reference</h1>
             <p class="doc-p">The DevMemory MCP server registers the following native tools in your assistant:</p>
             
             <div class="config-table-wrapper">
@@ -1292,7 +1504,7 @@ Update only the requested options and leave the remaining configuration options 
 
           <!-- 07. Resource Reference -->
           <section id="pro-resources" class="doc-section">
-            <h1 class="doc-h1">B7. Resource Reference (Coming Soon)</h1>
+            <h1 class="doc-h1">B7. Resource Reference</h1>
             <p class="doc-p">DevMemory exposes real-time project resources that assistants can read directly:</p>
             <div class="config-table-wrapper">
               <table class="doc-table">
@@ -1326,7 +1538,7 @@ Update only the requested options and leave the remaining configuration options 
 
           <!-- 08. Workflow Guide -->
           <section id="pro-workflow" class="doc-section">
-            <h1 class="doc-h1">B8. Workflow Guide (Coming Soon)</h1>
+            <h1 class="doc-h1">B8. Workflow Guide</h1>
             <p class="doc-p">To get the best results, guide your AI using these prompts:</p>
             <h3 class="doc-h3">1. Ingest Context</h3>
             <p class="doc-p">At the start of your conversation, paste:</p>
@@ -1349,29 +1561,81 @@ Update only the requested options and leave the remaining configuration options 
 
           <!-- 09. Dashboard -->
           <section id="pro-dashboard" class="doc-section">
-            <h1 class="doc-h1">B9. Local Dashboard (Coming Soon)</h1>
+            <h1 class="doc-h1">B9. Local Dashboard &amp; Analytics</h1>
             <p class="doc-p">
-              We are building a beautiful, zero-config local web dashboard.
+              DevMemory includes a premium, glassmorphism-styled Web Dashboard &amp; Analytics interface that gives you local visual access to all your project memories. The dashboard is fully interactive, featuring timeline charts, commit records, dependency graphs, security audits, and configuration settings editors.
             </p>
             <p class="doc-p">
               Access stats, timelines, build reports, and markdown files locally in your browser. All data remains 100% offline and stays on your machine.
+            </p>
+
+            <h2 class="doc-h2" style="font-size: 18px; margin-top: 16px;">Accessing the Dashboard</h2>
+            <p class="doc-p">
+              Once running, open your browser and navigate to:
+            </p>
+            <pre><code class="language-text">http://localhost:31415</code></pre>
+            <p class="doc-p">
+              The dashboard automatically discovers all DevMemory-initialized projects on your machine. Use the project selector dropdown to switch between projects.
+            </p>
+            <p class="doc-p">
+              <strong>License Verification Guard:</strong> If no valid license key has been activated, navigating to port <code>31415</code> will automatically redirect to the local setup server on port <code>31414</code> to allow key activation.
+            </p>
+
+            <h2 class="doc-h2" style="font-size: 18px; margin-top: 16px;">Running the Dashboard</h2>
+            <p class="doc-p">
+              The dashboard server runs on a dedicated port (default <code>31415</code>). If the port is already in use, it will automatically scan surrounding ports (up to <code>31465</code>) to bind successfully. You can launch it manually using:
+            </p>
+            <pre><code class="language-bash">devmemory dashboard</code></pre>
+            <p class="doc-p">
+              Or specify a custom port:
+            </p>
+            <pre><code class="language-bash">devmemory dashboard -p 8080</code></pre>
+
+            <h2 class="doc-h2" style="font-size: 18px; margin-top: 16px;">Running Continuously on System Boot</h2>
+            <p class="doc-p">
+              Register the dashboard as a persistent background service so it starts automatically when your system boots. This means <code>http://localhost:31415</code> is always available without any manual startup:
+            </p>
+            <pre><code class="language-bash"># Register and enable the background boot daemon
+devmemory enable-dashboard
+
+# Stop and remove the background boot daemon
+devmemory disable-dashboard</code></pre>
+            <p class="doc-p">
+              <strong>How it works on each OS:</strong>
+            </p>
+            <ul class="doc-list">
+              <li><strong>macOS:</strong> Uses <code>launchd</code> — creates a Launch Agent at <code>~/Library/LaunchAgents/com.devmemory.dashboard.plist</code> with <code>KeepAlive</code> enabled.</li>
+              <li><strong>Windows:</strong> Places a startup batch file in the <code>Startup</code> folder for auto-launch on user login.</li>
+              <li><strong>Linux:</strong> Uses <code>systemd</code> — creates a user service at <code>~/.config/systemd/user/devmemory-dashboard.service</code> with <code>Restart=always</code>.</li>
+            </ul>
+            <p class="doc-p">
+              Logs are written to <code>~/.devmemory/dashboard.log</code>.
+            </p>
+
+            <h2 class="doc-h2" style="font-size: 18px; margin-top: 16px;">License Activation GUI</h2>
+            <p class="doc-p">
+              The dashboard includes a dedicated <b>License Activation</b> interface when unactivated. In addition, when licensed, you can view your current seat usage, CPU fingerprint bindings, and JWT token validity under the dashboard settings page.
             </p>
           </section>
 
           <!-- 10. BYOK -->
           <section id="pro-byok" class="doc-section">
-            <h1 class="doc-h1">B10. BYOK (Bring Your Own Key) (Coming Soon)</h1>
+            <h1 class="doc-h1">B10. BYOK (Bring Your Own Key)</h1>
             <p class="doc-p">
               DevMemory Pro is fully customizable and provider-agnostic. 
             </p>
             <p class="doc-p">
               Save your own API keys for Gemini, Claude, OpenAI, DeepSeek, or run local models like Ollama. Your keys are stored locally on your system and are never sent to external servers.
             </p>
+            <h2 class="doc-h2" style="font-size: 18px; margin-top: 16px;">DevMemory Cloud Credits</h2>
+            <p class="doc-p">
+              As an alternative to bringing your own API keys, your DevMemory lifetime plan includes pre-funded <b>Cloud Credits</b>. You can make API calls through our high-speed, secure proxy using your activated license key directly, enabling credit-based calls without managing external accounts.
+            </p>
           </section>
 
           <!-- 11. Watcher Coordination -->
           <section id="pro-coordination" class="doc-section">
-            <h1 class="doc-h1">B11. Watcher ↔ MCP Coordination (Coming Soon)</h1>
+            <h1 class="doc-h1">B11. Watcher ↔ MCP Coordination</h1>
             <p class="doc-p">
               To prevent duplicate analyses and save LLM token usage:
             </p>
@@ -1388,7 +1652,7 @@ Update only the requested options and leave the remaining configuration options 
               <div class="footer-col">
                 <h4>Product</h4>
                 <ul>
-                  <li><button class="footer-link-btn" data-tab="how-it-works">How it works</button></li>
+                  <li><button class="footer-link-btn footer-link-btn-how-it-works">How it works</button></li>
                   <li><button class="footer-link-btn" data-tab="pricing">Pricing</button></li>
                 </ul>
               </div>
@@ -1408,7 +1672,7 @@ Update only the requested options and leave the remaining configuration options 
                 <ul>
                   <li><a href="https://github.com/DevMemory-ai/DevMemory" target="_blank">GitHub &nearrow;</a></li>
                   <li><a href="https://www.npmjs.com/package/devmemory-ai" target="_blank">npm package &nearrow;</a></li>
-                  <li><a href="https://github.com/DevMemory-ai/DevMemory/blob/main/LICENSE" target="_blank">MIT License</a></li>
+                  <li><a href="https://github.com/DevMemory-ai/DevMemory/blob/main/LICENSE" target="_blank">GPL-3.0 License</a></li>
                   <li><a href="https://github.com/DevMemory-ai/DevMemory/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a></li>
                 </ul>
               </div>
@@ -1425,7 +1689,7 @@ Update only the requested options and leave the remaining configuration options 
             
             <div class="footer-bottom">
               <div class="footer-copyright">
-                DevMemory AI &copy; 2026 &middot; MIT License &middot; Open Source
+                DevMemory AI &copy; 2026 &middot; GPL-3.0 License &middot; Open Source
               </div>
               <div class="footer-credit">
                 Made by a solo developer who lost too much AI context
@@ -1481,6 +1745,11 @@ Update only the requested options and leave the remaining configuration options 
         <div class="prompt-form-group">
           <label for="prompt-key">API Key</label>
           <input type="password" id="prompt-key" placeholder="Enter your provider API Key...">
+        </div>
+
+        <div class="prompt-form-group">
+          <label for="prompt-license">License Key (Optional)</label>
+          <input type="password" id="prompt-license" placeholder="Enter your DevMemory license key (DMAI-...)">
         </div>
 
         <div class="prompt-form-grid">
