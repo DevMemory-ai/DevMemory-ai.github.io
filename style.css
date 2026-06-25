@@ -3337,7 +3337,7 @@ body:not(.dark-mode) .mcp-config-body {
   width: 48px;
   height: 48px;
   margin-bottom: 20px;
-  fill: var(--accent-primary);
+  fill: currentColor;
 }
 
 .download-card h3 {

@@ -11,6 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupEnterpriseWaitlist();
   setupMobileMenu();
   setupInteractiveHowItWorks();
+  setupGatedDownloads();
 
   // Initialize home player on initial load
   initTabPlayers('home');
@@ -962,6 +963,118 @@ and watcher timeline diagnostics to load as a single unified context.`
         mcpTabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         mcpConfigBody.textContent = configText;
+      }
+    });
+  });
+}
+
+function setupGatedDownloads() {
+  const gatedButtons = document.querySelectorAll('.gated-download');
+  const modal = document.getElementById('license-modal');
+  const closeBtn = document.getElementById('license-modal-close-btn');
+  const form = document.getElementById('license-form');
+  const keyInput = document.getElementById('license-input-key');
+  const statusMsg = document.getElementById('license-status-message');
+
+  if (!modal || !form || !keyInput || !statusMsg) return;
+
+  const openModal = (pendingUrl) => {
+    window.pendingDownloadUrl = pendingUrl;
+    modal.classList.add('active');
+    statusMsg.className = '';
+    statusMsg.classList.add('hidden');
+    statusMsg.textContent = '';
+    keyInput.value = '';
+  };
+
+  const closeModal = () => {
+    modal.classList.remove('active');
+    window.pendingDownloadUrl = null;
+  };
+
+  gatedButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const downloadUrl = btn.getAttribute('data-download-url');
+      if (!downloadUrl) return;
+
+      const isVerified = localStorage.getItem('devmemory_license_verified') === 'true';
+      if (isVerified) {
+        window.open(downloadUrl, '_blank');
+      } else {
+        openModal(downloadUrl);
+      }
+    });
+  });
+
+  if (closeBtn) {
+    closeBtn.addEventListener('click', closeModal);
+  }
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const licenseKey = keyInput.value.trim().toUpperCase();
+    if (!licenseKey) return;
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalBtnText = submitBtn ? submitBtn.textContent : 'Verify & Download';
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Verifying...';
+    }
+
+    statusMsg.className = '';
+    statusMsg.classList.add('hidden');
+
+    fetch('/api/verify-license', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ licenseKey })
+    })
+    .then(response => {
+      if (!response.ok) {
+        return response.json().then(errData => {
+          throw new Error(errData.error || 'License verification failed');
+        });
+      }
+      return response.json();
+    })
+    .then(data => {
+      if (data.success) {
+        localStorage.setItem('devmemory_license_verified', 'true');
+        localStorage.setItem('devmemory_license_key', licenseKey);
+
+        statusMsg.textContent = '✓ License verified successfully! Starting download...';
+        statusMsg.style.color = '#10b981'; // green
+        statusMsg.classList.remove('hidden');
+
+        setTimeout(() => {
+          if (window.pendingDownloadUrl) {
+            window.open(window.pendingDownloadUrl, '_blank');
+          }
+          closeModal();
+        }, 1500);
+      } else {
+        throw new Error('Invalid license key');
+      }
+    })
+    .catch(err => {
+      statusMsg.textContent = '✗ ' + err.message;
+      statusMsg.style.color = '#ef4444'; // red
+      statusMsg.classList.remove('hidden');
+    })
+    .finally(() => {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
       }
     });
   });
