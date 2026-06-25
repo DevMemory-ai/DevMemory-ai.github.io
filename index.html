@@ -26,6 +26,7 @@
         <button class="nav-btn active" data-tab="home">Home</button>
         <button class="nav-btn" data-tab="pricing">Pricing</button>
         <button class="nav-btn" data-tab="docs">Docs</button>
+        <button class="nav-btn" data-tab="download">Download</button>
       </nav>
 
       <!-- Theme Toggle on far right of desktop header -->
@@ -55,6 +56,7 @@
         <button class="mobile-nav-btn active" data-tab="home">Home</button>
         <button class="mobile-nav-btn" data-tab="pricing">Pricing</button>
         <button class="mobile-nav-btn" data-tab="docs">Docs</button>
+        <button class="mobile-nav-btn" data-tab="download">Download</button>
         <div class="mobile-menu-divider"></div>
         <a href="https://github.com/DevMemory-ai/DevMemory" target="_blank" class="mobile-github-link">GitHub &nearrow;</a>
         <button id="mobile-theme-toggle" class="theme-toggle-btn">Theme</button>
@@ -98,7 +100,7 @@
 
       <!-- Trust Bar -->
       <div class="trust-bar">
-        ✦ Free & open source &nbsp;&middot;&nbsp; ✦ Works offline with Ollama &nbsp;&middot;&nbsp; ✦ Any IDE
+        ✦ Free & open source &middot; ✦ Works offline with Ollama &middot; ✦ Any IDE
       </div>
 
       <!-- Social Proof Bar -->
@@ -327,26 +329,22 @@
                 <pre class="mcp-config-body" id="mcp-config-body">{
   "mcpServers": {
     "devmemory": {
-      "command": "node",
-      "args": ["/usr/local/bin/devmemory", "mcp"],
-      "env": {
-        "DEVMEMORY_PORT": "31415"
-      },
-      "disabled": false
+      "type": "sse",
+      "url": "http://localhost:31414/sse"
     }
   }
 }</pre>
-                <div class="mcp-activation-info" style="margin-top: 12px; font-size: 13px; color: var(--text-dim);">
-                  Note: The Pro edition runs an interactive local dashboard on port <strong>31415</strong>. If no valid license is found, it automatically starts a setup server on port <strong>31414</strong> to guide you through offline activation.
+                <div class="mcp-activation-info" style="margin-top: 12px; font-size: 11px; color: var(--text-dim);">
+                  Note: Once the DevMemory Desktop Application validates your license, the local MCP server automatically starts running locally on port <strong>31414</strong>.
                 </div>
               </div>
             </div>
           </div>
         </div>
         
-        <div class="supported-section" style="margin-top: 60px;">
+        <div class="supported-section">
           <h3 style="text-align: center;">Supported IDEs &amp; AI Clients</h3>
-          <p class="supported-subtitle" style="text-align: center; color: var(--text-dim); margin-top: 4px; margin-bottom: 24px; font-size: 14px;">Compatible with any tool or editor that supports the Model Context Protocol (MCP).</p>
+          <p class="supported-subtitle">Compatible with any tool or editor that supports the Model Context Protocol (MCP).</p>
           <div class="supported-grid">
             <div class="tool-item">Claude Code</div>
             <div class="tool-item">Cursor</div>
@@ -359,15 +357,16 @@
           </div>
         </div>
         
-        <div class="supported-section" style="margin-top: 40px; margin-bottom: 60px;">
+        <div class="supported-section">
           <h3 style="text-align: center;">Supported Model Providers</h3>
-          <div class="supported-grid">
-            <div class="provider-item">Claude (3.5 Sonnet [and above] / Haiku [and above])</div>
-            <div class="provider-item">Gemini (2.5 Flash [and above] / Pro [and above])</div>
-            <div class="provider-item">GPT (4o [and above] / 4o-mini [and above])</div>
-            <div class="provider-item">DeepSeek (V3 [and above] / Coder [and above])</div>
-            <div class="provider-item">Groq / Together (Llama 3 [and above])</div>
-            <div class="provider-item">Ollama (Offline models [and above])</div>
+          <p class="supported-subtitle">Compatible with any model provider that works with the supported IDEs above (supports these versions and above).</p>
+          <div class="supported-grid providers-grid">
+            <div class="provider-item">Claude (3.5 Sonnet / Haiku)</div>
+            <div class="provider-item">Gemini (2.5 Flash / Pro)</div>
+            <div class="provider-item">GPT (4o / 4o-mini)</div>
+            <div class="provider-item">DeepSeek (V3 / Coder)</div>
+            <div class="provider-item">Groq / Together (Llama 3)</div>
+            <div class="provider-item">Ollama (Offline models)</div>
           </div>
         </div>
       </div>
@@ -411,52 +410,54 @@
       <!-- Comparison Section -->
       <div class="comparison-section">
         <h2 class="section-title">Free CLI vs Pro MCP Server</h2>
-        <table class="comparison-table">
-          <thead>
-            <tr>
-              <th>OSS CLI</th>
-              <th>Pro MCP Server</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Source code on GitHub (CLI-only)</td>
-              <td>Interactive local Web Dashboard &amp; Analytics</td>
-            </tr>
-            <tr>
-              <td>Background watcher daemon</td>
-              <td>Everything in Free</td>
-            </tr>
-            <tr>
-              <td>7-agent analysis pipeline</td>
-              <td>Zero-config IDE native integration</td>
-            </tr>
-            <tr>
-              <td>Multi-provider support (Gemini, Claude, OpenAI, Ollama, etc.)</td>
-              <td>Autostart on project open</td>
-            </tr>
-            <tr>
-              <td>Local terminal UI & ANSI renderer</td>
-              <td>Global vault inheritances</td>
-            </tr>
-            <tr>
-              <td>Ollama offline support</td>
-              <td>Auto context injection in Cursor, Claude Code, Cline, Windsurf</td>
-            </tr>
-            <tr>
-              <td>GPL-3.0 Open Source (Free forever)</td>
-              <td>Commercial Lifetime License (Buy once, keep forever)</td>
-            </tr>
-            <tr>
-              <td>Unlimited devices, no activation required</td>
-              <td>Up to 2 active devices (fingerprint bound)</td>
-            </tr>
-            <tr>
-              <td>N/A (No activation required)</td>
-              <td>Offline-first validation (JWT-cached with 7-day grace period)</td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="comparison-table-wrapper">
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>OSS CLI</th>
+                <th>Pro MCP Server</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Source code on GitHub (CLI-only)</td>
+                <td>Interactive local Web Dashboard &amp; Analytics</td>
+              </tr>
+              <tr>
+                <td>Background watcher daemon</td>
+                <td>Everything in Free</td>
+              </tr>
+              <tr>
+                <td>7-agent analysis pipeline</td>
+                <td>Zero-config IDE native integration</td>
+              </tr>
+              <tr>
+                <td>Multi-provider support (Gemini, Claude, OpenAI, Ollama, etc.)</td>
+                <td>Autostart on project open</td>
+              </tr>
+              <tr>
+                <td>Local terminal UI & ANSI renderer</td>
+                <td>Global vault inheritances</td>
+              </tr>
+              <tr>
+                <td>Ollama offline support</td>
+                <td>Auto context injection in Cursor, Claude Code, Cline, Windsurf</td>
+              </tr>
+              <tr>
+                <td>GPL-3.0 Open Source (Free forever)</td>
+                <td>Commercial Lifetime License (Buy once, keep forever)</td>
+              </tr>
+              <tr>
+                <td>Unlimited devices, no activation required</td>
+                <td>Up to 2 active devices (fingerprint bound)</td>
+              </tr>
+              <tr>
+                <td>N/A (No activation required)</td>
+                <td>Offline-first validation (JWT-cached with 7-day grace period)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
       <!-- Final CTA Section -->
@@ -480,6 +481,7 @@
             <ul>
               <li><button class="footer-link-btn footer-link-btn-how-it-works">How it works</button></li>
               <li><button class="footer-link-btn" data-tab="pricing">Pricing</button></li>
+              <li><button class="footer-link-btn" data-tab="download">Downloads</button></li>
             </ul>
           </div>
           
@@ -628,84 +630,86 @@
         <!-- Comparison Table -->
         <div class="comparison-section" style="margin-top: 64px;">
           <h2 class="section-title">Feature Matrix</h2>
-          <table class="comparison-table">
-            <thead>
-              <tr>
-                <th>Feature</th>
-                <th>Free CLI</th>
-                <th>Pro MCP</th>
-                <th>Enterprise</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>Background daemon monitoring</td>
-                <td>Yes</td>
-                <td>Yes</td>
-                <td>Yes</td>
-              </tr>
-              <tr>
-                <td>7-agent analysis pipeline</td>
-                <td>Yes</td>
-                <td>Yes</td>
-                <td>Yes</td>
-              </tr>
-              <tr>
-                <td>Offline Ollama mode</td>
-                <td>Yes</td>
-                <td>Yes</td>
-                <td>Yes</td>
-              </tr>
-              <tr>
-                <td>Local Dashboard &amp; Analytics</td>
-                <td>No</td>
-                <td>Yes</td>
-                <td>Yes</td>
-              </tr>
-              <tr>
-                <td>Zero-config MCP Server</td>
-                <td>No</td>
-                <td>Yes</td>
-                <td>Yes</td>
-              </tr>
-              <tr>
-                <td>IDE auto context injection</td>
-                <td>No</td>
-                <td>Yes</td>
-                <td>Yes</td>
-              </tr>
-              <tr>
-                <td>Shared repository vaults</td>
-                <td>No</td>
-                <td>No</td>
-                <td>Yes</td>
-              </tr>
-              <tr>
-                <td>Centralized team licenses</td>
-                <td>No</td>
-                <td>No</td>
-                <td>Yes</td>
-              </tr>
-              <tr>
-                <td>Licensing type</td>
-                <td>GNU GPLv3 Open Source</td>
-                <td>Commercial Lifetime Access</td>
-                <td>Commercial Subscription</td>
-              </tr>
-              <tr>
-                <td>Device seats</td>
-                <td>Unlimited</td>
-                <td>2 active devices (fingerprint bound)</td>
-                <td>Custom seat quotas</td>
-              </tr>
-              <tr>
-                <td>Offline license validation</td>
-                <td>N/A (No activation required)</td>
-                <td>Yes (Cryptographic JWT, 7-day grace)</td>
-                <td>Yes (Centralized seat controls)</td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="comparison-table-wrapper">
+            <table class="comparison-table">
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>Free CLI</th>
+                  <th>Pro MCP</th>
+                  <th>Enterprise</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Background daemon monitoring</td>
+                  <td>Yes</td>
+                  <td>Yes</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>7-agent analysis pipeline</td>
+                  <td>Yes</td>
+                  <td>Yes</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Offline Ollama mode</td>
+                  <td>Yes</td>
+                  <td>Yes</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Local Dashboard &amp; Analytics</td>
+                  <td>No</td>
+                  <td>Yes</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Zero-config MCP Server</td>
+                  <td>No</td>
+                  <td>Yes</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>IDE auto context injection</td>
+                  <td>No</td>
+                  <td>Yes</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Shared repository vaults</td>
+                  <td>No</td>
+                  <td>No</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Centralized team licenses</td>
+                  <td>No</td>
+                  <td>No</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Licensing type</td>
+                  <td>GNU GPLv3 Open Source</td>
+                  <td>Commercial Lifetime Access</td>
+                  <td>Commercial Subscription</td>
+                </tr>
+                <tr>
+                  <td>Device seats</td>
+                  <td>Unlimited</td>
+                  <td>2 active devices (fingerprint bound)</td>
+                  <td>Custom seat quotas</td>
+                </tr>
+                <tr>
+                  <td>Offline license validation</td>
+                  <td>N/A (No activation required)</td>
+                  <td>Yes (Cryptographic JWT, 7-day grace)</td>
+                  <td>Yes (Centralized seat controls)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <!-- FAQ Section -->
@@ -743,6 +747,7 @@
               <ul>
                 <li><button class="footer-link-btn footer-link-btn-how-it-works">How it works</button></li>
                 <li><button class="footer-link-btn" data-tab="pricing">Pricing</button></li>
+                <li><button class="footer-link-btn" data-tab="download">Downloads</button></li>
               </ul>
             </div>
             
@@ -788,6 +793,133 @@
       </div>
     </div>
 
+    <!-- Tab 2.5: Download & Installation -->
+    <div id="tab-download" class="tab-content">
+      <div class="download-layout">
+        <div class="download-header">
+          <h1 class="download-title">Download DevMemory AI</h1>
+          <p class="download-subtitle">Choose your platform below to download the native license activation helper and complete setup in seconds.</p>
+        </div>
+
+        <div class="download-grid">
+          <!-- macOS -->
+          <div class="download-card">
+            <!-- macOS Icon -->
+            <svg class="platform-icon" viewBox="0 0 24 24">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 4.17c.66-.81 1.11-1.93.99-3.06-1 .04-2.21.67-2.93 1.49-.62.69-1.16 1.84-1.01 2.96 1.12.09 2.27-.57 2.95-1.39z"/>
+            </svg>
+            <h3>macOS</h3>
+            <p class="card-desc">Native activation utility for Apple Silicon macOS (Mac OS X 10.12+).</p>
+            <div class="download-btn-group">
+              <a href="https://mega.nz/file/h24gEZKD#f8OJWnXyn8gE3g_hcq-e5NPXtNvtb9IVSp2fl9MXQ4U" class="download-link-btn primary-btn" target="_blank">Download DMG (Installer)</a>
+              <a href="https://mega.nz/file/o6hSSZYC#zkbUrOLVrUg4BS7YplWtH5ecyf-kPcIzqbYNVXhqSdQ" class="download-link-btn" target="_blank">Download ZIP (Portable)</a>
+            </div>
+            <div class="install-instructions">
+              <h4>Installation Instructions:</h4>
+              <ol>
+                <li>Download and open the <code>DevMemory AI-mac.dmg</code> file.</li>
+                <li>Drag the <b>DevMemory AI</b> icon to your Applications folder.</li>
+                <li>Launch the app, enter your license key, and click <b>Activate</b> to unlock local services.</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- Windows -->
+          <div class="download-card">
+            <!-- Windows Icon -->
+            <svg class="platform-icon" viewBox="0 0 24 24">
+              <path d="M3 5.545l7.5-1.091v7.545H3zm0 7.545h7.5V20.7l-7.5-1.091zm8.5-8.672L21 3v8.091h-9.5zm0 8.672h9.5V21l-9.5-1.382z"/>
+            </svg>
+            <h3>Windows</h3>
+            <p class="card-desc">Native activation utility for Windows 10/11 (ARM64 & x64 compatible).</p>
+            <div class="download-btn-group">
+              <a href="https://mega.nz/file/Z7AXyAYQ#2bbRKpbVfqkjYA5GiPjdw-xllb_6HlekuJELQcFcTJI" class="download-link-btn primary-btn" target="_blank">Download EXE (Installer)</a>
+              <a href="https://mega.nz/file/h2ZHGBwA#paKryYW_vCQAPo_fLfBuS5RkOshC1IiZTTgCcRhd_X4" class="download-link-btn" target="_blank">Download ZIP (Portable)</a>
+            </div>
+            <div class="install-instructions">
+              <h4>Installation Instructions:</h4>
+              <ol>
+                <li>Download and run the <code>DevMemory AI-windows.exe</code> installer.</li>
+                <li>Follow the on-screen prompts to complete the installation.</li>
+                <li>Launch the application, paste your key, and click <b>Activate</b>.</li>
+              </ol>
+            </div>
+          </div>
+
+          <!-- Linux -->
+          <div class="download-card">
+            <!-- Linux Icon (Tux Penguin) -->
+            <svg class="platform-icon" viewBox="0 0 16 16">
+              <path d="M8.996 4.497c.104-.076.1-.168.186-.158s.022.102-.098.207c-.12.104-.308.243-.46.323-.291.152-.631.336-.993.336s-.647-.167-.853-.33c-.102-.082-.186-.162-.248-.221-.11-.086-.096-.207-.052-.204.075.01.087.109.134.153.064.06.144.137.241.214.195.154.454.304.778.304s.702-.19.932-.32c.13-.073.297-.204.433-.304M7.34 3.781c.055-.02.123-.031.174-.003.011.006.024.021.02.034-.012.038-.074.032-.11.05-.032.017-.057.052-.093.054-.034 0-.086-.012-.09-.046-.007-.044.058-.072.1-.089m.581-.003c.05-.028.119-.018.173.003.041.017.106.045.1.09-.004.033-.057.046-.09.045-.036-.002-.062-.037-.093-.053-.036-.019-.098-.013-.11-.051-.004-.013.008-.028.02-.034"/>
+              <path fill-rule="evenodd" d="M8.446.019c2.521.003 2.38 2.66 2.364 4.093-.01.939.509 1.574 1.04 2.244.474.56 1.095 1.38 1.45 2.32.29.765.402 1.613.115 2.465a.8.8 0 0 1 .254.152l.001.002c.207.175.271.447.329.698.058.252.112.488.224.615.344.382.494.667.48.922-.015.254-.203.43-.435.57-.465.28-1.164.491-1.586 1.002-.443.527-.99.83-1.505.871a1.25 1.25 0 0 1-1.256-.716v-.001a1 1 0 0 1-.078-.21c-.67.038-1.252-.165-1.718-.128-.687.038-1.116.204-1.506.206-.151.331-.445.547-.808.63-.5.114-1.126 0-1.743-.324-.577-.306-1.31-.278-1.85-.39-.27-.057-.51-.157-.626-.384-.116-.226-.095-.538.07-.988.051-.16.012-.398-.026-.648a2.5 2.5 0 0 1-.037-.369c0-.133.022-.265.087-.386v-.002c.14-.266.368-.377.577-.451s.397-.125.53-.258c.143-.15.27-.374.443-.56q.036-.037.073-.07c-.081-.538.007-1.105.192-1.662.393-1.18"/>
+            </svg>
+            <h3>Linux</h3>
+            <p class="card-desc">Native activation utility for Debian, Ubuntu, and generic Linux distros.</p>
+            <div class="download-btn-group">
+              <a href="https://mega.nz/file/UyAQmJSb#MUlmbeuovXK42aYJ4ITwikWvFwBUx_fxL_4_7UE8GGs" class="download-link-btn primary-btn" target="_blank">Download AppImage (Recommended)</a>
+              <a href="https://mega.nz/file/UyAQmJSb#MUlmbeuovXK42aYJ4ITwikWvFwBUx_fxL_4_7UE8GGs" class="download-link-btn" target="_blank">Download ZIP (Generic Linux)</a>
+            </div>
+            <div class="install-instructions">
+              <h4>Installation Instructions:</h4>
+              <ol>
+                <li>For AppImage: Make the file executable (<code>chmod +x DevMemory\ AI-linux.AppImage</code>) and run it.</li>
+                <li>For ZIP: Extract the archive and launch the <b>DevMemory AI</b> executable.</li>
+                <li>Enter your license key in the GUI window and click <b>Activate</b>.</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <!-- Footer inside Download Tab -->
+        <footer class="site-footer" style="margin-top: 48px; padding-bottom: 24px;">
+          <div class="footer-grid">
+            <div class="footer-col">
+              <h4>Product</h4>
+              <ul>
+                <li><button class="footer-link-btn footer-link-btn-how-it-works">How it works</button></li>
+                <li><button class="footer-link-btn" data-tab="pricing">Pricing</button></li>
+                <li><button class="footer-link-btn" data-tab="download">Downloads</button></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Docs</h4>
+              <ul>
+                <li><button class="footer-link-btn" data-tab="docs" data-doc-target="section-intro">Quickstart</button></li>
+                <li><button class="footer-link-btn" data-tab="docs" data-doc-target="section-init">CLI Reference</button></li>
+                <li><button class="footer-link-btn" data-tab="docs" data-doc-target="pro-overview">Pro MCP Setup</button></li>
+                <li><button class="footer-link-btn" data-tab="docs" data-doc-target="section-config">Configuration</button></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Open Source</h4>
+              <ul>
+                <li><a href="https://github.com/DevMemory-ai/DevMemory" target="_blank">GitHub &nearrow;</a></li>
+                <li><a href="https://www.npmjs.com/package/devmemory-ai" target="_blank">npm package &nearrow;</a></li>
+                <li><a href="https://github.com/DevMemory-ai/DevMemory/blob/main/LICENSE" target="_blank">GPL-3.0 License</a></li>
+                <li><a href="https://github.com/DevMemory-ai/DevMemory/blob/main/CONTRIBUTING.md" target="_blank">Contributing</a></li>
+              </ul>
+            </div>
+            <div class="footer-col">
+              <h4>Connect</h4>
+              <ul>
+                <li><a href="mailto:services@devmemoryai.org">services@devmemoryai.org</a></li>
+                <li><a href="https://x.com/DevMemoryAI" target="_blank">Twitter / X &nearrow;</a></li>
+                <li><a href="https://discord.gg/devmemory" target="_blank">Discord &nearrow;</a></li>
+              </ul>
+            </div>
+          </div>
+          <div class="footer-bottom">
+            <div class="footer-copyright">
+              DevMemory AI &copy; 2026 &middot; GPL-3.0 License &middot; Open Source
+            </div>
+            <div class="footer-credit">
+              Made by a solo developer who lost too much AI context
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+
     <!-- Tab 3: Docs -->
     <div id="tab-docs" class="tab-content">
       <div class="docs-layout">
@@ -811,7 +943,6 @@
             <button class="sidebar-link" data-target="section-ratelimit">A15. Rate Limiting</button>
             <button class="sidebar-link" data-target="section-agents">A16. Multi-Agent Pipeline</button>
             <button class="sidebar-link" data-target="section-files">A17. File Structure</button>
-            <button class="sidebar-link" data-target="section-providers">A18. Supported Providers</button>
 
           <div class="sidebar-divider"></div>
 
@@ -904,7 +1035,7 @@ git --version
               DevMemory AI is distributed as a global npm package. Installing it globally registers the <code>devmemory</code> command system-wide.
             </p>
             <div class="doc-alert warning">
-              <div class="alert-title">⚠ IMPORTANT PRIVILEGES NOTE</div>
+              <div class="alert-title">IMPORTANT PRIVILEGES NOTE</div>
               Because DevMemory AI registers global binaries and configures background watcher daemons (launchd plist, systemd user services, or startup batch files), you must run the installation command with Administrator/Superuser privileges.
             </div>
             <p class="doc-p"><strong>macOS & Linux (using sudo):</strong></p>
@@ -1262,11 +1393,6 @@ devmemory record -p "Fix database connection pooling"</pre>
 │   ├── build-001-user-auth.md
 │   └── build-002-payment-gateway.md</pre>
           </section>
-          <!-- 18. Supported Providers -->
-          <section id="section-providers" class="doc-section">
-            <h1 class="doc-h1">A18. Supported Providers</h1>
-            <p class="doc-p">Supports Gemini (2.5 Flash [and above] / Pro [and above]), Claude (3.5 Sonnet [and above] / Haiku [and above]), OpenAI (GPT-4o [and above] / GPT-4o-mini [and above]), OpenRouter, DeepSeek (V3 [and above] / Coder [and above]), Groq / Together (Llama 3 [and above]), and Ollama offline local models [and above].</p>
-          </section>
 
           <div class="docs-pro-divider">
             <span class="pro-badge">PRO FEATURES</span>
@@ -1292,48 +1418,26 @@ devmemory record -p "Fix database connection pooling"</pre>
               DevMemory Pro is a license-based utility. Follow these steps to activate Pro on your system:
             </p>
             
-            <h2 class="doc-h2" style="font-size: 18px; margin-top: 16px;">Option 1: Graphical Setup Server (Recommended)</h2>
+            <h2 class="doc-h2" style="font-size: 18px; margin-top: 16px;">Desktop Application Activation Steps</h2>
             <p class="doc-p">
-              If your license key is missing, invalid, or expired when the MCP server launches, DevMemory automatically starts a lightweight local setup server on port <code>31414</code>.
+              Activate DevMemory Pro natively through the graphical Desktop Application interface:
             </p>
             <ol class="doc-list numbered">
-              <li>Open your browser and navigate to: <pre><code class="language-text">http://localhost:31414</code></pre></li>
+              <li>Download and install the <button class="footer-link-btn" data-tab="download" style="color: var(--accent-primary); background: none; border: none; font-size: inherit; font-family: inherit; font-weight: 600; text-decoration: underline; cursor: pointer; padding: 0;">DevMemory AI</button> application for your operating system (available on macOS, Windows, and Linux).</li>
+              <li>Launch the application. The <b>License Activation</b> screen will appear automatically on first run.</li>
               <li>Paste your license key in the input field and click <b>Activate License</b>.</li>
-              <li>Once activated, the setup server shuts down automatically, saving your license token and starting the core MCP server.</li>
+              <li>DevMemory Cloud will validate the key, register your device, issue an activation token, unlock the local dashboard, and automatically start the local MCP server on port <code>31414</code>.</li>
             </ol>
-
-            <h2 class="doc-h2" style="font-size: 18px; margin-top: 16px;">Option 2: Command-Line Activation</h2>
-            <p class="doc-p">
-              If you prefer using the terminal, you can activate your license key directly via the CLI:
-            </p>
-            <ol class="doc-list numbered">
-              <li>Purchase your Pro lifetime license from our portal to receive your activation key.</li>
-              <li>Open your terminal and execute:</li>
-            </ol>
-            <div class="code-container">
-              <div class="code-header">
-                <span>TERMINAL</span>
-                <button class="code-copy-btn">copy</button>
-              </div>
-              <pre class="code-block">devmemory login</pre>
-            </div>
-            
-            <!-- mcp.cast Asciinema player player-mcp -->
-            <div class="asciinema-container"><div id="player-mcp"></div></div>
-
-            <p class="doc-p">
-              The license key is verified securely, and a global Pro configuration is saved locally under <code>~/.devmemory_config.json</code>, enabling your IDE tool integrations instantly.
-            </p>
             
             <h2 class="doc-h2" style="font-size: 18px; margin-top: 16px;">How Pro Licensing Works</h2>
             <p class="doc-p">
               DevMemory Pro utilizes a local-first, privacy-respecting licensing system:
             </p>
             <ul class="doc-list">
-              <li><strong>License Setup Port:</strong> Port <code>31414</code> is exclusively reserved for the initial license activation page. It only runs when your machine requires a valid key.</li>
+              <li><strong>Local MCP Port:</strong> Port <code>31414</code> is exclusively reserved for the local MCP server daemon. Once activated, IDEs connect to this local port directly.</li>
               <li><strong>Device Seats Limit:</strong> Each lifetime license key supports activation on up to <strong>2 active devices</strong> (e.g., your personal desktop and work laptop).</li>
-              <li><strong>Hardware Binding:</strong> During activation, the dashboard server queries a unique, anonymized hardware fingerprint based on your system motherboard serial number, CPU ID, or BIOS ID to associate the key to that machine without collecting personal identifying data.</li>
-              <li><strong>Cryptographic Local Token:</strong> Upon successful database verification, our server signs an activation token (JWT token) and stores it securely inside <code>~/.devmemory_secure_token.json</code> using AES-256-GCM encryption with a key derived from your hardware fingerprint.</li>
+              <li><strong>Hardware Binding:</strong> During activation, the application queries a unique, anonymized hardware fingerprint based on your system motherboard serial number, CPU ID, or BIOS ID to associate the key to that machine without collecting personal identifying data.</li>
+              <li><strong>Cryptographic Local Token:</strong> Upon successful database verification, our cloud server signs an activation token (JWT token) and stores it securely inside <code>~/.devmemory_secure_token.json</code> using AES-256-GCM encryption with a key derived from your hardware fingerprint.</li>
               <li><strong>Offline Grace Period:</strong> Once activated, DevMemory operates entirely local and offline. The local server validates the cryptographic signature of the local JWT token offline. It only needs an online ping once every <strong>7 days</strong> to refresh the grace period, meaning you can code in airplanes or remote cabins without connectivity.</li>
               <li><strong>System Clock Rollback Protection:</strong> To prevent rolling back your operating system time to bypass grace period limits, the background watcher logs timestamp checkpoints. Clock tampering automatically locks the dashboard until an online refresh is completed.</li>
             </ul>
@@ -1347,12 +1451,22 @@ devmemory record -p "Fix database connection pooling"</pre>
             </p>
             
             <div class="doc-alert">
-              <div class="alert-title">⚡ AUTOMATED PROMPT SETUP</div>
+              <div class="alert-title">AUTOMATED PROMPT SETUP</div>
               <p class="doc-p">Use our interactive Prompt Generator tool to customize your setup or edit commands, then copy and paste the prompt directly into your AI chat window. The assistant will handle the rest!</p>
               <button class="btn-card btn-pro" id="pro-open-generator-btn" style="margin-top: 10px; font-family: var(--font-body); font-weight: 500; cursor: pointer;">Open Prompt Generator Tool →</button>
             </div>
 
-            <h2 class="doc-h2">1. Global Setup Prompt</h2>
+            <h2 class="doc-h2">1. IDE Integration Prompt</h2>
+            <p class="doc-p">Copy-paste this prompt into your IDE's AI chat window (Cursor, Cline, Claude Code, etc.) to automatically configure and register the DevMemory MCP server inside your IDE settings:</p>
+            <div class="code-container">
+              <div class="code-header">
+                <span>IDE INTEGRATION PROMPT</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">Help me integrate the DevMemory MCP server into this IDE. Please check the IDE's settings or configuration file (such as `mcp.json` for Cursor or the Cline settings file) and register a new SSE MCP server named "devmemory" with connection URL "http://localhost:31414/sse". Note that this server is started locally by the DevMemory AI desktop application once activated. Let me know once the configuration is updated.</pre>
+            </div>
+
+            <h2 class="doc-h2">2. Global Setup Prompt</h2>
             <p class="doc-p">Copy-paste this prompt into your chat window, replacing the bracketed values with your own details, to configure DevMemory globally:</p>
             <div class="code-container">
               <div class="code-header">
@@ -1370,7 +1484,7 @@ devmemory record -p "Fix database connection pooling"</pre>
 Once initialized globally, DevMemory will automatically configure all of my current and future projects, copying this configuration locally and spinning up the background watcher daemon automatically whenever I open a new project.</pre>
             </div>
 
-            <h2 class="doc-h2">2. Edit Configuration Prompt</h2>
+            <h2 class="doc-h2">3. Edit Configuration Prompt</h2>
             <p class="doc-p">Copy-paste this prompt to edit or update an existing configuration (API Key, Model, Rate Limits, or Cooldown) globally or locally:</p>
             <div class="code-container">
               <div class="code-header">
@@ -1389,21 +1503,36 @@ Once initialized globally, DevMemory will automatically configure all of my curr
 Update only the requested options and leave the remaining configuration options unchanged.</pre>
             </div>
 
-            <h2 class="doc-h2">3. Manual IDE Config (Optional)</h2>
-            <p class="doc-p">If you prefer to configure the MCP server manually in your IDE settings file (e.g., <code>~/.cursor/mcp.json</code> or Claude Desktop settings), you can add the following JSON configuration directly:</p>
+            <h2 class="doc-h2">4. Manual IDE Config (Optional)</h2>
+            <p class="doc-p">If you prefer to configure the MCP server manually, use the appropriate settings JSON for your client:</p>
+            
+            <h3 class="doc-h3" style="font-size: 15px; margin-top: 12px; margin-bottom: 6px;">For Cursor, Cline, Windsurf, &amp; SSE Clients:</h3>
             <div class="code-container">
               <div class="code-header">
-                <span>MCP JSON CONFIG</span>
+                <span>CURSOR &amp; SSE CONFIG (mcp.json)</span>
                 <button class="code-copy-btn">copy</button>
               </div>
               <pre class="code-block">{
   "mcpServers": {
     "devmemory": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "https://premium.devmemory.ai/downloads/devmemory-mcp-latest.tgz"
-      ]
+      "type": "sse",
+      "url": "http://localhost:31414/sse"
+    }
+  }
+}</pre>
+            </div>
+
+            <h3 class="doc-h3" style="font-size: 15px; margin-top: 16px; margin-bottom: 6px;">For Claude Desktop &amp; Stdio Clients:</h3>
+            <div class="code-container">
+              <div class="code-header">
+                <span>CLAUDE DESKTOP CONFIG (claude_desktop_config.json)</span>
+                <button class="code-copy-btn">copy</button>
+              </div>
+              <pre class="code-block">{
+  "mcpServers": {
+    "devmemory": {
+      "command": "devmemory",
+      "args": ["mcp"]
     }
   }
 }</pre>
@@ -1571,19 +1700,19 @@ Update only the requested options and leave the remaining configuration options 
 
             <h2 class="doc-h2" style="font-size: 18px; margin-top: 16px;">Accessing the Dashboard</h2>
             <p class="doc-p">
-              Once running, open your browser and navigate to:
+              The dashboard is served natively inside the DevMemory Desktop Application. When launched, it opens directly as a visual desktop workspace. Advanced users can also open the dashboard in any web browser at:
             </p>
             <pre><code class="language-text">http://localhost:31415</code></pre>
             <p class="doc-p">
               The dashboard automatically discovers all DevMemory-initialized projects on your machine. Use the project selector dropdown to switch between projects.
             </p>
             <p class="doc-p">
-              <strong>License Verification Guard:</strong> If no valid license key has been activated, navigating to port <code>31415</code> will automatically redirect to the local setup server on port <code>31414</code> to allow key activation.
+              <strong>License Verification Guard:</strong> If no valid license key has been activated, launching the desktop application (or navigating to port <code>31415</code>) will automatically render the License Activation interface to allow registration.
             </p>
 
             <h2 class="doc-h2" style="font-size: 18px; margin-top: 16px;">Running the Dashboard</h2>
             <p class="doc-p">
-              The dashboard server runs on a dedicated port (default <code>31415</code>). If the port is already in use, it will automatically scan surrounding ports (up to <code>31465</code>) to bind successfully. You can launch it manually using:
+              The dashboard server runs locally on a dedicated port (default <code>31415</code>) managed by the Desktop Application. If the port is already in use, it will automatically scan surrounding ports (up to <code>31465</code>) to bind successfully. You can also launch the CLI dashboard server manually using:
             </p>
             <pre><code class="language-bash">devmemory dashboard</code></pre>
             <p class="doc-p">
@@ -1593,7 +1722,7 @@ Update only the requested options and leave the remaining configuration options 
 
             <h2 class="doc-h2" style="font-size: 18px; margin-top: 16px;">Running Continuously on System Boot</h2>
             <p class="doc-p">
-              Register the dashboard as a persistent background service so it starts automatically when your system boots. This means <code>http://localhost:31415</code> is always available without any manual startup:
+              Configure the DevMemory Desktop Application to launch on system boot in the application settings, or register the dashboard CLI daemon as a persistent service:
             </p>
             <pre><code class="language-bash"># Register and enable the background boot daemon
 devmemory enable-dashboard
@@ -1654,6 +1783,7 @@ devmemory disable-dashboard</code></pre>
                 <ul>
                   <li><button class="footer-link-btn footer-link-btn-how-it-works">How it works</button></li>
                   <li><button class="footer-link-btn" data-tab="pricing">Pricing</button></li>
+                  <li><button class="footer-link-btn" data-tab="download">Downloads</button></li>
                 </ul>
               </div>
               

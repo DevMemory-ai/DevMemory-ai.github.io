@@ -610,6 +610,8 @@ function setupPromptGenerator() {
 - Rate Limit: ${limit}
 - Cooldown: ${cooldown}
 ${license ? `- License Key: ${license}\n` : ''}
+Note: Before starting the MCP server, please download and run the DevMemory AI desktop application (available for macOS, Windows, and Linux) to activate your license key. Once activated, the local MCP server daemon starts automatically on port 31414.
+
 Once initialized globally, DevMemory will automatically configure all of my current and future projects, copying this configuration locally and spinning up the background watcher daemon automatically whenever I open a new project.`;
     } else {
       promptText = 
@@ -880,7 +882,7 @@ function setupInteractiveHowItWorks() {
 
 ## Current Architecture
 * Local watch daemon on port 31415
-* Port 31414 dedicated for license setups
+* Local MCP server running on port 31414
 * Cryptographic hardware bound activation
 
 ## Design Decisions
@@ -895,7 +897,7 @@ function setupInteractiveHowItWorks() {
 ## [2026-06-24] Security Audit Sanitization
 * Implemented automated input sanitation checks
 * Audited memory leak in watcher file descriptors
-* Spawns setup server fallback on port 31414`
+* Implemented local MCP server on port 31414`
     },
     context: {
       name: 'FULL_PROJECT_CONTEXT.md',
@@ -937,23 +939,16 @@ and watcher timeline diagnostics to load as a single unified context.`
     cursor: `{
   "mcpServers": {
     "devmemory": {
-      "command": "node",
-      "args": ["/usr/local/bin/devmemory", "mcp"],
-      "env": {
-        "DEVMEMORY_PORT": "31415"
-      },
-      "disabled": false
+      "type": "sse",
+      "url": "http://localhost:31414/sse"
     }
   }
 }`,
     claude: `{
   "mcpServers": {
     "devmemory": {
-      "command": "node",
-      "args": ["/usr/local/bin/devmemory", "mcp"],
-      "env": {
-        "DEVMEMORY_PORT": "31415"
-      }
+      "command": "devmemory",
+      "args": ["mcp"]
     }
   }
 }`
