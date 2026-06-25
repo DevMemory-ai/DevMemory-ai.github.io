@@ -1039,13 +1039,23 @@ function setupGatedDownloads() {
       },
       body: JSON.stringify({ licenseKey })
     })
-    .then(response => {
-      if (!response.ok) {
-        return response.json().then(errData => {
-          throw new Error(errData.error || 'License verification failed');
-        });
+    .then(async response => {
+      const contentType = response.headers.get('content-type');
+      let data;
+      if (contentType && contentType.includes('application/json')) {
+        try {
+          data = await response.json();
+        } catch {
+          throw new Error('Invalid JSON response received from the verification server.');
+        }
+      } else {
+        throw new Error('Verification server returned an invalid response (non-JSON). Please verify the server is running.');
       }
-      return response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'License verification failed');
+      }
+      return data;
     })
     .then(data => {
       if (data.success) {
