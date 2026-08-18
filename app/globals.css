@@ -1,0 +1,160 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* DevMemory AI Official Brand Palette — #EA580C Primary */
+    --background: 240 6% 3.9%;          /* #09090B */
+    --foreground: 0 0% 98%;             /* #FAFAFA */
+    --card: 240 5% 9%;                  /* #18181B */
+    --card-foreground: 0 0% 98%;
+    --popover: 240 6% 6%;               /* #0F0F12 */
+    --popover-foreground: 0 0% 98%;
+    
+    /* Official Brand Color: #EA580C -> HSL(20.5, 83.1%, 47.3%) */
+    --primary: 20.5 83.1% 47.3%;        /* #EA580C */
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 240 5% 12%;            /* #1F1F23 */
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 4% 16%;                /* #27272A */
+    --muted-foreground: 240 5% 65%;      /* #A1A1AA */
+    --accent: 240 5% 15%;               /* #242428 */
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 4% 18%;               /* #2A2B32 */
+    --input: 240 4% 18%;
+    --ring: 20.5 83.1% 47.3%;           /* #EA580C */
+    --success: 142 71% 45%;             /* #22C55E */
+    --warning: 38 92% 50%;              /* #F59E0B */
+    --radius: 0.75rem;
+
+    --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Inter', 'Segoe UI', Roboto, sans-serif;
+    --font-mono: 'SF Mono', Consolas, 'Liberation Mono', Menlo, monospace;
+  }
+
+  .light {
+    --background: 0 0% 100%;
+    --foreground: 240 6% 10%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 6% 10%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 6% 10%;
+    --primary: 20.5 83.1% 47.3%;        /* #EA580C */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 240 6% 10%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 240 4% 40%;
+    --accent: 0 0% 96%;
+    --accent-foreground: 240 6% 10%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 20.5 83.1% 47.3%;
+    --success: 142 71% 40%;
+    --warning: 38 92% 45%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    color-scheme: dark;
+    font-size: 16px;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection {
+    background: #EA580C;
+    color: #FFFFFF;
+  }
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: rgba(9, 9, 11, 0.5);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(161, 161, 170, 0.3);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #EA580C;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .text-pretty {
+    text-wrap: pretty;
+  }
+  /* Grid background */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgba(42, 43, 50, 0.4) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(42, 43, 50, 0.4) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .bg-grid-fade {
+    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 75%);
+    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 30%, transparent 75%);
+  }
+  .glow-primary {
+    box-shadow: 0 0 0 1px rgba(234, 88, 12, 0.25), 0 8px 32px -8px rgba(234, 88, 12, 0.35);
+  }
+  .shadow-elevated {
+    box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.6);
+  }
+  /* Infinite Marquee Animations */
+  .animate-marquee {
+    display: flex;
+    width: max-content;
+    animation: marquee 35s linear infinite;
+  }
+  .animate-marquee:hover {
+    animation-play-state: paused;
+  }
+
+  .animate-marquee-reverse {
+    display: flex;
+    width: max-content;
+    animation: marquee-reverse 35s linear infinite;
+  }
+  .animate-marquee-reverse:hover {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
