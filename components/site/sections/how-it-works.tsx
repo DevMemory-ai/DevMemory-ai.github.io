@@ -54,7 +54,7 @@ export function HowItWorks() {
             <span className="text-muted-foreground">to engineering memory.</span>
           </>
         }
-        description="DevMemoryAI v1.0.0 continuously observes your repository, compiles AST symbols into builds, stores them in SQLite, and serves context via CLI and dashboard."
+        description="DevMemoryAI v1.1.0 continuously observes your repository, compiles AST symbols into builds, stores them in SQLite, and serves context via CLI and dashboard."
       />
 
       <div className="mt-16 space-y-4">

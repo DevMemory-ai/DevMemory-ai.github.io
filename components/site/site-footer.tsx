@@ -19,7 +19,7 @@ export function SiteFooter() {
             </p>
             <div className="flex items-center gap-3 font-mono text-xs text-muted-foreground">
               <span className="rounded-full bg-primary/10 px-2.5 py-1 text-primary border border-primary/20 font-semibold">
-                Current Version: v1.0.0
+                Current Version: v1.1.0
               </span>
               <span>100% Local-First Engine</span>
             </div>
@@ -40,7 +40,7 @@ export function SiteFooter() {
             <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">Resources</h3>
             <ul className="mt-4 space-y-2.5 text-sm">
               <li><Link href="/docs?tab=faq#faq" className="text-muted-foreground hover:text-primary font-semibold transition-colors flex items-center gap-1.5"><HelpCircle className="h-3.5 w-3.5 text-primary" /> FAQ & Troubleshooting</Link></li>
-              <li><Link href="/changelog" className="text-muted-foreground hover:text-foreground transition-colors">Changelog (v1.0.0)</Link></li>
+              <li><Link href="/changelog" className="text-muted-foreground hover:text-foreground transition-colors">Changelog (v1.1.0)</Link></li>
               <li><Link href="/blog" className="text-muted-foreground hover:text-foreground transition-colors">Technical Blog</Link></li>
               <li><Link href="/community" className="text-muted-foreground hover:text-foreground transition-colors">Community</Link></li>
               <li><a href="https://discord.gg/ycF48ADnx" target="_blank" rel="noreferrer" className="text-muted-foreground hover:text-[#5865F2] transition-colors flex items-center gap-1">Discord Community</a></li>
@@ -52,7 +52,7 @@ export function SiteFooter() {
           <div>
             <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">Release Info</h3>
             <ul className="mt-4 space-y-2.5 text-xs font-mono text-muted-foreground">
-              <li>Version: <strong className="text-primary">v1.0.0</strong></li>
+              <li>Version: <strong className="text-primary">v1.1.0</strong></li>
               <li>Storage: <strong className="text-foreground">SQLite Index</strong></li>
               <li>Dashboard: <strong className="text-foreground">:31415</strong></li>
               <li>License: <strong className="text-foreground">Source-Available</strong></li>
@@ -65,7 +65,7 @@ export function SiteFooter() {
           <div className="flex items-center gap-4">
             <Link href="/docs?tab=faq#faq" className="hover:text-primary font-medium transition-colors">FAQ</Link>
             <span>•</span>
-            <span>DevMemory AI v1.0.0</span>
+            <span>DevMemory AI v1.1.0</span>
             <span>•</span>
             <a href="https://github.com/DevMemory-AI/devmemoryai" target="_blank" rel="noreferrer" className="hover:text-foreground">Official Repository</a>
           </div>

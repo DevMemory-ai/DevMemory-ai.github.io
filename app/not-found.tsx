@@ -19,7 +19,7 @@ export default function NotFound() {
         <h1 className="mt-12 font-mono text-8xl font-semibold tracking-tight text-primary">404</h1>
         <h2 className="mt-4 text-2xl font-semibold tracking-tight">Page not found</h2>
         <p className="mx-auto mt-3 max-w-md text-sm text-muted-foreground">
-          This page doesn't exist in the engineering index. It may have been moved or renamed.
+          This page doesn&apos;t exist in the engineering index. It may have been moved or renamed.
         </p>
 
         <div className="mt-8 flex items-center justify-center gap-3">

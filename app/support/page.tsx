@@ -19,7 +19,7 @@ export default function SupportPage() {
     <>
       <PageHero
         label="Support"
-        title={<>We're here <span className="text-muted-foreground">to help.</span></>}
+        title={<>We&apos;re here <span className="text-muted-foreground">to help.</span></>}
         description="Documentation, community, and direct support channels. Pick whatever works best for you."
       />
 

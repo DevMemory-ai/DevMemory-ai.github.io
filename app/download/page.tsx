@@ -59,9 +59,13 @@ export default function DownloadPage() {
   const [copiedMac, setCopiedMac] = useState(false);
   const [copiedWin, setCopiedWin] = useState(false);
   const [copiedPrompt, setCopiedPrompt] = useState(false);
+  const [copiedUninstallMac, setCopiedUninstallMac] = useState(false);
+  const [copiedUninstallWin, setCopiedUninstallWin] = useState(false);
 
   const macCmd = 'curl -fsSL https://raw.githubusercontent.com/DevMemory-AI/devmemoryai/main/install.sh | bash';
   const winCmd = 'iwr -useb https://raw.githubusercontent.com/DevMemory-AI/devmemoryai/main/install.ps1 | iex';
+  const uninstallMacCmd = 'curl -fsSL https://raw.githubusercontent.com/DevMemory-AI/devmemoryai/main/uninstall.sh | bash';
+  const uninstallWinCmd = 'iwr -useb https://raw.githubusercontent.com/DevMemory-AI/devmemoryai/main/uninstall.ps1 | iex';
 
   const handleCopyMac = () => {
     navigator.clipboard.writeText(macCmd);
@@ -81,22 +85,34 @@ export default function DownloadPage() {
     setTimeout(() => setCopiedPrompt(false), 2000);
   };
 
+  const handleCopyUninstallMac = () => {
+    navigator.clipboard.writeText(uninstallMacCmd);
+    setCopiedUninstallMac(true);
+    setTimeout(() => setCopiedUninstallMac(false), 2000);
+  };
+
+  const handleCopyUninstallWin = () => {
+    navigator.clipboard.writeText(uninstallWinCmd);
+    setCopiedUninstallWin(true);
+    setTimeout(() => setCopiedUninstallWin(false), 2000);
+  };
+
   return (
     <>
       <PageHero
-        label="Release v1.0.0 Installation"
-        title={<>Install DevMemory <span className="text-primary font-bold">AI</span> v1.0.0</>}
-        description="Run the automated 1-click installer command for your operating system below to set up Git, Bun runtime, Ollama LLM engine, and the global dmai CLI executable."
+        label="Release v1.1.0 Installation"
+        title={<>Install DevMemory <span className="text-primary font-bold">AI</span> v1.1.0</>}
+        description="Run the automated one-click installer command for your operating system below to set up Git, Bun runtime, Ollama LLM engine, and the global dmai CLI executable."
       />
 
       <Section className="border-t border-border space-y-16">
-        {/* 1-Click Automated Installation Cards */}
+        {/* One-Click Automated Installation Cards */}
         <FadeIn>
           <div className="rounded-3xl border border-primary/40 bg-card/60 p-8 lg:p-10 space-y-8 glow-primary">
             <div className="flex flex-wrap items-center justify-between gap-4 border-b border-border/80 pb-6">
               <div>
                 <span className="rounded-full bg-primary/20 px-3 py-1 font-mono text-xs font-bold text-primary border border-primary/30 uppercase">
-                  AUTOMATED 1-CLICK INSTALLATION
+                  AUTOMATED ONE-CLICK INSTALLATION
                 </span>
                 <h2 className="mt-3 text-3xl font-bold text-foreground">Select Operating System</h2>
               </div>
@@ -240,6 +256,87 @@ export default function DownloadPage() {
                   <p className="text-xs text-muted-foreground leading-relaxed">{tool.desc}</p>
                 </div>
               ))}
+            </div>
+          </div>
+        </FadeIn>
+
+        {/* Uninstallation Section */}
+        <FadeIn>
+          <div className="rounded-3xl border border-border bg-card/60 p-8 lg:p-10 space-y-8">
+            <div className="space-y-3 border-b border-border pb-6">
+              <span className="rounded-full bg-red-500/20 px-3 py-1 font-mono text-xs font-bold text-red-500 border border-red-500/30 uppercase">
+                UNINSTALLATION GUIDE
+              </span>
+              <h2 className="text-3xl font-bold tracking-tight text-foreground">Safely Uninstall DevMemory AI</h2>
+              <p className="text-base text-muted-foreground leading-relaxed">
+                Follow these instructions to safely stop background daemons, unregister OS startup items, and remove binary executables.
+              </p>
+            </div>
+
+            {/* Crucial Disable Notice Callout */}
+            <div className="rounded-2xl border border-amber-500/40 bg-amber-500/10 p-5 space-y-2 text-sm text-foreground">
+              <div className="flex items-center gap-2 font-bold text-amber-500">
+                <ShieldCheck className="h-5 w-5" /> Important Note Before Uninstalling
+              </div>
+              <p className="text-xs text-muted-foreground leading-relaxed">
+                Deleting binary executable files alone will not kill background watcher daemons or unregister OS startup services for active projects.
+                Before uninstalling, run <code className="font-mono text-primary font-bold">dmai disable --all</code> to cleanly terminate all background daemons, release SQLite locks, and unregister launch items.
+                You can also run <code className="font-mono text-primary font-bold">dmai projects</code> to view all registered project paths and disable them individually.
+              </p>
+            </div>
+
+            <div className="grid gap-8 lg:grid-cols-2">
+              {/* macOS & Linux Uninstall */}
+              <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 p-6 space-y-4 shadow-sm flex flex-col justify-between">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
+                    <div className="font-bold text-foreground text-base">macOS & Linux Uninstaller</div>
+                    <span className="rounded-md bg-red-500/20 px-2.5 py-1 font-mono text-xs font-bold text-red-500 border border-red-500/30">
+                      uninstall.sh
+                    </span>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Automatically runs `dmai disable --all`, unlinks `dmai` CLI, and removes system files.
+                  </p>
+                  <div className="relative rounded-xl bg-zinc-200/90 dark:bg-zinc-900 p-4 font-mono text-xs text-foreground overflow-x-auto border border-border/60">
+                    <code>curl -fsSL https://raw.githubusercontent.com/DevMemory-AI/devmemoryai/main/uninstall.sh | bash</code>
+                  </div>
+                </div>
+
+                <Button
+                  onClick={handleCopyUninstallMac}
+                  className="w-full h-11 rounded-xl gap-2 bg-zinc-800 text-zinc-100 hover:bg-zinc-700 font-bold"
+                >
+                  {copiedUninstallMac ? <Check className="h-4 w-4 text-green-400" /> : <Copy className="h-4 w-4" />}
+                  {copiedUninstallMac ? 'Copied Uninstall Command!' : 'Copy macOS / Linux Uninstall Command'}
+                </Button>
+              </div>
+
+              {/* Windows Uninstall */}
+              <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-zinc-100 dark:bg-zinc-950 p-6 space-y-4 shadow-sm flex flex-col justify-between">
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between border-b border-zinc-200 dark:border-zinc-800 pb-3">
+                    <div className="font-bold text-foreground text-base">Windows Uninstaller</div>
+                    <span className="rounded-md bg-red-500/20 px-2.5 py-1 font-mono text-xs font-bold text-red-500 border border-red-500/30">
+                      uninstall.ps1
+                    </span>
+                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Paste in PowerShell to run `dmai disable --all`, unlink `dmai`, and remove global directories.
+                  </p>
+                  <div className="relative rounded-xl bg-zinc-200/90 dark:bg-zinc-900 p-4 font-mono text-xs text-foreground overflow-x-auto border border-border/60">
+                    <code>iwr -useb https://raw.githubusercontent.com/DevMemory-AI/devmemoryai/main/uninstall.ps1 | iex</code>
+                  </div>
+                </div>
+
+                <Button
+                  onClick={handleCopyUninstallWin}
+                  className="w-full h-11 rounded-xl gap-2 bg-zinc-800 text-zinc-100 hover:bg-zinc-700 font-bold"
+                >
+                  {copiedUninstallWin ? <Check className="h-4 w-4 text-green-400" /> : <Copy className="h-4 w-4" />}
+                  {copiedUninstallWin ? 'Copied PowerShell Command!' : 'Copy Windows Uninstall Command'}
+                </Button>
+              </div>
             </div>
           </div>
         </FadeIn>

@@ -71,7 +71,7 @@ export function ArchitectureTab() {
     <div className="p-6">
       <div className="mb-6">
         <h2 className="text-lg font-semibold">Architecture</h2>
-        <p className="text-[13px] text-muted-foreground">A live map of your system's structure and dependencies.</p>
+        <p className="text-[13px] text-muted-foreground">A live map of your system&apos;s structure and dependencies.</p>
       </div>
 
       <div className="space-y-3">

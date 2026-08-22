@@ -10,7 +10,7 @@ export default function CommunityPage() {
       <PageHero
         label="Community & Source Policy"
         title={<>DevMemory <span className="text-primary font-bold">AI</span> Community & License Policy</>}
-        description="DevMemory AI v1.0.0 source code is publicly viewable for inspection, architectural learning, and educational evaluation."
+        description="DevMemory AI v1.1.0 source code is publicly viewable for inspection, architectural learning, and educational evaluation."
       />
 
       <Section className="border-t border-border">

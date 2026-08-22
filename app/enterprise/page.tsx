@@ -54,7 +54,7 @@ export default function EnterprisePage() {
           <div className="mt-12 rounded-2xl border border-border bg-card/40 p-8 text-center">
             <h3 className="text-xl font-semibold">Interested in Enterprise?</h3>
             <p className="mx-auto mt-2 max-w-md text-sm text-muted-foreground">
-              We're working with select teams to shape the future of shared engineering memory.
+              We&apos;re working with select teams to shape the future of shared engineering memory.
             </p>
             <a href="mailto:enterprise@devmemory.ai" className="mt-6 inline-block rounded-lg bg-primary px-6 py-3 text-[13px] font-medium text-primary-foreground hover:bg-primary/90">
               Contact us

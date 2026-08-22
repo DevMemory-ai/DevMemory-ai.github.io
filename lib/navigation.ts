@@ -13,7 +13,7 @@ export type NavSection = {
 export const mainNav: NavItem[] = [
   { title: 'Product', href: '/product' },
   { title: 'Architecture', href: '/architecture' },
-  { title: 'Simulation', href: '/simulation', badge: 'v1.0.0' },
+  { title: 'Simulation', href: '/simulation', badge: 'v1.1.0' },
   { title: 'Docs', href: '/docs' },
   { title: 'Download', href: '/download' },
   { title: 'Changelog', href: '/changelog' },
@@ -63,10 +63,10 @@ export const commandPaletteNav: NavSection[] = [
 
 export const integrations = [
   { name: 'Ollama (Official)', category: 'Local LLM Runtime', model: 'gpt-oss:120b-cloud' },
-  { name: 'Chokidar Watcher', category: 'Filesystem Engine', model: 'v1.0.0' },
+  { name: 'Chokidar Watcher', category: 'Filesystem Engine', model: 'v1.1.0' },
   { name: 'SQLite Index', category: 'Storage Engine', model: '.devmemory/index.db' },
   { name: 'Tree-Sitter Parser', category: 'AST Extraction', model: 'Native' },
-  { name: 'dmai CLI', category: 'Command Interface', model: 'v1.0.0' },
+  { name: 'dmai CLI', category: 'Command Interface', model: 'v1.1.0' },
   { name: 'Embedded Dashboard', category: 'Local HTTP Server', model: ':31415' },
   { name: 'Git Integration', category: 'Version Control', model: 'Metadata' },
 ];

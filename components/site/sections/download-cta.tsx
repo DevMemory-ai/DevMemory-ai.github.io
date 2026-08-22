@@ -23,7 +23,7 @@ export function DownloadCtaSection() {
                   <span className="text-muted-foreground">permanent engineering memory.</span>
                 </>
               }
-              description="DevMemory AI v1.0.0 source code is publicly viewable for inspection and evaluation. Follow the recommended setup below to build and initialize locally."
+              description="DevMemory AI v1.1.0 source code is publicly viewable for inspection and evaluation. Follow the recommended setup below to build and initialize locally."
             />
 
             {/* Recommended GitHub Setup Code Block */}

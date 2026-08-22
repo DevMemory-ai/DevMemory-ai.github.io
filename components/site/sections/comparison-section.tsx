@@ -45,7 +45,7 @@ export function ComparisonSection() {
                     <div className="flex flex-col items-center justify-center gap-0.5">
                       <span className="text-base font-extrabold text-primary">DevMemory AI</span>
                       <span className="rounded-full bg-primary/20 px-2 py-0.2 text-[10px] font-bold text-primary border border-primary/30 font-mono">
-                        v1.0.0 Engine
+                        v1.1.0 Engine
                       </span>
                     </div>
                   </th>

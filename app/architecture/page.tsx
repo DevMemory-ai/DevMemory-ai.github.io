@@ -18,9 +18,9 @@ export default function ArchitecturePage() {
   return (
     <>
       <PageHero
-        label="Canonical Architecture — v1.0.0"
+        label="Canonical Architecture — v1.1.0"
         title={<>System Architecture <span className="text-muted-foreground">& Pipeline</span></>}
-        description="DevMemory AI v1.0.0 is built on a single Runtime orchestrator. Learn how file changes move from Watcher to Engineering Compiler to SQLite Index."
+        description="DevMemory AI v1.1.0 is built on a single Runtime orchestrator. Learn how file changes move from Watcher to Engineering Compiler to SQLite Index."
       />
 
       <Section className="border-t border-border">
@@ -57,7 +57,7 @@ export default function ArchitecturePage() {
             <div className="rounded-3xl border border-border bg-card/40 p-8 space-y-4">
               <h3 className="text-xl font-bold text-foreground">Local-First Architecture Rules</h3>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                 DevMemory AI v1.0.0 operates completely offline. No cloud dependencies, no remote telemetries, no data leaving your machine.
+                 DevMemory AI v1.1.0 operates completely offline. No cloud dependencies, no remote telemetries, no data leaving your machine.
               </p>
               <div className="space-y-2.5 pt-2">
                 {[

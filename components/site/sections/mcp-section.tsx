@@ -5,7 +5,7 @@ import { Terminal, Database, Zap, Code2 } from 'lucide-react';
 
 const cliConfig = `# devmemory project manifest (.devmemory/project.json)
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "projectId": "proj_8f93a1c2",
   "repository": {
     "name": "devmemory-demo",
@@ -35,7 +35,7 @@ export function McpSection() {
             <span className="text-muted-foreground">Deterministic engineering context.</span>
           </>
         }
-        description="DevMemory AI v1.0.0 exposes your Engineering Memory through a fast single query engine. CLI queries (dmai ask, dmai summary) retrieve instant, structured context directly from SQLite."
+        description="DevMemory AI v1.1.0 exposes your Engineering Memory through a fast single query engine. CLI queries (dmai ask, dmai summary) retrieve instant, structured context directly from SQLite."
       />
 
       <FadeIn delay={100}>

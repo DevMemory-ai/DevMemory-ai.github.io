@@ -20,19 +20,19 @@ const aiEditors = [
 ];
 
 const ollamaModels = [
-  { name: 'gpt-oss:120b-cloud', category: 'Ollama Model (Tested)', badge: 'Default' },
-  { name: 'llama3.3:70b', category: 'Ollama Meta AI', badge: 'Local' },
-  { name: 'qwen2.5-coder:32b', category: 'Ollama Alibaba AI', badge: 'Local' },
-  { name: 'deepseek-r1:70b', category: 'Ollama DeepSeek', badge: 'Local' },
-  { name: 'mistral:7b', category: 'Ollama Mistral AI', badge: 'Local' },
-  { name: 'codellama:70b', category: 'Ollama Meta AI', badge: 'Local' },
-  { name: 'phi4:14b', category: 'Ollama Microsoft AI', badge: 'Local' },
-  { name: 'gemma2:27b', category: 'Ollama Google DeepMind', badge: 'Local' },
-  { name: 'command-r7b', category: 'Ollama Cohere AI', badge: 'Local' },
-  { name: 'starcoder2:15b', category: 'Ollama BigCode', badge: 'Local' },
-  { name: 'codestral:22b', category: 'Ollama Mistral AI', badge: 'Local' },
-  { name: 'vicuna:33b', category: 'Ollama LMSYS', badge: 'Local' },
-  { name: 'And many more...', category: 'All Ollama & GGUF Models', badge: '+ More', isMore: true },
+  { name: 'gpt-oss:120b-cloud', category: 'Tested Model', badge: 'Default' },
+  { name: 'llama3.3:70b', category: 'Meta AI', badge: 'Local' },
+  { name: 'qwen2.5-coder:32b', category: 'Alibaba AI', badge: 'Local' },
+  { name: 'deepseek-r1:70b', category: 'DeepSeek', badge: 'Local' },
+  { name: 'mistral:7b', category: 'Mistral AI', badge: 'Local' },
+  { name: 'codellama:70b', category: 'Meta AI', badge: 'Local' },
+  { name: 'phi4:14b', category: 'Microsoft AI', badge: 'Local' },
+  { name: 'gemma2:27b', category: 'Google DeepMind', badge: 'Local' },
+  { name: 'command-r7b', category: 'Cohere AI', badge: 'Local' },
+  { name: 'starcoder2:15b', category: 'BigCode', badge: 'Local' },
+  { name: 'codestral:22b', category: 'Mistral AI', badge: 'Local' },
+  { name: 'vicuna:33b', category: 'LMSYS', badge: 'Local' },
+  { name: 'And many more...', category: 'All Local & GGUF Models', badge: '+ More', isMore: true },
 ];
 
 export function IntegrationsSection() {
@@ -48,7 +48,7 @@ export function IntegrationsSection() {
             <span className="text-muted-foreground">engineering stack.</span>
           </>
         }
-        description="DevMemoryAI v1.0.0 operates locally. Connects with all major AI code editors and Ollama local LLM models."
+        description="DevMemoryAI v1.1.0 operates locally. Connects with all major AI code editors and Ollama local LLM models."
       />
 
       <FadeIn delay={100}>

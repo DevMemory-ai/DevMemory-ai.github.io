@@ -26,7 +26,7 @@ export function Hero() {
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="inline-flex w-fit max-w-max items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-3.5 py-1 text-[11px] font-bold text-primary font-mono backdrop-blur-sm">
-              DevMemory AI v1.0.0 Released
+              DevMemory AI v1.1.0 Released
             </span>
           </motion.div>
 
@@ -65,7 +65,7 @@ export function Hero() {
             <Link href="/download">
               <Button size="lg" variant="outline" className="h-11 px-6 rounded-xl border border-border bg-card/60 hover:bg-card hover:border-primary/50 text-foreground font-semibold text-sm transition-all hover:scale-[1.02] gap-2">
                 <Download className="h-3.5 w-3.5 text-muted-foreground" />
-                Download v1.0.0
+                Download v1.1.0
               </Button>
             </Link>
           </motion.div>

@@ -11,55 +11,55 @@ const v100Features = [
     icon: Brain,
     title: 'Single-Runtime Orchestrator',
     description: 'All components (watcher, transaction manager, compiler, index, and dashboard) communicate through a unified local Runtime.',
-    status: 'v1.0.0 Active',
+    status: 'v1.1.0 Active',
   },
   {
     icon: Terminal,
     title: 'dmai CLI Command Suite',
     description: 'Execute dmai init, watch, stop, status, ask, search, context, logs, doctor, and version directly in your terminal.',
-    status: 'v1.0.0 Active',
+    status: 'v1.1.0 Active',
   },
   {
     icon: Database,
     title: 'SQLite Engineering Index',
     description: 'Local single source of truth stored in .devmemory/index.db. Stores nodes, edges, transactions, builds, and prompts with microsecond speed.',
-    status: 'v1.0.0 Active',
+    status: 'v1.1.0 Active',
   },
   {
     icon: Cpu,
     title: 'Engineering Compiler',
     description: 'Sole writer of Engineering Memory. Extracts AST symbols and writes transaction events into immutable compiled builds.',
-    status: 'v1.0.0 Active',
+    status: 'v1.1.0 Active',
   },
   {
     icon: Network,
     title: 'Interactive Knowledge Graph',
     description: 'Visualizes code nodes, import edges, and dependency trees inside the embedded dashboard on port 31415.',
-    status: 'v1.0.0 Active',
+    status: 'v1.1.0 Active',
   },
   {
     icon: FileText,
     title: 'Context Generation Engine',
     description: 'Synthesizes clean, non-probabilistic summaries of your project architecture for developers and AI assistants.',
-    status: 'v1.0.0 Active',
+    status: 'v1.1.0 Active',
   },
   {
     icon: Clock,
     title: 'Engineering Build Timeline',
     description: 'Chronological tracking of transactions, compilation events, and AST updates recorded per build.',
-    status: 'v1.0.0 Active',
+    status: 'v1.1.0 Active',
   },
   {
     icon: Layers,
     title: 'Embedded Dashboard Server',
     description: 'Embedded HTTP server running locally on http://localhost:31415 with dark/light themes and Cytoscape graph rendering.',
-    status: 'v1.0.0 Active',
+    status: 'v1.1.0 Active',
   },
   {
     icon: ShieldCheck,
     title: 'Local Health Diagnostics',
     description: 'Runs automated diagnostics verifying Git repository presence, watcher status, and SQLite database integrity via dmai doctor.',
-    status: 'v1.0.0 Active',
+    status: 'v1.1.0 Active',
   },
 ];
 
@@ -68,13 +68,13 @@ export default function ProductPage() {
     <>
       <PageHero
         label="Product Overview"
-        title={<>DevMemory <span className="text-primary font-bold">AI</span> v1.0.0 Capabilities</>}
-        description="DevMemory AI v1.0.0 is built for software developers who require fast, private, local-first engineering memory for their projects."
+        title={<>DevMemory <span className="text-primary font-bold">AI</span> v1.1.0 Capabilities</>}
+        description="DevMemory AI v1.1.0 is built for software developers who require fast, private, local-first engineering memory for their projects."
       />
 
       <Section className="border-t border-border">
         <div className="flex items-center justify-between mb-10">
-          <h2 className="text-3xl font-bold text-foreground">v1.0.0 Release Features</h2>
+          <h2 className="text-3xl font-bold text-foreground">v1.1.0 Release Features</h2>
           <Link href="/simulation">
             <Button size="sm" className="gap-2 bg-primary text-sm font-semibold text-primary-foreground hover:bg-[#d94e09] rounded-xl transition-all shadow-md shadow-primary/20">
               <Play className="h-4 w-4 fill-current" /> Experience in Simulation

@@ -169,7 +169,7 @@ export default function SimulationPage() {
   const [dashboardTab, setDashboardTab] = useState<'overview' | 'context' | 'builds' | 'graph' | 'timeline' | 'logs'>('context');
 
   const [terminalLogs, setTerminalLogs] = useState<string[]>([
-    'DevMemory AI v1.0.0 Interactive Simulator',
+    'DevMemory AI v1.1.0 Interactive Simulator',
     'Select a guided prompt below or press Cmd+K for command palette.',
   ]);
 
@@ -334,9 +334,9 @@ export default function SimulationPage() {
     if (filePath === 'src/calculator.ts') return currentPrompt.code;
     if (filePath === 'src/main.ts') return `import { Calculator } from './calculator';\n\nconst calc = new Calculator();\nconsole.log("DevMemory AI Demo Calculator Ready");`;
     if (filePath === 'styles.css') return `/* Calculator Styles */\nbody { background: #09090B; color: #FAFAFA; font-family: sans-serif; }`;
-    if (filePath === 'package.json') return `{\n  "name": "calculator-demo",\n  "version": "1.0.0"\n}`;
-    if (filePath === 'README.md') return `# Calculator Demo App\n\nDemonstrating DevMemory AI v1.0.0 local SQLite Engineering Index.`;
-    if (filePath === '.devmemory/project.json') return `{\n  "version": "1.0.0",\n  "projectId": "proj_demo",\n  "repository": { "name": "calculator-demo" },\n  "ai": { "provider": "ollama", "model": "gpt-oss:120b-cloud" },\n  "dashboard": { "port": 31415 }\n}`;
+    if (filePath === 'package.json') return `{\n  "name": "calculator-demo",\n  "version": "1.1.0"\n}`;
+    if (filePath === 'README.md') return `# Calculator Demo App\n\nDemonstrating DevMemory AI v1.1.0 local SQLite Engineering Index.`;
+    if (filePath === '.devmemory/project.json') return `{\n  "version": "1.1.0",\n  "projectId": "proj_demo",\n  "repository": { "name": "calculator-demo" },\n  "ai": { "provider": "ollama", "model": "gpt-oss:120b-cloud" },\n  "dashboard": { "port": 31415 }\n}`;
     if (filePath === '.devmemory/index.db') return `[SQLite Engineering Index Database — .devmemory/index.db]\n\nSchema Tables:\n- nodes (AST symbols, components, files)\n- edges (imports, calls, inheritance)\n- builds (build_id, commit_hash, prompt, timestamp)\n- transactions (tx_id, status, cooldown)\n- prompts (prompt_id, text, timestamp)`;
     if (filePath === '.devmemory/index.db-wal') return `[SQLite Write-Ahead Log Journal — .devmemory/index.db-wal]\n\nUncommitted WAL transactions for zero-latency local writes.`;
     if (filePath === '.devmemory/runtime.log') return `[10:42:01] [Runtime] Initialized in /workspace/calculator-demo\n[10:42:04] [Compiler] Build #${activePromptIndex + 1} written to .devmemory/index.db`;
@@ -384,7 +384,7 @@ export default function SimulationPage() {
             calculator-demo
           </span>
           <span className="hidden sm:inline-block text-xs text-muted-foreground">
-            &mdash; DevMemory AI v1.0.0 Interactive Simulation
+            &mdash; DevMemory AI v1.1.0 Interactive Simulation
           </span>
         </div>
 

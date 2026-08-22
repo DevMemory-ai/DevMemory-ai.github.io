@@ -7,11 +7,11 @@ import { ThemeProvider } from '@/components/site/theme-provider';
 export const metadata: Metadata = {
   metadataBase: new URL('https://devmemory.ai'),
   title: {
-    default: 'DevMemory AI v1.0.0 — Engineering Memory System',
+    default: 'DevMemory AI v1.1.0 — Engineering Memory System',
     template: '%s — DevMemory AI',
   },
   description:
-    'Official website and documentation for DevMemory AI v1.0.0 — Persistent local engineering memory engine for software projects.',
+    'Official website and documentation for DevMemory AI v1.1.0 — Persistent local engineering memory engine for software projects.',
   keywords: [
     'DevMemory AI',
     'Engineering Memory',
@@ -23,9 +23,9 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     type: 'website',
-    title: 'DevMemory AI v1.0.0 — Engineering Memory System',
+    title: 'DevMemory AI v1.1.0 — Engineering Memory System',
     description:
-      'Official website and documentation for DevMemory AI v1.0.0 — Persistent local engineering memory engine for software projects.',
+      'Official website and documentation for DevMemory AI v1.1.0 — Persistent local engineering memory engine for software projects.',
     siteName: 'DevMemory AI',
   },
   robots: { index: true, follow: true },

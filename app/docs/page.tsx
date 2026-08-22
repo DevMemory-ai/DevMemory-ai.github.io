@@ -52,6 +52,24 @@ const cliCommands = [
     generatedFiles: 'None',
   },
   {
+    name: 'dmai projects',
+    syntax: 'dmai projects | dmai list | dmai ls',
+    description: 'List all active DevMemory AI projects registered on the local system, including project name, status, ID, and directory path.',
+    arguments: 'None',
+    example: 'dmai projects',
+    output: `Active DevMemory AI Projects:\n\n  NAME                  STATUS     PROJECT ID                             PATH\n  --------------------------------------------------------------------------------------------------\n  my-project            RUNNING    7db471d4-3fe7-4e13-ab63-c2b5799b8b31   /workspace/my-project\n\nTotal registered projects: 1`,
+    generatedFiles: 'None',
+  },
+  {
+    name: 'dmai disable',
+    syntax: 'dmai disable [--all] | dmai destroy [--all] | dmai purge [--all]',
+    description: 'Safely stop background watcher processes, unregister OS startup services, release handles, & purge .devmemory/ so project directory can be deleted. Pass --all to disable all registered projects.',
+    arguments: '[path] | [--all] — (Optional) Repository path or --all flag',
+    example: 'dmai disable --all',
+    output: `[OK] DevMemory AI disabled for all projects (1 projects processed).\n[OK] Background processes stopped, OS startup services unlinked, and all .devmemory/ directories purged.`,
+    generatedFiles: '.devmemory/ (Purged)',
+  },
+  {
     name: 'dmai continue',
     syntax: 'dmai continue [path]',
     description: 'Resume a stopped or paused background repository watcher process.',
@@ -84,7 +102,7 @@ const cliCommands = [
     description: 'Query the SQLite Engineering Index to ask an architectural or codebase question.',
     arguments: '"question" — Prompt query string; [--raw] — Output unformatted raw JSON',
     example: 'dmai ask "What is the project architecture?"',
-    output: `DevMemory AI Engineering Answer\n\nDevMemory AI v1.0.0 operates via a central local Runtime. Compiler writes AST extracted nodes to SQLite Index (.devmemory/index.db).`,
+    output: `DevMemory AI Engineering Answer\n\nDevMemory AI v1.1.0 operates via a central local Runtime. Compiler writes AST extracted nodes to SQLite Index (.devmemory/index.db).`,
     generatedFiles: 'None',
   },
   {
@@ -138,7 +156,7 @@ const cliCommands = [
     description: 'Display the current DevMemory AI release version.',
     arguments: 'None',
     example: 'dmai version',
-    output: `DevMemoryAI 1.0.0`,
+    output: `DevMemoryAI 1.1.0`,
     generatedFiles: 'None',
   },
 ];
@@ -146,11 +164,11 @@ const cliCommands = [
 const faqList = [
   {
     q: 'Does DevMemory AI send my source code to the cloud?',
-    a: 'No. DevMemory AI v1.0.0 is 100% local-first. All indexing, AST parsing, transaction cooldowns, and SQLite storage stay strictly inside your local .devmemory/ folder. Zero cloud dependencies, zero telemetry, and zero data leaving your machine.',
+    a: 'No. DevMemory AI v1.1.0 is 100% local-first. All indexing, AST parsing, transaction cooldowns, and SQLite storage stay strictly inside your local .devmemory/ folder. Zero cloud dependencies, zero telemetry, and zero data leaving your machine.',
   },
   {
-    q: 'Which LLM providers and models are officially supported in v1.0.0?',
-    a: 'Only Ollama local models are officially supported and tested in DevMemory AI v1.0.0 (specifically model gpt-oss:120b-cloud at http://localhost:11434). Additional providers like OpenAI, Anthropic, and LM Studio will be added in future releases after thorough validation.',
+    q: 'Which LLM providers and models are officially supported in v1.1.0?',
+    a: 'Only Ollama local models are officially supported and tested in DevMemory AI v1.1.0 (specifically model gpt-oss:120b-cloud at http://localhost:11434). Additional providers like OpenAI, Anthropic, and LM Studio will be added in future releases after thorough validation.',
   },
   {
     q: 'How is DevMemory AI different from traditional vector RAG?',
@@ -200,9 +218,9 @@ export default function DocsPage() {
   return (
     <>
       <PageHero
-        label="Official Documentation — v1.0.0"
+        label="Official Documentation — v1.1.0"
         title={<>DevMemory <span className="text-primary font-bold">AI</span> Documentation</>}
-        description="Official technical reference for DevMemory AI v1.0.0 — Architecture, CLI commands, Runtime support, SQLite Engineering Index, and Dashboard."
+        description="Official technical reference for DevMemory AI v1.1.0 — Architecture, CLI commands, Runtime support, SQLite Engineering Index, and Dashboard."
       />
 
       <Section className="border-t border-border">
@@ -295,7 +313,7 @@ export default function DocsPage() {
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div className="flex items-center gap-3">
                   <span className="rounded-full bg-success/20 px-3 py-1 font-mono text-xs font-bold text-success border border-success/30">
-                    OFFICIALLY SUPPORTED IN V1.0.0
+                    OFFICIALLY SUPPORTED IN V1.1.0
                   </span>
                   <h3 className="text-xl font-bold text-foreground">Ollama Local LLM Engine</h3>
                 </div>
@@ -311,7 +329,7 @@ export default function DocsPage() {
               </div>
 
               <p className="text-base text-muted-foreground leading-relaxed">
-                Only <strong>Ollama</strong> has been fully tested and officially supported in DevMemory AI v1.0.0. Additional providers will be added in future releases after proper validation.
+                Only <strong>Ollama</strong> has been fully tested and officially supported in DevMemory AI v1.1.0. Additional providers will be added in future releases after proper validation.
               </p>
 
               <div className="space-y-3 font-mono text-xs">
@@ -334,7 +352,7 @@ export default function DocsPage() {
         {/* Architecture Section */}
         {activeSection === 'architecture' && (
           <div className="space-y-6">
-            <h2 className="text-3xl font-bold text-foreground">DevMemory AI v1.0.0 Architecture Rules</h2>
+            <h2 className="text-3xl font-bold text-foreground">DevMemory AI v1.1.0 Architecture Rules</h2>
             <div className="grid gap-6 sm:grid-cols-2">
               <div className="rounded-3xl border border-border bg-card/40 p-6 space-y-2">
                 <div className="flex items-center gap-2 text-primary font-bold text-lg">

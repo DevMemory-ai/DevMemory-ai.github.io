@@ -10,7 +10,7 @@ const supportedRuntimes = [
     category: 'Local Inference Runtime',
     status: 'Officially Supported',
     models: ['gpt-oss:120b-cloud', 'Other Ollama local models'],
-    note: 'Only Ollama has been fully tested and officially supported in DevMemory AI v1.0.0.',
+    note: 'Only Ollama has been fully tested and officially supported in DevMemory AI v1.1.0.',
   },
 ];
 
@@ -26,7 +26,7 @@ export default function IntegrationsPage() {
       <PageHero
         label="Runtime & Provider Support"
         title={<>Inference Providers <span className="text-muted-foreground">& Engine Support</span></>}
-        description="Only Ollama has been fully tested and officially supported in DevMemory AI v1.0.0. Additional providers will be added in future releases after proper validation."
+        description="Only Ollama has been fully tested and officially supported in DevMemory AI v1.1.0. Additional providers will be added in future releases after proper validation."
       />
 
       <Section className="border-t border-border space-y-12">
@@ -34,7 +34,7 @@ export default function IntegrationsPage() {
         <div className="space-y-6">
           <div className="flex items-center gap-3">
             <span className="rounded-full bg-success/20 px-3 py-1 font-mono text-xs font-bold text-success border border-success/30">
-              OFFICIALLY SUPPORTED IN V1.0.0
+              OFFICIALLY SUPPORTED IN V1.1.0
             </span>
             <h2 className="text-2xl font-bold text-foreground">Tested Local Inference Runtime</h2>
           </div>

@@ -100,7 +100,7 @@ export function SiteHeader() {
 
           <Link href="/download" className="hidden sm:block">
             <Button size="sm" className="h-9 px-4 rounded-xl gap-1.5 bg-primary text-xs font-bold text-primary-foreground hover:bg-[#d94e09] shadow-sm shadow-primary/20 transition-all hover:scale-[1.02]">
-              Download v1.0.0
+              Download v1.1.0
             </Button>
           </Link>
 
